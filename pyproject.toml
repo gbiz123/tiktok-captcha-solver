@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"  # If not defined, then legacy behavior can happen.
+
+[project]
+name = "tiktok-captcha-solver"
+version = "0.0.1"
+
+description = "This package integrates with Selenium to solve any TikTok captcha in one line of code."
+readme = "README.md"
+requires-python = ">=3.10"
+
+keywords = ["tiktok", "captcha", "solver", "selenium", "rotate", "puzzle", "3d"]
+
+authors = [
+  {name = "Toughdata LLC", email = "greg@toughdata.net" }
+]
+
+classifiers = [
+  "Development Status :: 5 - Stable",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Build Tools",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+dependencies = [
+  "selenium",
+  "webdriver-manager",
+  "pydantic",
+  "requests"
+]
+
+[project.urls]
+"Homepage" = "https://www.sadcaptcha.com"
+"Source" = "https://github.com/gbiz123/tiktok-captcha-solver/"
