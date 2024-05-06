@@ -19,3 +19,5 @@ Requires-Dist: selenium
 Requires-Dist: webdriver-manager
 Requires-Dist: pydantic
 Requires-Dist: requests
+Requires-Dist: pytest
+Requires-Dist: undetected_chromedriver

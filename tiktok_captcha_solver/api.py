@@ -1,7 +1,7 @@
 import requests
+import logging
 
 from .models import ShapesCaptchaResponse, RotateCaptchaResponse, PuzzleCaptchaResponse
-
 
 class ApiClient:
 
@@ -19,7 +19,7 @@ class ApiClient:
             "outerImageB64": outer_b46,
             "innerImageB64": inner_b64
         }        
-        resp = requests.post(self._ROTATE_URL, data)
+        resp = requests.post(self._ROTATE_URL, json=data)
         result = resp.json()
         return RotateCaptchaResponse(angle=result.get("angle"))
 
@@ -28,13 +28,13 @@ class ApiClient:
             "puzzleImageB64": puzzle_b64,
             "pieceImageB64": piece_b64
         }        
-        resp = requests.post(self._PUZZLE_URL, data)
+        resp = requests.post(self._PUZZLE_URL, json=data)
         result = resp.json()
         return PuzzleCaptchaResponse(slide_x_proportion=result.get("slideXProportion"))
 
     def shapes(self, image_b64: str) -> ShapesCaptchaResponse:
         data = { "imageB64": image_b64 }        
-        resp = requests.post(self._SHAPES_URL, data)
+        resp = requests.post(self._SHAPES_URL, json=data)
         result = resp.json()
         return ShapesCaptchaResponse(
             point_one_proportion_x=result.get("pointOneProportionX"),

@@ -30,7 +30,9 @@ dependencies = [
   "selenium",
   "webdriver-manager",
   "pydantic",
-  "requests"
+  "requests",
+  "pytest",
+  "undetected_chromedriver"
 ]
 
 [project.urls]
