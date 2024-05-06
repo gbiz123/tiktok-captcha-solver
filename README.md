@@ -1,5 +1,5 @@
 # TikTok Captcha Solver API
-This project is the SadCaptcha [TikTok Captcha Solver] (https://www.sadcaptcha.com?ref=ghclientrepo) API client.
+This project is the (SadCaptcha TikTok Captcha Solver) [https://www.sadcaptcha.com?ref=ghclientrepo] API client.
 The purpose is to make integrating SadCaptcha into your selenium app as simple as one line of code.
 
 
