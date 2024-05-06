@@ -64,6 +64,7 @@ class SadCaptcha:
             image_element = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
             self._click_proportional(image_element, solution.point_one_proportion_x, solution.point_one_proportion_y)
             self._click_proportional(image_element, solution.point_two_proportion_y, solution.point_two_proportion_y)
+            self.chromedriver.find_element(By.CSS_SELECTOR, ".verify-captcha-submit-button").click()
             if self._check_captcha_success():
                 return
 
@@ -167,6 +168,7 @@ class SadCaptcha:
             .move_to_element_with_offset(element, offset_x, offset_y) \
             .click() \
             .perform()
+        time.sleep(1.337)
 
     def _drag_element(self, css_selector: str, x: int, y: int) -> None:
         e = self.chromedriver.find_element(By.CSS_SELECTOR, css_selector)
