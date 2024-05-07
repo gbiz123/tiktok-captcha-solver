@@ -7,12 +7,9 @@ The purpose is to make integrating SadCaptcha into your selenium app as simple a
 - Selenium properly installed and in `PATH`
 
 ## Installation
-This project will be available as a `pip` package soon. 
-For now, just clone the repo and build it using the following commands:
+This project can be installed with `pip`. Just run the following command:
 ```
-git clone https://github.com/gbiz123/tiktok-captcha-solver
-cd tiktok-captcha-solver
-pip install -e .
+pip install tiktok-captcha-solver
 ```
 
 ## Usage
