@@ -32,10 +32,10 @@ def open_tiktkok_login(driver: uc.Chrome) -> None:
     driver.get("https://www.tiktok.com/login/phone-or-email/email")
     time.sleep(10)
     write_username = driver.find_element(By.XPATH, '//input[contains(@name,"username")]');
-    write_username.send_keys("greg@toughdata.net");
+    write_username.send_keys(on.environ["TIKTOK_USERNAME"]);
     time.sleep(2);
     write_password = driver.find_element(By.XPATH, '//input[contains(@type,"password")]');
-    write_password.send_keys("th.etoughapi1!");
+    write_password.send_keys(os.environ["TIKTOK_PASSWORD"]);
     time.sleep(2)
     login_btn = driver.find_element(By.XPATH, '//button[contains(@data-e2e,"login-button")]').click();
     time.sleep(8)
