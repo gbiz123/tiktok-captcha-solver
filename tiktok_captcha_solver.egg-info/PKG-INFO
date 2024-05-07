@@ -6,7 +6,6 @@ Author-email: Toughdata LLC <greg@toughdata.net>
 Project-URL: Homepage, https://www.sadcaptcha.com
 Project-URL: Source, https://github.com/gbiz123/tiktok-captcha-solver/
 Keywords: tiktok,captcha,solver,selenium,rotate,puzzle,3d
-Classifier: Development Status :: 5 - Stable
 Classifier: Intended Audience :: Developers
 Classifier: Topic :: Software Development :: Build Tools
 Classifier: Programming Language :: Python :: 3.10
@@ -26,6 +25,9 @@ Requires-Dist: undetected_chromedriver
 This project is the [SadCaptcha TikTok Captcha Solver](https://www.sadcaptcha.com?ref=ghclientrepo) API client.
 The purpose is to make integrating SadCaptcha into your selenium app as simple as one line of code.
 
+## Requirements
+- Python >= 3.10
+- Selenium properly installed and in `PATH`
 
 ## Installation
 This project will be available as a `pip` package soon. 

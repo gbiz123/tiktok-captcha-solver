@@ -63,7 +63,7 @@ class SadCaptcha:
             solution = self.client.shapes(image)
             image_element = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
             self._click_proportional(image_element, solution.point_one_proportion_x, solution.point_one_proportion_y)
-            self._click_proportional(image_element, solution.point_two_proportion_y, solution.point_two_proportion_y)
+            self._click_proportional(image_element, solution.point_two_proportion_x, solution.point_two_proportion_y)
             self.chromedriver.find_element(By.CSS_SELECTOR, ".verify-captcha-submit-button").click()
             if self._check_captcha_success():
                 return
