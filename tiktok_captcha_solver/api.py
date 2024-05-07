@@ -40,5 +40,5 @@ class ApiClient:
             point_one_proportion_x=result.get("pointOneProportionX"),
             point_one_proportion_y=result.get("pointOneProportionY"),
             point_two_proportion_x=result.get("pointTwoProportionX"),
-            point_two_proportion_y=result.get("pointTwoProportionX")
+            point_two_proportion_y=result.get("pointTwoProportionY")
         )
