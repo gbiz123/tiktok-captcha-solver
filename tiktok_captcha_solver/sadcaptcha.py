@@ -162,9 +162,14 @@ class SadCaptcha:
             proportion_x: float from 0 to 1 defining the proportion x location to click 
             proportion_y: float from 0 to 1 defining the proportion y location to click 
         """
-        offset_x = (proportion_x * element.size["width"])
-        offset_y = (proportion_y * element.size["height"]) 
+        width = element.size["width"]
+        height = element.size["height"]
+        x_origin_offset = -width / 2
+        y_origin_offset = -height / 2
+        offset_x = proportion_x * width
+        offset_y = proportion_y * height
         ActionChains(self.chromedriver) \
+            .move_to_element_with_offset(element, x_origin_offset, y_origin_offset) \
             .move_to_element_with_offset(element, offset_x, offset_y) \
             .click() \
             .perform()
