@@ -170,7 +170,7 @@ class SadCaptcha:
         y_offset = (proportion_y * element.size["height"]) 
         action = ActionBuilder(self.chromedriver)
         action.pointer_action \
-            .move_to(x_origin + x_offset, y_origin + y_offset) \
+            .move_to_location(x_origin + x_offset, y_origin + y_offset) \
             .pause(random.randint(1, 10) / 11) \
             .click() \
             .pause(random.randint(1, 10) / 11)
