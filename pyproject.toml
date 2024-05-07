@@ -17,7 +17,6 @@ authors = [
 ]
 
 classifiers = [
-  "Development Status :: 5 - Stable",
   "Intended Audience :: Developers",
   "Topic :: Software Development :: Build Tools",
   "Programming Language :: Python :: 3.10",
