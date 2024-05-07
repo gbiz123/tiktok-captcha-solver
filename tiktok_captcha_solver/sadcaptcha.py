@@ -3,9 +3,11 @@
 import time
 from typing import Literal
 from selenium.webdriver import ActionChains, Chrome
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from undetected_chromedriver import logging
+from undetected_chromedriver.patcher import random
 
 from .api import ApiClient
 from .downloader import download_image_b64
@@ -162,18 +164,17 @@ class SadCaptcha:
             proportion_x: float from 0 to 1 defining the proportion x location to click 
             proportion_y: float from 0 to 1 defining the proportion y location to click 
         """
-        width = element.size["width"]
-        height = element.size["height"]
-        x_origin_offset = -width / 2
-        y_origin_offset = -height / 2
-        offset_x = proportion_x * width
-        offset_y = proportion_y * height
-        ActionChains(self.chromedriver) \
-            .move_to_element_with_offset(element, x_origin_offset, y_origin_offset) \
-            .move_to_element_with_offset(element, offset_x, offset_y) \
+        x_origin = element.location["x"]
+        y_origin = element.location["y"]
+        x_offset = (proportion_x * element.size["width"])
+        y_offset = (proportion_y * element.size["height"]) 
+        action = ActionBuilder(self.chromedriver)
+        action.pointer_action \
+            .move_to(x_origin + x_offset, y_origin + y_offset) \
+            .pause(random.randint(1, 10) / 11) \
             .click() \
-            .perform()
-        time.sleep(1.337)
+            .pause(random.randint(1, 10) / 11)
+        action.perform()
 
     def _drag_element(self, css_selector: str, x: int, y: int) -> None:
         e = self.chromedriver.find_element(By.CSS_SELECTOR, css_selector)
