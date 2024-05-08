@@ -12,7 +12,7 @@ This project can be installed with `pip`. Just run the following command:
 pip install tiktok-captcha-solver
 ```
 
-## Usage
+## Selenium client 
 Import the package, set up the SadCaptcha class, and call it whenever you need.
 
 ```py
@@ -29,6 +29,24 @@ sadcaptcha.solve_captcha_if_present()
 ```
 
 That's it!
+
+## API Client
+If you are not using Selenium, you can still import and use the API client to help you make calls to SadCaptcha
+```py
+from sadcaptcha import ApiClient
+
+api_key = "YOUR_API_KEY_HERE"
+client = ApiClient(api_key)
+
+# Rotate
+res = client.rotate("base64 encoded outer", "base64 encoded inner")
+
+# Puzzle
+res = client.puzzle("base64 encoded puzzle", "base64 encoded piece")
+
+# Shapes
+res = client.shapes("base64 encoded shapes image")
+```
 
 ## Contact
 - Homepage: https://www.sadcaptcha.com/
