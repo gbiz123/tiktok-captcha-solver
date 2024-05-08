@@ -14,6 +14,8 @@ pip install tiktok-captcha-solver
 
 ## Selenium client 
 Import the package, set up the SadCaptcha class, and call it whenever you need.
+This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
+It is the recommended method if you are using Selenium.
 
 ```py
 from sadcaptcha import SadCaptcha
