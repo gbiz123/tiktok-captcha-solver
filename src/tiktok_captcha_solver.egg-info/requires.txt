@@ -1,0 +1,6 @@
+selenium
+webdriver-manager
+pydantic
+requests
+pytest
+undetected_chromedriver
