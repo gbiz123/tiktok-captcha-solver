@@ -18,7 +18,7 @@ This turns the entire captcha detection, solution, retry, and verification proce
 It is the recommended method if you are using Selenium.
 
 ```py
-from sadcaptcha import SadCaptcha
+from tiktok_captcha_solver import SadCaptcha
 import undetected_chromedriver as uc
 
 driver = uc.Chrome(headless=False)
@@ -35,7 +35,7 @@ That's it!
 ## API Client
 If you are not using Selenium, you can still import and use the API client to help you make calls to SadCaptcha
 ```py
-from sadcaptcha import ApiClient
+from tiktok_captcha_solver import ApiClient
 
 api_key = "YOUR_API_KEY_HERE"
 client = ApiClient(api_key)
