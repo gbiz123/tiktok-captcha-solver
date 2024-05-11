@@ -7,8 +7,8 @@ Instructions for integrating with Selenium and Playwright are described below in
 
 ## Requirements
 - Python >= 3.10
-- **If using Selenium** Selenium properly installed and in `PATH`
-- **If using Playwright** Playwright must be properly installed with `playwright install`
+- **If using Selenium** - Selenium properly installed and in `PATH`
+- **If using Playwright** - Playwright must be properly installed with `playwright install`
 
 ## Installation
 This project can be installed with `pip`. Just run the following command:
