@@ -1,4 +1,4 @@
-"""This class handles the captcha solving"""
+"""This class handles the captcha solving for selenium users"""
 
 import time
 from typing import Literal
@@ -9,10 +9,12 @@ from selenium.webdriver.remote.webelement import WebElement
 from undetected_chromedriver import logging
 from undetected_chromedriver.patcher import random
 
+from .solver import Solver
+
 from .api import ApiClient
 from .downloader import download_image_b64
 
-class SadCaptcha:
+class SeleniumSolver(Solver):
 
     client: ApiClient
     chromedriver: Chrome
@@ -21,27 +23,11 @@ class SadCaptcha:
         self.chromedriver = chromedriver
         self.client = ApiClient(sadcaptcha_api_key)
 
-    def solve_captcha_if_present(self, captcha_detect_timeout: int = 15, retries: int = 3) -> None:
-        """Solves any captcha that is present, if one is detected
-
-        Args:
-            captcha_detect_timeout: return if no captcha is detected in this many seconds
-            retries: number of times to retry captcha
-        """
-        if not self.captcha_is_present(captcha_detect_timeout):
-            return
-        match self.identify_captcha():
-            case "puzzle": 
-                self.solve_puzzle(retries)
-            case "rotate": 
-                self.solve_rotate(retries)
-            case "shapes": 
-                self.solve_shapes(retries)
-
     def captcha_is_present(self, timeout: int = 15) -> bool:
         for _ in range(timeout):
             if len(self.chromedriver.find_elements(By.CSS_SELECTOR, "div#captcha_container")) > 0:
                 return True
+            time.sleep(1)
         return False
 
     def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate"]:
@@ -76,7 +62,7 @@ class SadCaptcha:
             inner = download_image_b64(self._get_rotate_inner_image_url())
             solution = self.client.rotate(outer, inner)
             distance = self._compute_rotate_slide_distance(solution.angle)
-            self._drag_element(".secsdk-captcha-drag-icon", distance, 0)
+            self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if self._check_captcha_success():
                 return
 
@@ -86,7 +72,7 @@ class SadCaptcha:
             piece = download_image_b64(self._get_piece_image_url())
             solution = self.client.puzzle(puzzle, piece)
             distance = self._compute_puzzle_slide_distance(solution.slide_x_proportion)
-            self._drag_element(".secsdk-captcha-drag-icon", distance, 0)
+            self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if self._check_captcha_success():
                 return
 
@@ -176,14 +162,20 @@ class SadCaptcha:
             .pause(random.randint(1, 10) / 11)
         action.perform()
 
-    def _drag_element(self, css_selector: str, x: int, y: int) -> None:
+    def _drag_element_horizontal(self, css_selector: str, x: int) -> None:
         e = self.chromedriver.find_element(By.CSS_SELECTOR, css_selector)
-        actions = ActionChains(self.chromedriver, duration=500)
+        actions = ActionChains(self.chromedriver, duration=0)
         actions.click_and_hold(e)
-        actions.move_by_offset(x - 15, 0)
-        time.sleep(0.001)
-        for _ in range(0, 15):
+        time.sleep(0.1)
+        for _ in range(0, x - 15):
             actions.move_by_offset(1, 0)
-            time.sleep(0.1)
+        for _ in range(0, 20):
+            actions.move_by_offset(1, 0)
+            actions.pause(0.01)
+        actions.pause(0.7)
+        for _ in range(0, 5):
+            actions.move_by_offset(-1, 0)
+            actions.pause(0.05)
+        actions.pause(0.1)
         actions.release().perform()
 

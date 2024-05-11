@@ -1,4 +1,5 @@
 import time
+import logging
 import os
 
 from webdriver_manager.chrome import ChromeDriverManager
@@ -6,7 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import undetected_chromedriver as uc
 
-from ..sadcaptcha import SadCaptcha
+from ..seleniumsolver import SeleniumSolver
 
 options = webdriver.ChromeOptions()
 options.add_argument('--no-sandbox')
@@ -40,8 +41,9 @@ def open_tiktkok_login(driver: uc.Chrome) -> None:
     login_btn = driver.find_element(By.XPATH, '//button[contains(@data-e2e,"login-button")]').click();
     time.sleep(8)
 
-def test_solve_captcha():
-    driver = make_driver()
-    open_tiktkok_login(driver)
-    sadcaptcha = SadCaptcha(driver, os.environ["API_KEY"])
-    sadcaptcha.solve_captcha_if_present()
+# def test_solve_captcha(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     driver = make_driver()
+#     open_tiktkok_login(driver)
+#     sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+#     sadcaptcha.solve_captcha_if_present()

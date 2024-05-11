@@ -4,7 +4,9 @@ src/tiktok_captcha_solver/__init__.py
 src/tiktok_captcha_solver/api.py
 src/tiktok_captcha_solver/downloader.py
 src/tiktok_captcha_solver/models.py
-src/tiktok_captcha_solver/sadcaptcha.py
+src/tiktok_captcha_solver/playwrightsolver.py
+src/tiktok_captcha_solver/seleniumsolver.py
+src/tiktok_captcha_solver/solver.py
 src/tiktok_captcha_solver.egg-info/PKG-INFO
 src/tiktok_captcha_solver.egg-info/SOURCES.txt
 src/tiktok_captcha_solver.egg-info/dependency_links.txt
@@ -13,4 +15,5 @@ src/tiktok_captcha_solver.egg-info/top_level.txt
 src/tiktok_captcha_solver/tests/__init__.py
 src/tiktok_captcha_solver/tests/test_api.py
 src/tiktok_captcha_solver/tests/test_downloader.py
-src/tiktok_captcha_solver/tests/test_sadcaptcha.py
+src/tiktok_captcha_solver/tests/test_playwrightsolver.py
+src/tiktok_captcha_solver/tests/test_seleniumsolver.py

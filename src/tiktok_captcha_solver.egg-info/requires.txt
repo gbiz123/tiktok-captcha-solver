@@ -3,4 +3,8 @@ webdriver-manager
 pydantic
 requests
 pytest
+numpy
+scipy
+playwright
+playwright-stealth
 undetected_chromedriver

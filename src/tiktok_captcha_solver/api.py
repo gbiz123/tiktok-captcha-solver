@@ -21,6 +21,7 @@ class ApiClient:
         }        
         resp = requests.post(self._ROTATE_URL, json=data)
         result = resp.json()
+        logging.debug("Got API response")
         return RotateCaptchaResponse(angle=result.get("angle"))
 
     def puzzle(self, puzzle_b64: str, piece_b64: str) -> PuzzleCaptchaResponse:
@@ -30,12 +31,14 @@ class ApiClient:
         }        
         resp = requests.post(self._PUZZLE_URL, json=data)
         result = resp.json()
+        logging.debug("Got API response")
         return PuzzleCaptchaResponse(slide_x_proportion=result.get("slideXProportion"))
 
     def shapes(self, image_b64: str) -> ShapesCaptchaResponse:
         data = { "imageB64": image_b64 }        
         resp = requests.post(self._SHAPES_URL, json=data)
         result = resp.json()
+        logging.debug("Got API response")
         return ShapesCaptchaResponse(
             point_one_proportion_x=result.get("pointOneProportionX"),
             point_one_proportion_y=result.get("pointOneProportionY"),
