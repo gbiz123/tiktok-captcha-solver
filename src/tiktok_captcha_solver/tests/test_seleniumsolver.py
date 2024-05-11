@@ -41,9 +41,9 @@ def open_tiktkok_login(driver: uc.Chrome) -> None:
     login_btn = driver.find_element(By.XPATH, '//button[contains(@data-e2e,"login-button")]').click();
     time.sleep(8)
 
-# def test_solve_captcha(caplog):
-#     caplog.set_level(logging.DEBUG)
-#     driver = make_driver()
-#     open_tiktkok_login(driver)
-#     sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
-#     sadcaptcha.solve_captcha_if_present()
+def test_solve_captcha(caplog):
+    caplog.set_level(logging.DEBUG)
+    driver = make_driver()
+    open_tiktkok_login(driver)
+    sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+    sadcaptcha.solve_captcha_if_present()

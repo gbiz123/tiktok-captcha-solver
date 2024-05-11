@@ -1,6 +1,9 @@
 # TikTok Captcha Solver API
 This project is the [SadCaptcha TikTok Captcha Solver](https://www.sadcaptcha.com?ref=ghclientrepo) API client.
-The purpose is to make integrating SadCaptcha into your selenium app as simple as one line of code.
+The purpose is to make integrating SadCaptcha into your Selenium or Playwright app as simple as one line of code.
+
+
+Instructions for integrating with Selenium and Playwright are described below in their respective sections.
 
 ## Requirements
 - Python >= 3.10
@@ -12,24 +15,46 @@ This project can be installed with `pip`. Just run the following command:
 pip install tiktok-captcha-solver
 ```
 
-## Selenium client 
+## Selenium Client 
 Import the package, set up the SadCaptcha class, and call it whenever you need.
 This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
 It is the recommended method if you are using Selenium.
 
 ```py
-from tiktok_captcha_solver import SadCaptcha
+from tiktok_captcha_solver import SeleniumSolver
 import undetected_chromedriver as uc
 
 driver = uc.Chrome(headless=False)
 api_key = "YOUR_API_KEY_HERE"
-sadcaptcha = SadCaptcha(driver, api_key)
+sadcaptcha = SeleniumSolver(driver, api_key)
 
 # Selenium code that causes a TikTok captcha...
 
 sadcaptcha.solve_captcha_if_present()
 ```
 
+That's it!
+
+## Playwright Client
+Import the package, set up the SadCaptcha class, and call it whenever you need.
+This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
+It is the recommended method if you are using Selenium.
+
+```py
+from tiktok_captcha_solver import PlaywrightSolver
+from playwright.sync_api import Page, sync_playwright
+
+api_key = "YOUR_API_KEY_HERE"
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=False)
+    page = browser.new_page()
+    
+    # Playwright code that causes a TikTok captcha...
+
+    sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
+    sadcaptcha.solve_captcha_if_present()
+```
 That's it!
 
 ## API Client
