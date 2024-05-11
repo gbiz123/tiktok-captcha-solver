@@ -25,6 +25,7 @@ def test_solve_captcha(caplog):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
+        stealth_sync(page)
         open_tiktkok_login(page)
         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
         sadcaptcha.solve_captcha_if_present()
