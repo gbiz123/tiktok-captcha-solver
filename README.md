@@ -52,7 +52,7 @@ with sync_playwright() as p:
     
     # Playwright code that causes a TikTok captcha...
 
-    sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
+    sadcaptcha = PlaywrightSolver(page, api_key)
     sadcaptcha.solve_captcha_if_present()
 ```
 That's it!
