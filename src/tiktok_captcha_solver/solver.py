@@ -7,6 +7,13 @@ from undetected_chromedriver import logging
 
 class Solver(ABC):
 
+    @property
+    def captcha_wrappers(self) -> list[str]:
+        return [
+            "div#captcha_container",
+            "div.captcha_verify_container"
+        ]
+
     def solve_captcha_if_present(self, captcha_detect_timeout: int = 15, retries: int = 3) -> None:
         """Solves any captcha that is present, if one is detected
 

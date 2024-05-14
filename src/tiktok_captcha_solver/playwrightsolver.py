@@ -22,9 +22,10 @@ class PlaywrightSolver(Solver):
 
     def captcha_is_present(self, timeout: int = 15) -> bool:
         for _ in range(timeout):
-            if len(self.page.locator("div#captcha_container").all()) > 0:
-                logging.debug("Detected captcha")
-                return True
+            for wrapper in self.captcha_wrappers:
+                if len(self.page.locator(wrapper).all()) > 0:
+                    logging.debug("Detected captcha with wrapper: " + wrapper)
+                    return True
             time.sleep(1)
         logging.debug("Did not detect captcha")
         return False

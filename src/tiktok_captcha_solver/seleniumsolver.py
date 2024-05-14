@@ -25,9 +25,12 @@ class SeleniumSolver(Solver):
 
     def captcha_is_present(self, timeout: int = 15) -> bool:
         for _ in range(timeout):
-            if len(self.chromedriver.find_elements(By.CSS_SELECTOR, "div#captcha_container")) > 0:
-                return True
+            for wrapper in self.captcha_wrappers:
+                if len(self.chromedriver.find_elements(By.CSS_SELECTOR, wrapper)) > 0:
+                    logging.debug("Found captcha with wrapper: " + wrapper)
+                    return True
             time.sleep(1)
+        logging.debug("Captcha not found")
         return False
 
     def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate"]:

@@ -41,9 +41,20 @@ def open_tiktkok_login(driver: uc.Chrome) -> None:
     login_btn = driver.find_element(By.XPATH, '//button[contains(@data-e2e,"login-button")]').click();
     time.sleep(8)
 
-def test_solve_captcha(caplog):
+def open_tiktkok_search(driver: uc.Chrome) -> None:
+    search_query = "davidteather"
+    driver.get(f"https://www.tiktok.com/search/user?q={search_query}&t=1715558822399")
+
+def test_solve_captcha_at_login(caplog):
     caplog.set_level(logging.DEBUG)
     driver = make_driver()
     open_tiktkok_login(driver)
+    sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+    sadcaptcha.solve_captcha_if_present()
+
+def test_solve_captcha_at_search(caplog):
+    caplog.set_level(logging.DEBUG)
+    driver = make_driver()
+    open_tiktkok_search(driver)
     sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
     sadcaptcha.solve_captcha_if_present()
