@@ -17,7 +17,7 @@ pip install tiktok-captcha-solver
 ```
 
 ## Selenium Client 
-Import the package, set up the SadCaptcha class, and call it whenever you need.
+Import the package, set up the SeleniumSolver class, and call it whenever you need.
 This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
 It is the recommended method if you are using Playwright.
 
@@ -37,7 +37,7 @@ sadcaptcha.solve_captcha_if_present()
 That's it!
 
 ## Playwright Client
-Import the package, set up the SadCaptcha class, and call it whenever you need.
+Import the package, set up the PlaywrightSolver class, and call it whenever you need.
 This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
 It is the recommended method if you are using Selenium.
 
