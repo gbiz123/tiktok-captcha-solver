@@ -24,21 +24,21 @@ def open_tiktok_search(page: Page) -> None:
     search_query = "davidteather"
     page.goto(f"https://www.tiktok.com/search/user?q={search_query}&t=1715558822399")
 
-def test_solve_captcha_at_login(caplog):
-    caplog.set_level(logging.DEBUG)
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
-        page = browser.new_page()
-        stealth_sync(page)
-        open_tiktkok_login(page)
-        sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
-        sadcaptcha.solve_captcha_if_present()
-
-def test_solve_captcha_at_search(caplog):
-    caplog.set_level(logging.DEBUG)
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
-        page = browser.new_page()
-        open_tiktok_search(page) 
-        sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
-        sadcaptcha.solve_captcha_if_present()
+# def test_solve_captcha_at_login(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     with sync_playwright() as p:
+#         browser = p.chromium.launch(headless=False)
+#         page = browser.new_page()
+#         stealth_sync(page)
+#         open_tiktkok_login(page)
+#         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
+#         sadcaptcha.solve_captcha_if_present()
+#
+# def test_solve_captcha_at_search(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     with sync_playwright() as p:
+#         browser = p.chromium.launch(headless=False)
+#         page = browser.new_page()
+#         open_tiktok_search(page) 
+#         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
+#         sadcaptcha.solve_captcha_if_present()

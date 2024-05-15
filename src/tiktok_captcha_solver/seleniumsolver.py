@@ -25,24 +25,20 @@ class SeleniumSolver(Solver):
 
     def captcha_is_present(self, timeout: int = 15) -> bool:
         for _ in range(timeout):
-            for wrapper in self.captcha_wrappers:
-                if len(self.chromedriver.find_elements(By.CSS_SELECTOR, wrapper)) > 0:
-                    logging.debug("Found captcha with wrapper: " + wrapper)
-                    return True
+            if self._any_selector_in_list_present(self.captcha_wrappers):
+                print("Captcha detected")
+                return True
             time.sleep(1)
         logging.debug("Captcha not found")
         return False
 
     def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate"]:
-        rotate_selector = "[data-testid=whirl-inner-img]"
-        puzzle_selector = "img.captcha_verify_img_slide"
-        shapes_selector = "#verify-points"
         for _ in range(15):
-            if len(self.chromedriver.find_elements(By.CSS_SELECTOR, puzzle_selector)) > 0:
+            if self._any_selector_in_list_present(self.puzzle_selectors):
                 return "puzzle"
-            elif len(self.chromedriver.find_elements(By.CSS_SELECTOR, rotate_selector)) > 0:
+            elif self._any_selector_in_list_present(self.rotate_selectors):
                 return "rotate"
-            elif len(self.chromedriver.find_elements(By.CSS_SELECTOR, shapes_selector)) > 0:
+            elif self._any_selector_in_list_present(self.shapes_selectors):
                 return "shapes"
             else:
                 time.sleep(2)
@@ -182,3 +178,10 @@ class SeleniumSolver(Solver):
         actions.pause(0.1)
         actions.release().perform()
 
+    def _any_selector_in_list_present(self, selectors: list[str]) -> bool:
+        for selector in selectors:
+            if len(self.chromedriver.find_elements(By.CSS_SELECTOR, selector)) > 0:
+                logging.debug("Detected selector: " + selector + " from list " + ", ".join(selectors))
+                return True
+        logging.debug("No selector in list found: " + ", ".join(selectors))
+        return False

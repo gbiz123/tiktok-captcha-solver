@@ -11,8 +11,30 @@ class Solver(ABC):
     def captcha_wrappers(self) -> list[str]:
         return [
             "div#captcha_container",
-            "div.captcha_verify_container"
+            "div.captcha_verify_container",
+            "#verify-points",
+            ".captcha_verify_action",
         ]
+
+    @property
+    def rotate_selectors(self) -> list[str]:
+        return [
+            "[data-testid=whirl-inner-img]",
+            "[data-testid=whirl-outer-img]"
+        ]
+
+    @property
+    def puzzle_selectors(self) -> list[str]:
+        return [
+            "img.captcha_verify_img_slide"
+        ]
+
+    @property
+    def shapes_selectors(self) -> list[str]:
+        return [
+            ".verify-captcha-submit-button" 
+        ]
+
 
     def solve_captcha_if_present(self, captcha_detect_timeout: int = 15, retries: int = 3) -> None:
         """Solves any captcha that is present, if one is detected

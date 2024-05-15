@@ -3,7 +3,7 @@
 import random
 import time
 from typing import Literal
-from playwright.sync_api import FloatRect, Locator, Page
+from playwright.sync_api import FloatRect, Page
 from undetected_chromedriver import logging
 
 from .solver import Solver
@@ -22,24 +22,20 @@ class PlaywrightSolver(Solver):
 
     def captcha_is_present(self, timeout: int = 15) -> bool:
         for _ in range(timeout):
-            for wrapper in self.captcha_wrappers:
-                if len(self.page.locator(wrapper).all()) > 0:
-                    logging.debug("Detected captcha with wrapper: " + wrapper)
-                    return True
+            if self._any_selector_in_list_present(self.captcha_wrappers):
+                logging.debug("Captcha detected")
+                return True
             time.sleep(1)
         logging.debug("Did not detect captcha")
         return False
 
     def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate"]:
-        rotate_selector = "[data-testid=whirl-inner-img]"
-        puzzle_selector = "img.captcha_verify_img_slide"
-        shapes_selector = "#verify-points"
         for _ in range(15):
-            if len(self.page.locator(puzzle_selector).all()) > 0:
+            if self._any_selector_in_list_present(self.puzzle_selectors):
                 return "puzzle"
-            elif len(self.page.locator(rotate_selector).all()) > 0:
+            elif self._any_selector_in_list_present(self.rotate_selectors):
                 return "rotate"
-            elif len(self.page.locator(shapes_selector).all()) > 0:
+            if self._any_selector_in_list_present(self.shapes_selectors):
                 return "shapes"
             else:
                 time.sleep(2)
@@ -191,3 +187,11 @@ class PlaywrightSolver(Solver):
         self.page.mouse.move(start_x + x, start_y, steps=100)
         time.sleep(0.001)
         self.page.mouse.up()
+
+    def _any_selector_in_list_present(self, selectors: list[str]) -> bool:
+        for selector in selectors:
+            if len(self.page.locator(selector).all()) > 0:
+                logging.debug("Detected selector: " + selector + " from list " + ", ".join(selectors))
+                return True
+        logging.debug("No selector in list found: " + ", ".join(selectors))
+        return False
