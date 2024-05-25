@@ -2,6 +2,8 @@ README.md
 pyproject.toml
 src/tiktok_captcha_solver/__init__.py
 src/tiktok_captcha_solver/api.py
+src/tiktok_captcha_solver/asyncplaywrightsolver.py
+src/tiktok_captcha_solver/asyncsolver.py
 src/tiktok_captcha_solver/downloader.py
 src/tiktok_captcha_solver/models.py
 src/tiktok_captcha_solver/playwrightsolver.py
@@ -14,6 +16,7 @@ src/tiktok_captcha_solver.egg-info/requires.txt
 src/tiktok_captcha_solver.egg-info/top_level.txt
 src/tiktok_captcha_solver/tests/__init__.py
 src/tiktok_captcha_solver/tests/test_api.py
+src/tiktok_captcha_solver/tests/test_asyncplaywrightsolver.py
 src/tiktok_captcha_solver/tests/test_downloader.py
 src/tiktok_captcha_solver/tests/test_playwrightsolver.py
 src/tiktok_captcha_solver/tests/test_seleniumsolver.py
