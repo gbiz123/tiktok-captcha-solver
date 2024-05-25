@@ -1,9 +1,9 @@
 # TikTok Captcha Solver API
 This project is the [SadCaptcha TikTok Captcha Solver](https://www.sadcaptcha.com?ref=ghclientrepo) API client.
-The purpose is to make integrating SadCaptcha into your Selenium or Playwright app as simple as one line of code.
+The purpose is to make integrating SadCaptcha into your Selenium, Playwright, or Async Playwright app as simple as one line of code.
 
 
-Instructions for integrating with Selenium and Playwright are described below in their respective sections.
+Instructions for integrating with Selenium, Playwright, and Async Playwright are described below in their respective sections.
 
 ## Requirements
 - Python >= 3.10
@@ -17,7 +17,7 @@ pip install tiktok-captcha-solver
 ```
 
 ## Selenium Client 
-Import the package, set up the SadCaptcha class, and call it whenever you need.
+Import the package, set up the `SeleniumSolver` class, and call it whenever you need.
 This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
 It is the recommended method if you are using Playwright.
 
@@ -37,9 +37,9 @@ sadcaptcha.solve_captcha_if_present()
 That's it!
 
 ## Playwright Client
-Import the package, set up the SadCaptcha class, and call it whenever you need.
+Import the package, set up the `PlaywrightSolver` class, and call it whenever you need.
 This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
-It is the recommended method if you are using Selenium.
+It is the recommended method if you are using playwright.
 
 ```py
 from tiktok_captcha_solver import PlaywrightSolver
@@ -55,6 +55,32 @@ with sync_playwright() as p:
 
     sadcaptcha = PlaywrightSolver(page, api_key)
     sadcaptcha.solve_captcha_if_present()
+```
+That's it!
+
+## Async Playwright Client
+Import the package, set up the `AsyncPlaywrightSolver` class, and call it whenever you need.
+This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
+It is the recommended method if you are using async playwright.
+
+```py
+import asyncio
+from tiktok_captcha_solver import AsyncPlaywrightSolver
+from playwright.async_api import Page, async_playwright
+
+api_key = "YOUR_API_KEY_HERE"
+
+async def main()
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=False)
+        page = await browser.new_page()
+        
+        # Playwright code that causes a TikTok captcha...
+
+        sadcaptcha = AsyncPlaywrightSolver(page, api_key)
+        await sadcaptcha.solve_captcha_if_present()
+
+asyncio.run(main())
 ```
 That's it!
 
