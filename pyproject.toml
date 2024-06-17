@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"  # If not defined, then legacy behavior 
 
 [project]
 name = "tiktok-captcha-solver"
-version = "0.0.5"
+version = "0.0.7"
 
 description = "This package integrates with Selenium or Playwright to solve any TikTok captcha in one line of code."
 readme = "README.md"
@@ -34,7 +34,8 @@ dependencies = [
   "pytest-asyncio",
   "playwright",
   "playwright-stealth",
-  "undetected_chromedriver"
+  "undetected_chromedriver",
+  "setuptools"
 ]
 
 [project.urls]
