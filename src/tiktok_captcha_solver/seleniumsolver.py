@@ -180,8 +180,9 @@ class SeleniumSolver(Solver):
 
     def _any_selector_in_list_present(self, selectors: list[str]) -> bool:
         for selector in selectors:
-            if len(self.chromedriver.find_elements(By.CSS_SELECTOR, selector)) > 0:
-                logging.debug("Detected selector: " + selector + " from list " + ", ".join(selectors))
-                return True
+            for ele in self.chromedriver.find_elements(By.CSS_SELECTOR, selector):
+                if ele.is_displayed():
+                    logging.debug("Detected selector: " + selector + " from list " + ", ".join(selectors))
+                    return True
         logging.debug("No selector in list found: " + ", ".join(selectors))
         return False

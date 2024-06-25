@@ -190,8 +190,9 @@ class PlaywrightSolver(Solver):
 
     def _any_selector_in_list_present(self, selectors: list[str]) -> bool:
         for selector in selectors:
-            if len(self.page.locator(selector).all()) > 0:
-                logging.debug("Detected selector: " + selector + " from list " + ", ".join(selectors))
-                return True
+            for ele in self.page.locator(selector).all():
+                if ele.is_visible():
+                    logging.debug("Detected selector: " + selector + " from list " + ", ".join(selectors))
+                    return True
         logging.debug("No selector in list found: " + ", ".join(selectors))
         return False
