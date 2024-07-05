@@ -194,7 +194,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
     async def _any_selector_in_list_present(self, selectors: list[str]) -> bool:
         for selector in selectors:
             for ele in await self.page.locator(selector).all():
-                if ele.is_visible():
+                if await ele.is_visible():
                     logging.debug("Detected selector: " + selector + " from list " + ", ".join(selectors))
                     return True
         logging.debug("No selector in list found: " + ", ".join(selectors))
