@@ -46,6 +46,9 @@ class AsyncPlaywrightSolver(AsyncSolver):
 
     async def solve_shapes(self, retries: int = 3) -> None:
         for _ in range(retries):
+            if not await self._any_selector_in_list_present(["#captcha-verify-image"]):
+                logging.debug("Went to solve shapes but #captcha-verify-image was not present")
+                return
             image = download_image_b64(await self._get_shapes_image_url())
             solution = self.client.shapes(image)
             image_element = self.page.locator("#captcha-verify-image")
@@ -72,6 +75,9 @@ class AsyncPlaywrightSolver(AsyncSolver):
 
     async def solve_puzzle(self, retries: int = 3) -> None:
         for _ in range(retries):
+            if not await self._any_selector_in_list_present(["#captcha-verify-image"]):
+                logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
+                return
             puzzle = download_image_b64(await self._get_puzzle_image_url())
             piece = download_image_b64(await self._get_piece_image_url())
             solution = self.client.puzzle(puzzle, piece)
