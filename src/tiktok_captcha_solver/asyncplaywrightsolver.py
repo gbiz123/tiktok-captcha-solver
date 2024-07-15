@@ -63,6 +63,9 @@ class AsyncPlaywrightSolver(AsyncSolver):
 
     async def solve_rotate(self, retries: int = 3) -> None:
         for _ in range(retries):
+            if not await self._any_selector_in_list_present(["[data-testid=whirl-inner-img]"]):
+                logging.debug("Went to solve rotate but whirl-inner-img was not present")
+                return
             outer = download_image_b64(await self._get_rotate_outer_image_url())
             inner = download_image_b64(await self._get_rotate_inner_image_url())
             solution = self.client.rotate(outer, inner)
