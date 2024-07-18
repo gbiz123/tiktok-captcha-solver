@@ -2,7 +2,7 @@ import logging
 import time
 import os
 
-from playwright.sync_api import Page, sync_playwright
+from playwright.sync_api import Page, sync_playwright, expect
 from playwright_stealth import stealth_sync
 
 from ..playwrightsolver import PlaywrightSolver
@@ -33,6 +33,8 @@ def test_solve_captcha_at_login(caplog):
         open_tiktkok_login(page)
         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
         sadcaptcha.solve_captcha_if_present()
+        page.locator("css=#header-more-menu-icon").is_visible()
+        expect(page.locator("css=#header-more-menu-icon")).to_be_visible(timeout=30000)
 
 def test_solve_captcha_at_search(caplog):
     caplog.set_level(logging.DEBUG)

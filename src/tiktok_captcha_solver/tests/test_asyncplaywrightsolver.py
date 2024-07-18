@@ -2,7 +2,7 @@ import asyncio
 import logging
 import os
 
-from playwright.async_api import Page, async_playwright
+from playwright.async_api import Page, async_playwright, expect
 from playwright_stealth import stealth_async
 import pytest
 
@@ -35,6 +35,7 @@ async def test_solve_captcha_at_login(caplog):
         await open_tiktkok_login(page)
         sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
         await sadcaptcha.solve_captcha_if_present()
+        await expect(page.locator("css=#header-more-menu-icon")).to_be_visible(timeout=30000)
 
 @pytest.mark.asyncio
 async def test_solve_captcha_at_search(caplog):
