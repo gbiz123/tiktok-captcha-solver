@@ -104,5 +104,5 @@ res = client.shapes("base64 encoded shapes image")
 
 ## Contact
 - Homepage: https://www.sadcaptcha.com/
-- Email: info@toughdata.net
+- Email: greg@sadcaptcha.com
 - Telegram @toughdata
