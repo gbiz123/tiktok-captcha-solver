@@ -10,8 +10,8 @@ Instructions for integrating with Selenium, Playwright, and Async Playwright are
 - **If using Selenium** - Selenium properly installed and in `PATH`
 - **If using Playwright** - Playwright must be properly installed with `playwright install`
 - **Stealth plugin** - You must use the appropriate `stealth` plugin for whichever browser automation framework you are using.
--- For Selenium, you can use [undetected-chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver)
--- For Playwright, you can use [playwright-stealth](https://pypi.org/project/playwright-stealth/)
+- - For Selenium, you can use [undetected-chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver)
+- - For Playwright, you can use [playwright-stealth](https://pypi.org/project/playwright-stealth/)
 
 ## Installation
 This project can be installed with `pip`. Just run the following command:
