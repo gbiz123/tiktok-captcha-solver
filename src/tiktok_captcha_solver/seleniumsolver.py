@@ -150,7 +150,7 @@ class SeleniumSolver(Solver):
             if self.chromedriver.find_elements(By.CSS_SELECTOR, success_selector):
                 return True
             if self.chromedriver.find_elements(By.CSS_SELECTOR, failure_selector):
-                return True
+                return False
             if self.chromedriver.find_elements(By.XPATH, success_xpath):
                 return True
             time.sleep(0.5)
