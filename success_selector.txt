@@ -1,0 +1,2 @@
+success: captcha_verify_message-pass
+failure: captcha_verify_message-fail

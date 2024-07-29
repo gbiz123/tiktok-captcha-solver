@@ -60,6 +60,8 @@ class AsyncPlaywrightSolver(AsyncSolver):
             await self.page.locator(".verify-captcha-submit-button").click()
             if await self._check_captcha_success():
                 return
+            else:
+                await asyncio.sleep(5)
 
     async def solve_rotate(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -75,6 +77,8 @@ class AsyncPlaywrightSolver(AsyncSolver):
             await self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if await self._check_captcha_success():
                 return
+            else:
+                await asyncio.sleep(5)
 
     async def solve_puzzle(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -88,6 +92,8 @@ class AsyncPlaywrightSolver(AsyncSolver):
             await self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if await self._check_captcha_success():
                 return
+            else:
+                await asyncio.sleep(5)
 
     async def _compute_rotate_slide_distance(self, angle: int) -> int:
         slide_length = await self._get_slide_length()
@@ -151,13 +157,21 @@ class AsyncPlaywrightSolver(AsyncSolver):
         return url
 
     async def _check_captcha_success(self) -> bool:
+        success_selector = "css=.captcha_verify_message-pass"
+        failure_selector = "css=.captcha_verify_message-fail"
         success_xpath = "xpath=//*[contains(text(), 'Verification complete')]"
-        for _ in range(20):
-            if await self.page.locator(success_xpath).all():
-                logging.debug("Captcha solved")
+        for _ in range(40):
+            if await self.page.locator(failure_selector).all():
+                logging.debug("Captcha not solved - failure selector present")
+                return False
+            if await self.page.locator(success_selector).all():
+                logging.debug("Captcha solved - success selector present")
                 return True
-            await asyncio.sleep(1)
-        logging.debug("Captcha not successfully solved")
+            if await self.page.locator(success_xpath).all():
+                logging.debug("Captcha solved - success xpath present")
+                return True
+            await asyncio.sleep(0.5)
+        logging.debug("Captcha not solved")
         return False
 
     async def _click_proportional(
