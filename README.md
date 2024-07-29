@@ -9,6 +9,9 @@ Instructions for integrating with Selenium, Playwright, and Async Playwright are
 - Python >= 3.10
 - **If using Selenium** - Selenium properly installed and in `PATH`
 - **If using Playwright** - Playwright must be properly installed with `playwright install`
+- **Stealth plugin** - You must use the appropriate `stealth` plugin for whichever browser automation framework you are using.
+    - For Selenium, you can use [undetected-chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver)
+    - For Playwright, you can use [playwright-stealth](https://pypi.org/project/playwright-stealth/)
 
 ## Installation
 This project can be installed with `pip`. Just run the following command:
@@ -23,9 +26,10 @@ It is the recommended method if you are using Playwright.
 
 ```py
 from tiktok_captcha_solver import SeleniumSolver
+from selenium_stealth import stealth
 import undetected_chromedriver as uc
 
-driver = uc.Chrome(headless=False)
+driver = uc.Chrome(headless=False) # Use default undetected_chromedriver configuration!
 api_key = "YOUR_API_KEY_HERE"
 sadcaptcha = SeleniumSolver(driver, api_key)
 
@@ -34,39 +38,47 @@ sadcaptcha = SeleniumSolver(driver, api_key)
 sadcaptcha.solve_captcha_if_present()
 ```
 
-That's it!
+It is crucial that you use `undetected_chromedriver` with the default configuration, instead of the standard Selenium chromedriver.
+Failure to use the `undetected_chromedriver` will result in "Verification failed" when attempting to solve the captcha.
 
 ## Playwright Client
 Import the package, set up the `PlaywrightSolver` class, and call it whenever you need.
 This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
 It is the recommended method if you are using playwright.
 
+
 ```py
 from tiktok_captcha_solver import PlaywrightSolver
 from playwright.sync_api import Page, sync_playwright
+from playwright_stealth import stealth_sync
 
 api_key = "YOUR_API_KEY_HERE"
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=False)
     page = browser.new_page()
+    stealth_sync(page) # Use default playwright_stealth configuration!
     
     # Playwright code that causes a TikTok captcha...
 
     sadcaptcha = PlaywrightSolver(page, api_key)
     sadcaptcha.solve_captcha_if_present()
 ```
-That's it!
+It is crucial that users of the Playwright client also use `playwright-stealth` with the default configuration.
+Failure to use the `playwright-stealth` plugin will result in "Verification failed" when attempting to solve the captcha.
 
 ## Async Playwright Client
 Import the package, set up the `AsyncPlaywrightSolver` class, and call it whenever you need.
 This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
 It is the recommended method if you are using async playwright.
 
+
+
 ```py
 import asyncio
 from tiktok_captcha_solver import AsyncPlaywrightSolver
 from playwright.async_api import Page, async_playwright
+from playwright_stealth import stealth_async
 
 api_key = "YOUR_API_KEY_HERE"
 
@@ -74,6 +86,7 @@ async def main()
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False)
         page = await browser.new_page()
+        await stealth_async(page) # Use default playwright_stealth configuration!
         
         # Playwright code that causes a TikTok captcha...
 
@@ -82,7 +95,8 @@ async def main()
 
 asyncio.run(main())
 ```
-That's it!
+It is crucial that users of the Playwright client also use `playwright-stealth` with the default configuration.
+Failure to use the `playwright-stealth` plugin will result in "Verification failed" when attempting to solve the captcha.
 
 ## API Client
 If you are not using Selenium or Playwright, you can still import and use the API client to help you make calls to SadCaptcha
@@ -104,5 +118,5 @@ res = client.shapes("base64 encoded shapes image")
 
 ## Contact
 - Homepage: https://www.sadcaptcha.com/
-- Email: info@toughdata.net
+- Email: greg@sadcaptcha.com
 - Telegram @toughdata
