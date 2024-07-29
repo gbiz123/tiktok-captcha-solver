@@ -116,7 +116,8 @@ res = client.puzzle("base64 encoded puzzle", "base64 encoded piece")
 res = client.shapes("base64 encoded shapes image")
 ```
 
-## Common problem: Captcha solved but still says Verification failed?
+## Troubleshooting
+### Captcha solved but still says Verification failed?
 This common problem is due to your browser settings. 
 If using Selenium, you must use `undetected_chromedriver` with the **default** settings.
 If you are using Playwright, you must use the `playwright_stealth` package with the **default** settings.
