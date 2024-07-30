@@ -61,6 +61,8 @@ class AsyncPlaywrightSolver(AsyncSolver):
             await self.page.locator(".verify-captcha-submit-button").click()
             if await self._check_captcha_success():
                 return
+            else:
+                await asyncio.sleep(5)
 
     async def solve_rotate(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -76,6 +78,8 @@ class AsyncPlaywrightSolver(AsyncSolver):
             await self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if await self._check_captcha_success():
                 return
+            else:
+                await asyncio.sleep(5)
 
     async def solve_puzzle(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -89,6 +93,8 @@ class AsyncPlaywrightSolver(AsyncSolver):
             await self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if await self._check_captcha_success():
                 return
+            else:
+                await asyncio.sleep(5)
 
     async def _compute_rotate_slide_distance(self, angle: int) -> int:
         slide_length = await self._get_slide_length()

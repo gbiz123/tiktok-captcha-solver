@@ -57,6 +57,8 @@ class PlaywrightSolver(Solver):
             self.page.locator(".verify-captcha-submit-button").click()
             if self._check_captcha_success():
                 return
+            else:
+                time.sleep(5)
 
     def solve_rotate(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -72,6 +74,8 @@ class PlaywrightSolver(Solver):
             self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if self._check_captcha_success():
                 return
+            else:
+                time.sleep(5)
 
     def solve_puzzle(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -85,6 +89,8 @@ class PlaywrightSolver(Solver):
             self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if self._check_captcha_success():
                 return
+            else:
+                time.sleep(5)
 
     def _compute_rotate_slide_distance(self, angle: int) -> int:
         slide_length = self._get_slide_length()
