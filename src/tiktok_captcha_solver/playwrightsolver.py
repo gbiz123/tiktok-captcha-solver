@@ -172,7 +172,7 @@ class PlaywrightSolver(Solver):
             except (TimeoutError, AssertionError):
                 return False
 
-        results = [verification_element_is_hidden(), css_class_assigned()]
+        results = [css_class_assigned(), verification_element_is_hidden()]
         return any(results)
 
     def _click_proportional(
