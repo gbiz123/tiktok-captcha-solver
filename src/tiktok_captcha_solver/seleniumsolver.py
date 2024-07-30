@@ -2,6 +2,8 @@
 
 import time
 from typing import Literal
+
+from selenium.common import NoSuchElementException
 from selenium.webdriver import ActionChains, Chrome
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.by import By
@@ -9,10 +11,10 @@ from selenium.webdriver.remote.webelement import WebElement
 from undetected_chromedriver import logging
 from undetected_chromedriver.patcher import random
 
-from .solver import Solver
-
 from .api import ApiClient
 from .downloader import download_image_b64
+from .solver import Solver
+
 
 class SeleniumSolver(Solver):
 
@@ -150,8 +152,13 @@ class SeleniumSolver(Solver):
                 return False
             if self.chromedriver.find_elements(By.XPATH, success_xpath):
                 return True
-            if self.chromedriver.find_elements(By.ID, verification_element_id):
-                return True
+            
+            try:
+                el = self.chromedriver.find_element(By.ID, verification_element_id)
+                if el.is_displayed():
+                    return True
+            except NoSuchElementException:
+                pass
 
             time.sleep(0.5)
         return False
