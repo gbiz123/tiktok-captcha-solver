@@ -155,7 +155,7 @@ class SeleniumSolver(Solver):
             
             try:
                 el = self.chromedriver.find_element(By.ID, verification_element_id)
-                if el.is_displayed():
+                if not el.is_displayed():
                     return True
             except NoSuchElementException:
                 pass
