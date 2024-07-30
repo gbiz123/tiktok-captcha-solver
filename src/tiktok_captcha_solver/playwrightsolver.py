@@ -3,7 +3,7 @@
 import random
 import time
 from typing import Literal
-from playwright.sync_api import FloatRect, Page
+from playwright.sync_api import FloatRect, Page, expect
 from undetected_chromedriver import logging
 
 from .solver import Solver
@@ -154,22 +154,17 @@ class PlaywrightSolver(Solver):
         return url
 
     def _check_captcha_success(self) -> bool:
-        success_selector = "css=.captcha_verify_message-pass"
-        failure_selector = "css=.captcha_verify_message-fail"
-        success_xpath = "xpath=//*[contains(text(), 'Verification complete')]"
-        for _ in range(40):
-            if self.page.locator(failure_selector).all():
-                logging.debug("Captcha not solved - failure selector present")
-                return False
-            if self.page.locator(success_selector).all():
-                logging.debug("Captcha solved - success selector present")
-                return True
-            if self.page.locator(success_xpath).all():
-                logging.debug("Captcha solved - success xpath present")
-                return True
-            time.sleep(0.5)
-        logging.debug("Captcha not successfully solved")
-        return False
+        success_class = "captcha_verify_message-pass"
+        failure_class = "captcha_verify_message-fail"
+        try:
+            locator = self.page.locator(f"css=.{success_class}").or_(self.page.locator(f"css=.{failure_class}"))
+            expect(locator.first).to_be_visible()
+            expect(locator.first).to_have_class(success_class, timeout=5)
+            return True
+        except TimeoutError:
+            return False
+        except AssertionError:
+            return False
 
     def _click_proportional(
             self,

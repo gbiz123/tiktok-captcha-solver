@@ -3,7 +3,8 @@
 import logging
 import random
 from typing import Literal
-from playwright.async_api import FloatRect, Page
+from playwright.async_api import FloatRect, Page, expect
+from playwright.async_api import TimeoutError
 from undetected_chromedriver.reactor import asyncio
 
 from .asyncsolver import AsyncSolver
@@ -157,22 +158,17 @@ class AsyncPlaywrightSolver(AsyncSolver):
         return url
 
     async def _check_captcha_success(self) -> bool:
-        success_selector = "css=.captcha_verify_message-pass"
-        failure_selector = "css=.captcha_verify_message-fail"
-        success_xpath = "xpath=//*[contains(text(), 'Verification complete')]"
-        for _ in range(40):
-            if await self.page.locator(failure_selector).all():
-                logging.debug("Captcha not solved - failure selector present")
-                return False
-            if await self.page.locator(success_selector).all():
-                logging.debug("Captcha solved - success selector present")
-                return True
-            if await self.page.locator(success_xpath).all():
-                logging.debug("Captcha solved - success xpath present")
-                return True
-            await asyncio.sleep(0.5)
-        logging.debug("Captcha not solved")
-        return False
+        success_class = "captcha_verify_message-pass"
+        failure_class = "captcha_verify_message-fail"
+        try:
+            locator = self.page.locator(f"css=.{success_class}").or_(self.page.locator(f"css=.{failure_class}"))
+            await expect(locator.first).to_be_visible()
+            await expect(locator.first).to_have_class(success_class, timeout=5)
+            return True
+        except TimeoutError:
+            return False
+        except AssertionError:
+            return False
 
     async def _click_proportional(
             self,
