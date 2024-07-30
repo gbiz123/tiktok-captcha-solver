@@ -26,7 +26,7 @@ options.add_argument("--dom-automation=disabled")
 
 
 def make_driver() -> uc.Chrome:
-    return uc.Chrome(service=ChromeDriverManager().install(), headless=False, use_subprocess=False)
+    return uc.Chrome(service=ChromeDriverManager().install(), headless=False, use_subprocess=False, browser_executable_path="/usr/bin/google-chrome-beta")
 
 
 def open_tiktkok_login(driver: uc.Chrome) -> None:

@@ -26,11 +26,20 @@ class SeleniumSolver(Solver):
         self.client = ApiClient(sadcaptcha_api_key)
 
     def captcha_is_present(self, timeout: int = 15) -> bool:
-        for _ in range(timeout):
+        for _ in range(timeout * 2):
             if self._any_selector_in_list_present(self.captcha_wrappers):
                 print("Captcha detected")
                 return True
-            time.sleep(1)
+            time.sleep(0.5)
+        logging.debug("Captcha not found")
+        return False
+
+    def captcha_is_not_present(self, timeout: int = 15) -> bool:
+        for _ in range(timeout * 2):
+            if len(self.chromedriver.find_elements(By.CSS_SELECTOR, self.captcha_wrappers[0])) == 0:
+                print("Captcha detected")
+                return True
+            time.sleep(0.5)
         logging.debug("Captcha not found")
         return False
 
@@ -57,7 +66,7 @@ class SeleniumSolver(Solver):
             self._click_proportional(image_element, solution.point_one_proportion_x, solution.point_one_proportion_y)
             self._click_proportional(image_element, solution.point_two_proportion_x, solution.point_two_proportion_y)
             self.chromedriver.find_element(By.CSS_SELECTOR, ".verify-captcha-submit-button").click()
-            if self._check_captcha_success():
+            if self.captcha_is_not_present(timeout=5):
                 return
             else:
                 time.sleep(5)
@@ -72,7 +81,7 @@ class SeleniumSolver(Solver):
             solution = self.client.rotate(outer, inner)
             distance = self._compute_rotate_slide_distance(solution.angle)
             self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
-            if self._check_captcha_success():
+            if self.captcha_is_not_present(timeout=5):
                 return
             else:
                 time.sleep(5)
@@ -87,7 +96,7 @@ class SeleniumSolver(Solver):
             solution = self.client.puzzle(puzzle, piece)
             distance = self._compute_puzzle_slide_distance(solution.slide_x_proportion)
             self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
-            if self._check_captcha_success():
+            if self.captcha_is_not_present(timeout=5):
                 return
             else:
                 time.sleep(5)
@@ -143,24 +152,6 @@ class SeleniumSolver(Solver):
         if not url:
             raise ValueError("Shapes image URL was None")
         return url
-
-    def _check_captcha_success(self) -> bool:
-        success_selector = ".captcha_verify_message-pass"
-        failure_selector = ".captcha_verify_message-fail"
-        success_xpath = "//*[contains(text(), 'Verification complete')]"
-
-        for _ in range(40):
-            if self.chromedriver.find_elements(By.CSS_SELECTOR, success_selector):
-                return True
-            if self.chromedriver.find_elements(By.CSS_SELECTOR, failure_selector): 
-                return False
-            if self.chromedriver.find_elements(By.XPATH, success_xpath):
-                return True
-            if not self.chromedriver.find_elements(By.CSS_SELECTOR, self.captcha_wrappers[0]):
-                return True
-            time.sleep(0.5)
-
-        return False
 
     def _click_proportional(
             self,
