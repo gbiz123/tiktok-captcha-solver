@@ -21,13 +21,20 @@ class PlaywrightSolver(Solver):
         self.client = ApiClient(sadcaptcha_api_key)
 
     def captcha_is_present(self, timeout: int = 15) -> bool:
-        for _ in range(timeout):
-            if self._any_selector_in_list_present(self.captcha_wrappers):
-                logging.debug("Captcha detected")
-                return True
-            time.sleep(1)
-        logging.debug("Did not detect captcha")
-        return False
+        try:
+            locator = self.page.locator(self.captcha_wrappers[0])
+            expect(locator.first).to_be_visible(timeout=timeout * 1000)
+            return True
+        except (TimeoutError, AssertionError):
+            return False
+
+    def captcha_is_not_present(self, timeout: int = 15) -> bool:
+        try:
+            locator = self.page.locator(self.captcha_wrappers[0])
+            expect(locator.first).to_have_count(0, timeout=timeout * 1000)
+            return True
+        except (TimeoutError, AssertionError):
+            return False
 
     def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate"]:
         for _ in range(15):
@@ -55,7 +62,7 @@ class PlaywrightSolver(Solver):
             self._click_proportional(bounding_box, solution.point_one_proportion_x, solution.point_one_proportion_y)
             self._click_proportional(bounding_box, solution.point_two_proportion_x, solution.point_two_proportion_y)
             self.page.locator(".verify-captcha-submit-button").click()
-            if self._check_captcha_success():
+            if self.captcha_is_not_present(timeout=5):
                 return
             else:
                 time.sleep(5)
@@ -72,7 +79,7 @@ class PlaywrightSolver(Solver):
             distance = self._compute_rotate_slide_distance(solution.angle)
             logging.debug(f"Solution distance: {distance}")
             self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
-            if self._check_captcha_success():
+            if self.captcha_is_not_present(timeout=5):
                 return
             else:
                 time.sleep(5)
@@ -87,7 +94,7 @@ class PlaywrightSolver(Solver):
             solution = self.client.puzzle(puzzle, piece)
             distance = self._compute_puzzle_slide_distance(solution.slide_x_proportion)
             self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
-            if self._check_captcha_success():
+            if self.captcha_is_not_present(timeout=5):
                 return
             else:
                 time.sleep(5)
@@ -153,34 +160,6 @@ class PlaywrightSolver(Solver):
             raise ValueError("Shapes image URL was None")
         return url
     
-    def _check_captcha_success(self) -> bool:
-        timeout_ms = 2500
-
-        def verification_element_is_hidden():
-            try:
-                locator = self.page.locator("#tiktok-verify-ele")
-                expect(locator.first).to_be_hidden(timeout=timeout_ms)
-                return True
-            except (TimeoutError, AssertionError):
-                return False
-
-        def css_class_assigned():
-            success_class = "captcha_verify_message-pass"
-            failure_class = "captcha_verify_message-fail"
-
-            try:
-                locator = self.page.locator(f"css=.{success_class}").or_(
-                    self.page.locator(f"css=.{failure_class}")
-                )
-                expect(locator.first).to_be_visible()
-                expect(locator.first).to_have_class(success_class, timeout=timeout_ms)
-                return True
-            except (TimeoutError, AssertionError):
-                return False
-
-        results = [css_class_assigned(), verification_element_is_hidden()]
-        return any(results)
-
     def _click_proportional(
             self,
             bounding_box: FloatRect,

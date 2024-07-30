@@ -148,24 +148,18 @@ class SeleniumSolver(Solver):
         success_selector = ".captcha_verify_message-pass"
         failure_selector = ".captcha_verify_message-fail"
         success_xpath = "//*[contains(text(), 'Verification complete')]"
-        verification_element_id = "tiktok-verify-ele"
 
         for _ in range(40):
             if self.chromedriver.find_elements(By.CSS_SELECTOR, success_selector):
                 return True
-            if self.chromedriver.find_elements(By.CSS_SELECTOR, failure_selector):
+            if self.chromedriver.find_elements(By.CSS_SELECTOR, failure_selector): 
                 return False
             if self.chromedriver.find_elements(By.XPATH, success_xpath):
                 return True
-            
-            try:
-                el = self.chromedriver.find_element(By.ID, verification_element_id)
-                if not el.is_displayed():
-                    return True
-            except NoSuchElementException:
-                pass
-
+            if not self.chromedriver.find_elements(By.CSS_SELECTOR, self.captcha_wrappers[0]):
+                return True
             time.sleep(0.5)
+
         return False
 
     def _click_proportional(

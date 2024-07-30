@@ -22,13 +22,20 @@ class AsyncPlaywrightSolver(AsyncSolver):
         self.client = ApiClient(sadcaptcha_api_key)
 
     async def captcha_is_present(self, timeout: int = 15) -> bool:
-        for _ in range(timeout):
-            if await self._any_selector_in_list_present(self.captcha_wrappers):
-                logging.debug("Captcha detected")
-                return True
-            await asyncio.sleep(1)
-        logging.debug("Did not detect captcha")
-        return False
+        try:
+            locator = self.page.locator(self.captcha_wrappers[0])
+            await expect(locator.first).to_be_visible(timeout=timeout * 1000)
+            return True
+        except (TimeoutError, AssertionError):
+            return False
+
+    async def captcha_is_not_present(self, timeout: int = 15) -> bool:
+        try:
+            locator = self.page.locator(self.captcha_wrappers[0])
+            await expect(locator.first).to_have_count(0, timeout=timeout * 1000)
+            return True
+        except (TimeoutError, AssertionError):
+            return False
 
     async def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate"]:
         for _ in range(15):
@@ -59,7 +66,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             await self._click_proportional(bounding_box, solution.point_one_proportion_x, solution.point_one_proportion_y)
             await self._click_proportional(bounding_box, solution.point_two_proportion_x, solution.point_two_proportion_y)
             await self.page.locator(".verify-captcha-submit-button").click()
-            if await self._check_captcha_success():
+            if await self.captcha_is_not_present(timeout=5):
                 return
             else:
                 await asyncio.sleep(5)
@@ -76,7 +83,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             distance = await self._compute_rotate_slide_distance(solution.angle)
             logging.debug(f"Solution distance: {distance}")
             await self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
-            if await self._check_captcha_success():
+            if await self.captcha_is_not_present(timeout=5):
                 return
             else:
                 await asyncio.sleep(5)
@@ -91,7 +98,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             solution = self.client.puzzle(puzzle, piece)
             distance = await self._compute_puzzle_slide_distance(solution.slide_x_proportion)
             await self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
-            if await self._check_captcha_success():
+            if await self.captcha_is_not_present(timeout=5):
                 return
             else:
                 await asyncio.sleep(5)
@@ -156,39 +163,6 @@ class AsyncPlaywrightSolver(AsyncSolver):
         if not url:
             raise ValueError("Shapes image URL was None")
         return url
-
-    async def _check_captcha_success(self) -> bool:
-        timeout_ms = 5000
-
-        async def verification_element_is_hidden():
-            try:
-                locator = self.page.locator("#tiktok-verify-ele")
-                await expect(locator.first).to_be_hidden(timeout=timeout_ms)
-                return True
-            except (TimeoutError, AssertionError):
-                return False
-
-        async def css_class_assigned():
-            success_class = "captcha_verify_message-pass"
-            failure_class = "captcha_verify_message-fail"
-
-            try:
-                locator = self.page.locator(f"css=.{success_class}").or_(
-                    self.page.locator(f"css=.{failure_class}")
-                )
-                await expect(locator.first).to_be_visible()
-                await expect(locator.first).to_have_class(
-                    success_class, timeout=timeout_ms
-                )
-                return True
-            except (TimeoutError, AssertionError):
-                return False
-
-        results = await asyncio.gather(
-            verification_element_is_hidden(),
-            css_class_assigned(),
-        )
-        return any(results)
 
     async def _click_proportional(
             self,
