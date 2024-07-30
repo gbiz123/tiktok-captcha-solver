@@ -61,8 +61,6 @@ class AsyncPlaywrightSolver(AsyncSolver):
             await self.page.locator(".verify-captcha-submit-button").click()
             if await self._check_captcha_success():
                 return
-            else:
-                await asyncio.sleep(5)
 
     async def solve_rotate(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -78,8 +76,6 @@ class AsyncPlaywrightSolver(AsyncSolver):
             await self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if await self._check_captcha_success():
                 return
-            else:
-                await asyncio.sleep(5)
 
     async def solve_puzzle(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -93,8 +89,6 @@ class AsyncPlaywrightSolver(AsyncSolver):
             await self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if await self._check_captcha_success():
                 return
-            else:
-                await asyncio.sleep(5)
 
     async def _compute_rotate_slide_distance(self, angle: int) -> int:
         slide_length = await self._get_slide_length()
@@ -158,17 +152,37 @@ class AsyncPlaywrightSolver(AsyncSolver):
         return url
 
     async def _check_captcha_success(self) -> bool:
-        success_class = "captcha_verify_message-pass"
-        failure_class = "captcha_verify_message-fail"
-        try:
-            locator = self.page.locator(f"css=.{success_class}").or_(self.page.locator(f"css=.{failure_class}"))
-            await expect(locator.first).to_be_visible()
-            await expect(locator.first).to_have_class(success_class, timeout=5)
-            return True
-        except TimeoutError:
-            return False
-        except AssertionError:
-            return False
+        timeout_ms = 5000
+
+        async def verification_element_is_hidden():
+            try:
+                locator = self.page.locator("#tiktok-verify-ele")
+                await expect(locator.first).to_be_hidden(timeout=timeout_ms)
+                return True
+            except (TimeoutError, AssertionError):
+                return False
+
+        async def css_class_assigned():
+            success_class = "captcha_verify_message-pass"
+            failure_class = "captcha_verify_message-fail"
+
+            try:
+                locator = self.page.locator(f"css=.{success_class}").or_(
+                    self.page.locator(f"css=.{failure_class}")
+                )
+                await expect(locator.first).to_be_visible()
+                await expect(locator.first).to_have_class(
+                    success_class, timeout=timeout_ms
+                )
+                return True
+            except (TimeoutError, AssertionError):
+                return False
+
+        results = await asyncio.gather(
+            verification_element_is_hidden(),
+            css_class_assigned(),
+        )
+        return any(results)
 
     async def _click_proportional(
             self,

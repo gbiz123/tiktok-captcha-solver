@@ -57,8 +57,6 @@ class PlaywrightSolver(Solver):
             self.page.locator(".verify-captcha-submit-button").click()
             if self._check_captcha_success():
                 return
-            else:
-                time.sleep(5)
 
     def solve_rotate(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -74,8 +72,6 @@ class PlaywrightSolver(Solver):
             self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if self._check_captcha_success():
                 return
-            else:
-                time.sleep(5)
 
     def solve_puzzle(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -89,8 +85,6 @@ class PlaywrightSolver(Solver):
             self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if self._check_captcha_success():
                 return
-            else:
-                time.sleep(5)
 
     def _compute_rotate_slide_distance(self, angle: int) -> int:
         slide_length = self._get_slide_length()
@@ -152,19 +146,34 @@ class PlaywrightSolver(Solver):
         if not url:
             raise ValueError("Shapes image URL was None")
         return url
-
+    
     def _check_captcha_success(self) -> bool:
-        success_class = "captcha_verify_message-pass"
-        failure_class = "captcha_verify_message-fail"
-        try:
-            locator = self.page.locator(f"css=.{success_class}").or_(self.page.locator(f"css=.{failure_class}"))
-            expect(locator.first).to_be_visible()
-            expect(locator.first).to_have_class(success_class, timeout=5)
-            return True
-        except TimeoutError:
-            return False
-        except AssertionError:
-            return False
+        timeout_ms = 2500
+
+        def verification_element_is_hidden():
+            try:
+                locator = self.page.locator("#tiktok-verify-ele")
+                expect(locator.first).to_be_hidden(timeout=timeout_ms)
+                return True
+            except (TimeoutError, AssertionError):
+                return False
+
+        def css_class_assigned():
+            success_class = "captcha_verify_message-pass"
+            failure_class = "captcha_verify_message-fail"
+
+            try:
+                locator = self.page.locator(f"css=.{success_class}").or_(
+                    self.page.locator(f"css=.{failure_class}")
+                )
+                expect(locator.first).to_be_visible()
+                expect(locator.first).to_have_class(success_class, timeout=timeout_ms)
+                return True
+            except (TimeoutError, AssertionError):
+                return False
+
+        results = [verification_element_is_hidden(), css_class_assigned()]
+        return any(results)
 
     def _click_proportional(
             self,

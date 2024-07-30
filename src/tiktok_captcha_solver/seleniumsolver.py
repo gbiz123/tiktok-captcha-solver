@@ -57,8 +57,7 @@ class SeleniumSolver(Solver):
             self.chromedriver.find_element(By.CSS_SELECTOR, ".verify-captcha-submit-button").click()
             if self._check_captcha_success():
                 return
-            else:
-                time.sleep(5)
+
 
     def solve_rotate(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -72,8 +71,6 @@ class SeleniumSolver(Solver):
             self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if self._check_captcha_success():
                 return
-            else:
-                time.sleep(5)
 
     def solve_puzzle(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -87,8 +84,6 @@ class SeleniumSolver(Solver):
             self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
             if self._check_captcha_success():
                 return
-            else:
-                time.sleep(5)
 
     def _compute_rotate_slide_distance(self, angle: int) -> int:
         slide_length = self._get_slide_length()
@@ -146,6 +141,8 @@ class SeleniumSolver(Solver):
         success_selector = ".captcha_verify_message-pass"
         failure_selector = ".captcha_verify_message-fail"
         success_xpath = "//*[contains(text(), 'Verification complete')]"
+        verification_element_id = "tiktok-verify-ele"
+
         for _ in range(40):
             if self.chromedriver.find_elements(By.CSS_SELECTOR, success_selector):
                 return True
@@ -153,6 +150,9 @@ class SeleniumSolver(Solver):
                 return False
             if self.chromedriver.find_elements(By.XPATH, success_xpath):
                 return True
+            if self.chromedriver.find_elements(By.ID, verification_element_id):
+                return True
+
             time.sleep(0.5)
         return False
 
