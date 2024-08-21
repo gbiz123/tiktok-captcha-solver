@@ -16,9 +16,18 @@ class PlaywrightSolver(Solver):
     client: ApiClient
     page: Page
 
-    def __init__(self, page: Page, sadcaptcha_api_key: str) -> None:
+    def __init__(
+            self,
+            page: Page,
+            sadcaptcha_api_key: str,
+            headers: dict | None = None,
+            proxy: str | None = None
+        ) -> None:
         self.page = page
         self.client = ApiClient(sadcaptcha_api_key)
+        self.headers = headers
+        self.proxy = proxy
+        self.headers = headers
 
     def captcha_is_present(self, timeout: int = 15) -> bool:
         try:
@@ -53,7 +62,7 @@ class PlaywrightSolver(Solver):
             if not self._any_selector_in_list_present(["#captcha-verify-image"]):
                 logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
                 return
-            image = download_image_b64(self._get_shapes_image_url())
+            image = download_image_b64(self._get_shapes_image_url(), headers=self.headers, proxy=self.proxy)
             solution = self.client.shapes(image)
             image_element = self.page.locator("#captcha-verify-image")
             bounding_box = image_element.bounding_box()
@@ -72,8 +81,8 @@ class PlaywrightSolver(Solver):
             if not self._any_selector_in_list_present(["[data-testid=whirl-inner-img]"]):
                 logging.debug("Went to solve rotate but whirl-inner-img was not present")
                 return
-            outer = download_image_b64(self._get_rotate_outer_image_url())
-            inner = download_image_b64(self._get_rotate_inner_image_url())
+            outer = download_image_b64(self._get_rotate_outer_image_url(), headers=self.headers, proxy=self.proxy)
+            inner = download_image_b64(self._get_rotate_inner_image_url(), headers=self.headers, proxy=self.proxy)
             solution = self.client.rotate(outer, inner)
             logging.debug(f"Solution angle: {solution}")
             distance = self._compute_rotate_slide_distance(solution.angle)
@@ -89,8 +98,8 @@ class PlaywrightSolver(Solver):
             if not self._any_selector_in_list_present(["#captcha-verify-image"]):
                 logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
                 return
-            puzzle = download_image_b64(self._get_puzzle_image_url())
-            piece = download_image_b64(self._get_piece_image_url())
+            puzzle = download_image_b64(self._get_puzzle_image_url(), headers=self.headers, proxy=self.proxy)
+            piece = download_image_b64(self._get_piece_image_url(), headers=self.headers, proxy=self.proxy)
             solution = self.client.puzzle(puzzle, piece)
             distance = self._compute_puzzle_slide_distance(solution.slide_x_proportion)
             self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)

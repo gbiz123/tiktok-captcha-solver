@@ -3,7 +3,6 @@
 import time
 from typing import Literal
 
-from selenium.common import NoSuchElementException
 from selenium.webdriver import ActionChains, Chrome
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.by import By
@@ -21,9 +20,17 @@ class SeleniumSolver(Solver):
     client: ApiClient
     chromedriver: Chrome
 
-    def __init__(self, chromedriver: Chrome, sadcaptcha_api_key: str) -> None:
+    def __init__(
+            self, 
+            chromedriver: Chrome,
+            sadcaptcha_api_key: str,
+            headers: dict | None = None,
+            proxy: str | None = None
+        ) -> None:
         self.chromedriver = chromedriver
         self.client = ApiClient(sadcaptcha_api_key)
+        self.headers = headers
+        self.proxy = proxy
 
     def captcha_is_present(self, timeout: int = 15) -> bool:
         for _ in range(timeout * 2):
@@ -60,7 +67,7 @@ class SeleniumSolver(Solver):
             if not self._any_selector_in_list_present(["#captcha-verify-image"]):
                 logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
                 return
-            image = download_image_b64(self._get_shapes_image_url())
+            image = download_image_b64(self._get_shapes_image_url(), headers=self.headers, proxy=self.proxy)
             solution = self.client.shapes(image)
             image_element = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
             self._click_proportional(image_element, solution.point_one_proportion_x, solution.point_one_proportion_y)
@@ -76,8 +83,8 @@ class SeleniumSolver(Solver):
             if not self._any_selector_in_list_present(["[data-testid=whirl-inner-img]"]):
                 logging.debug("Went to solve rotate but whirl-inner-img was not present")
                 return
-            outer = download_image_b64(self._get_rotate_outer_image_url())
-            inner = download_image_b64(self._get_rotate_inner_image_url())
+            outer = download_image_b64(self._get_rotate_outer_image_url(), headers=self.headers, proxy=self.proxy)
+            inner = download_image_b64(self._get_rotate_inner_image_url(), headers=self.headers, proxy=self.proxy)
             solution = self.client.rotate(outer, inner)
             distance = self._compute_rotate_slide_distance(solution.angle)
             self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
@@ -91,8 +98,8 @@ class SeleniumSolver(Solver):
             if not self._any_selector_in_list_present(["#captcha-verify-image"]):
                 logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
                 return
-            puzzle = download_image_b64(self._get_puzzle_image_url())
-            piece = download_image_b64(self._get_piece_image_url())
+            puzzle = download_image_b64(self._get_puzzle_image_url(), headers=self.headers, proxy=self.proxy)
+            piece = download_image_b64(self._get_piece_image_url(), headers=self.headers, proxy=self.proxy)
             solution = self.client.puzzle(puzzle, piece)
             distance = self._compute_puzzle_slide_distance(solution.slide_x_proportion)
             self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)

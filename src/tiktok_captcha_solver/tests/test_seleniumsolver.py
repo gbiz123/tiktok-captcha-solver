@@ -48,9 +48,22 @@ def open_tiktkok_search(driver: uc.Chrome) -> None:
 def test_solve_captcha_at_login(caplog):
     caplog.set_level(logging.DEBUG)
     driver = make_driver()
-    open_tiktkok_login(driver)
-    sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
-    sadcaptcha.solve_captcha_if_present()
+    try:
+        open_tiktkok_login(driver)
+        sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+        sadcaptcha.solve_captcha_if_present()
+    finally:
+        driver.quit()
+
+def test_solve_captcha_at_login_with_proxy(caplog):
+    caplog.set_level(logging.DEBUG)
+    driver = make_driver()
+    try:
+        open_tiktkok_login(driver)
+        sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"], proxy=os.environ["PROXY"])
+        sadcaptcha.solve_captcha_if_present()
+    finally:
+        driver.quit()
 
 def test_solve_captcha_at_search(caplog):
     caplog.set_level(logging.DEBUG)
@@ -58,3 +71,4 @@ def test_solve_captcha_at_search(caplog):
     open_tiktkok_search(driver)
     sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
     sadcaptcha.solve_captcha_if_present()
+    driver.quit()
