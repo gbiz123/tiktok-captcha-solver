@@ -50,21 +50,22 @@ It is the recommended method if you are using playwright.
 ```py
 from tiktok_captcha_solver import PlaywrightSolver
 from playwright.sync_api import Page, sync_playwright
-from playwright_stealth import stealth_sync
+from playwright_stealth import stealth_sync, StealthConfig
 
 api_key = "YOUR_API_KEY_HERE"
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=False)
     page = browser.new_page()
-    stealth_sync(page) # Use default playwright_stealth configuration!
+    config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+    stealth_sync(page, config) # Use correct playwright_stealth configuration!
     
     # Playwright code that causes a TikTok captcha...
 
     sadcaptcha = PlaywrightSolver(page, api_key)
     sadcaptcha.solve_captcha_if_present()
 ```
-It is crucial that users of the Playwright client also use `playwright-stealth` with the default configuration.
+It is crucial that users of the Playwright client also use `playwright-stealth` with the configuration specified above.
 Failure to use the `playwright-stealth` plugin will result in "Verification failed" when attempting to solve the captcha.
 
 ## Async Playwright Client
@@ -78,7 +79,7 @@ It is the recommended method if you are using async playwright.
 import asyncio
 from tiktok_captcha_solver import AsyncPlaywrightSolver
 from playwright.async_api import Page, async_playwright
-from playwright_stealth import stealth_async
+from playwright_stealth import stealth_async, StealthConfig
 
 api_key = "YOUR_API_KEY_HERE"
 
@@ -86,7 +87,8 @@ async def main()
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False)
         page = await browser.new_page()
-        await stealth_async(page) # Use default playwright_stealth configuration!
+        config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+        await stealth_async(page, config) # Use correct playwright_stealth configuration!
         
         # Playwright code that causes a TikTok captcha...
 
@@ -95,7 +97,7 @@ async def main()
 
 asyncio.run(main())
 ```
-It is crucial that users of the Playwright client also use `playwright-stealth` with the default configuration.
+It is crucial that users of the Playwright client also use `playwright-stealth` with the stealth configuration specified above.
 Failure to use the `playwright-stealth` plugin will result in "Verification failed" when attempting to solve the captcha.
 
 ## Using Proxies and Custom Headers
