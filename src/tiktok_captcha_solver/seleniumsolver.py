@@ -62,51 +62,36 @@ class SeleniumSolver(Solver):
                 time.sleep(2)
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
 
-    def solve_shapes(self, retries: int = 3) -> None:
-        for _ in range(retries):
-            if not self._any_selector_in_list_present(["#captcha-verify-image"]):
-                logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
-                return
-            image = download_image_b64(self._get_shapes_image_url(), headers=self.headers, proxy=self.proxy)
-            solution = self.client.shapes(image)
-            image_element = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
-            self._click_proportional(image_element, solution.point_one_proportion_x, solution.point_one_proportion_y)
-            self._click_proportional(image_element, solution.point_two_proportion_x, solution.point_two_proportion_y)
-            self.chromedriver.find_element(By.CSS_SELECTOR, ".verify-captcha-submit-button").click()
-            if self.captcha_is_not_present(timeout=5):
-                return
-            else:
-                time.sleep(5)
+    def solve_shapes(self) -> None:
+        if not self._any_selector_in_list_present(["#captcha-verify-image"]):
+            logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
+            return
+        image = download_image_b64(self._get_shapes_image_url(), headers=self.headers, proxy=self.proxy)
+        solution = self.client.shapes(image)
+        image_element = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
+        self._click_proportional(image_element, solution.point_one_proportion_x, solution.point_one_proportion_y)
+        self._click_proportional(image_element, solution.point_two_proportion_x, solution.point_two_proportion_y)
+        self.chromedriver.find_element(By.CSS_SELECTOR, ".verify-captcha-submit-button").click()
 
-    def solve_rotate(self, retries: int = 3) -> None:
-        for _ in range(retries):
-            if not self._any_selector_in_list_present(["[data-testid=whirl-inner-img]"]):
-                logging.debug("Went to solve rotate but whirl-inner-img was not present")
-                return
-            outer = download_image_b64(self._get_rotate_outer_image_url(), headers=self.headers, proxy=self.proxy)
-            inner = download_image_b64(self._get_rotate_inner_image_url(), headers=self.headers, proxy=self.proxy)
-            solution = self.client.rotate(outer, inner)
-            distance = self._compute_rotate_slide_distance(solution.angle)
-            self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
-            if self.captcha_is_not_present(timeout=5):
-                return
-            else:
-                time.sleep(5)
+    def solve_rotate(self) -> None:
+        if not self._any_selector_in_list_present(["[data-testid=whirl-inner-img]"]):
+            logging.debug("Went to solve rotate but whirl-inner-img was not present")
+            return
+        outer = download_image_b64(self._get_rotate_outer_image_url(), headers=self.headers, proxy=self.proxy)
+        inner = download_image_b64(self._get_rotate_inner_image_url(), headers=self.headers, proxy=self.proxy)
+        solution = self.client.rotate(outer, inner)
+        distance = self._compute_rotate_slide_distance(solution.angle)
+        self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
 
-    def solve_puzzle(self, retries: int = 3) -> None:
-        for _ in range(retries):
-            if not self._any_selector_in_list_present(["#captcha-verify-image"]):
-                logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
-                return
-            puzzle = download_image_b64(self._get_puzzle_image_url(), headers=self.headers, proxy=self.proxy)
-            piece = download_image_b64(self._get_piece_image_url(), headers=self.headers, proxy=self.proxy)
-            solution = self.client.puzzle(puzzle, piece)
-            distance = self._compute_puzzle_slide_distance(solution.slide_x_proportion)
-            self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
-            if self.captcha_is_not_present(timeout=5):
-                return
-            else:
-                time.sleep(5)
+    def solve_puzzle(self) -> None:
+        if not self._any_selector_in_list_present(["#captcha-verify-image"]):
+            logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
+            return
+        puzzle = download_image_b64(self._get_puzzle_image_url(), headers=self.headers, proxy=self.proxy)
+        piece = download_image_b64(self._get_piece_image_url(), headers=self.headers, proxy=self.proxy)
+        solution = self.client.puzzle(puzzle, piece)
+        distance = self._compute_puzzle_slide_distance(solution.slide_x_proportion)
+        self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
 
     def _compute_rotate_slide_distance(self, angle: int) -> int:
         slide_length = self._get_slide_length()

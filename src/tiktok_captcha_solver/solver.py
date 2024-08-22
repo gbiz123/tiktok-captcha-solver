@@ -1,5 +1,6 @@
 """Abstract base class for Tiktok Captcha Solvers"""
 
+import time
 from abc import ABC, abstractmethod
 from typing import Literal
 
@@ -38,22 +39,31 @@ class Solver(ABC):
             captcha_detect_timeout: return if no captcha is detected in this many seconds
             retries: number of times to retry captcha
         """
-        if not self.captcha_is_present(captcha_detect_timeout):
-            logging.debug("Captcha is not present")
-            return
-        match self.identify_captcha():
-            case "puzzle": 
-                logging.debug("Detected puzzle")
-                self.solve_puzzle(retries)
-            case "rotate": 
-                logging.debug("Detected rotate")
-                self.solve_rotate(retries)
-            case "shapes": 
-                logging.debug("Detected shapes")
-                self.solve_shapes(retries)
+        for _ in range(retries):
+            if not self.captcha_is_present(captcha_detect_timeout):
+                logging.debug("Captcha is not present")
+                return
+            match self.identify_captcha():
+                case "puzzle": 
+                    logging.debug("Detected puzzle")
+                    self.solve_puzzle()
+                case "rotate": 
+                    logging.debug("Detected rotate")
+                    self.solve_rotate()
+                case "shapes": 
+                    logging.debug("Detected shapes")
+                    self.solve_shapes()
+            if self.captcha_is_not_present(timeout=5):
+                return
+            else:
+                time.sleep(5)
 
     @abstractmethod
     def captcha_is_present(self, timeout: int = 15) -> bool:
+        pass
+
+    @abstractmethod
+    def captcha_is_not_present(self, timeout: int = 15) -> bool:
         pass
 
     @abstractmethod
@@ -61,14 +71,14 @@ class Solver(ABC):
         pass
 
     @abstractmethod
-    def solve_shapes(self, retries: int = 3) -> None:
+    def solve_shapes(self) -> None:
         pass
 
     @abstractmethod
-    def solve_rotate(self, retries: int = 3) -> None:
+    def solve_rotate(self) -> None:
         pass
 
     @abstractmethod
-    def solve_puzzle(self, retries: int = 3) -> None:
+    def solve_puzzle(self) -> None:
         pass
 

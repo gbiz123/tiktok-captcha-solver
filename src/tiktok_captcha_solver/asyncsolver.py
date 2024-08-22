@@ -1,5 +1,6 @@
 """Abstract base class for Tiktok Captcha Async Solvers"""
 
+import asyncio
 from abc import ABC, abstractmethod
 from typing import Literal
 
@@ -38,22 +39,31 @@ class AsyncSolver(ABC):
             captcha_detect_timeout: return if no captcha is detected in this many seconds
             retries: number of times to retry captcha
         """
-        if not await self.captcha_is_present(captcha_detect_timeout):
-            logging.debug("Captcha is not present")
-            return
-        match await self.identify_captcha():
-            case "puzzle": 
-                logging.debug("Detected puzzle")
-                await self.solve_puzzle(retries)
-            case "rotate": 
-                logging.debug("Detected rotate")
-                await self.solve_rotate(retries)
-            case "shapes": 
-                logging.debug("Detected shapes")
-                await self.solve_shapes(retries)
+        for _ in range(retries):
+            if not await self.captcha_is_present(captcha_detect_timeout):
+                logging.debug("Captcha is not present")
+                return
+            match await self.identify_captcha():
+                case "puzzle": 
+                    logging.debug("Detected puzzle")
+                    await self.solve_puzzle()
+                case "rotate": 
+                    logging.debug("Detected rotate")
+                    await self.solve_rotate()
+                case "shapes": 
+                    logging.debug("Detected shapes")
+                    await self.solve_shapes()
+            if await self.captcha_is_not_present(timeout=5):
+                return
+            else:
+                await asyncio.sleep(5)
 
     @abstractmethod
     async def captcha_is_present(self, timeout: int = 15) -> bool:
+        pass
+
+    @abstractmethod
+    async def captcha_is_not_present(self, timeout: int = 15) -> bool:
         pass
 
     @abstractmethod
@@ -61,14 +71,14 @@ class AsyncSolver(ABC):
         pass
 
     @abstractmethod
-    async def solve_shapes(self, retries: int = 3) -> None:
+    async def solve_shapes(self) -> None:
         pass
 
     @abstractmethod
-    async def solve_rotate(self, retries: int = 3) -> None:
+    async def solve_rotate(self) -> None:
         pass
 
     @abstractmethod
-    async def solve_puzzle(self, retries: int = 3) -> None:
+    async def solve_puzzle(self) -> None:
         pass
 
