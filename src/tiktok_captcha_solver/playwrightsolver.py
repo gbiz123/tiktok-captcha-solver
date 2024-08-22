@@ -190,7 +190,9 @@ class PlaywrightSolver(Solver):
         time.sleep(random.randint(1, 10) / 11)
         self.page.mouse.down()
         time.sleep(random.randint(1, 10) / 11)
-        self.page.mouse.move(start_x + x, start_y, steps=100)
+        overshoot = random.choice([5, 6, 7, 8])
+        self.page.mouse.move(start_x + x + overshoot, start_y, steps=100) # overshoot forward
+        self.page.mouse.move(start_x + x, start_y, steps=75) # overshoot back
         time.sleep(0.001)
         self.page.mouse.up()
 
