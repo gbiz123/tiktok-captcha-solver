@@ -5,6 +5,17 @@ The purpose is to make integrating SadCaptcha into your Selenium, Playwright, or
 
 Instructions for integrating with Selenium, Playwright, and Async Playwright are described below in their respective sections.
 
+<div align="center">
+  <hr>
+  <a href="https://www.sadcaptcha.com?ref=simonfarah" target="_blank">
+    <img src="https://sadcaptcha.b-cdn.net/tiktok3d.webp" width="100" alt="TikTok Captcha Solver">
+    <img src="https://sadcaptcha.b-cdn.net/tiktokrotate.webp" width="100" alt="TikTok Captcha Solver">
+    <img src="https://sadcaptcha.b-cdn.net/tiktokpuzzle.webp" width="100" alt="TikTok Captcha Solver">
+    <img src="https://sadcaptcha.b-cdn.net/tiktokicon.webp" width="100" alt="TikTok Captcha Solver">
+    <br/>
+  </a>
+</div>
+
 ## Requirements
 - Python >= 3.10
 - **If using Selenium** - Selenium properly installed and in `PATH`
@@ -148,6 +159,9 @@ res = client.puzzle("base64 encoded puzzle", "base64 encoded piece")
 
 # Shapes
 res = client.shapes("base64 encoded shapes image")
+
+# Icon (Video upload)
+res = client.icon("Which of these objects... ?", base64 encoded icon image")
 ```
 
 ## Troubleshooting
