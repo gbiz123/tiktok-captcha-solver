@@ -6,6 +6,7 @@ src/tiktok_captcha_solver/asyncplaywrightsolver.py
 src/tiktok_captcha_solver/asyncsolver.py
 src/tiktok_captcha_solver/downloader.py
 src/tiktok_captcha_solver/models.py
+src/tiktok_captcha_solver/nodriversolver.py
 src/tiktok_captcha_solver/playwrightsolver.py
 src/tiktok_captcha_solver/seleniumsolver.py
 src/tiktok_captcha_solver/solver.py

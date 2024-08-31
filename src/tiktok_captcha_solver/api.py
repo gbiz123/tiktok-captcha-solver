@@ -1,7 +1,7 @@
 import requests
 import logging
 
-from .models import ShapesCaptchaResponse, RotateCaptchaResponse, PuzzleCaptchaResponse, IconCaptchaResponse
+from .models import ProportionalPoint, ShapesCaptchaResponse, RotateCaptchaResponse, PuzzleCaptchaResponse, IconCaptchaResponse
 
 class ApiClient:
 
@@ -59,5 +59,10 @@ class ApiClient:
         logging.debug("Got API response")
         resp = IconCaptchaResponse(proportional_points=[])
         for point in result.get("proportionalPoints"):
-            resp.proportional_points.append(point)
+            resp.proportional_points.append(
+                ProportionalPoint(
+                    proportion_x=point.get("proportionX"),
+                    proportion_y=point.get("proportionY")
+                )
+            )
         return resp
