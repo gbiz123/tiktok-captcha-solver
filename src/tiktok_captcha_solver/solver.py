@@ -53,6 +53,9 @@ class Solver(ABC):
                 case "shapes": 
                     logging.debug("Detected shapes")
                     self.solve_shapes()
+                case "icon":
+                    logging.debug("Detected icon")
+                    self.solve_icon()
             if self.captcha_is_not_present(timeout=5):
                 return
             else:
@@ -67,7 +70,7 @@ class Solver(ABC):
         pass
 
     @abstractmethod
-    def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate"]:
+    def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate", "icon"]:
         pass
 
     @abstractmethod
@@ -80,5 +83,9 @@ class Solver(ABC):
 
     @abstractmethod
     def solve_puzzle(self) -> None:
+        pass
+
+    @abstractmethod
+    def solve_icon(self) -> None:
         pass
 

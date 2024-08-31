@@ -45,7 +45,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
         except (TimeoutError, AssertionError):
             return False
 
-    async def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate"]:
+    async def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate", "icon"]:
         for _ in range(15):
             if await self._any_selector_in_list_present(self.puzzle_selectors):
                 logging.debug("detected puzzle")
@@ -54,8 +54,16 @@ class AsyncPlaywrightSolver(AsyncSolver):
                 logging.debug("detected rotate")
                 return "rotate"
             if await self._any_selector_in_list_present(self.shapes_selectors):
-                logging.debug("detected shapes")
-                return "shapes"
+                img_url = await self._get_shapes_image_url()
+                if "/icon" in img_url:
+                    logging.debug("detected icon")
+                    return "icon"
+                elif "/3d" in img_url:
+                    logging.debug("detected shapes")
+                    return "shapes"
+                else:
+                    logging.warn("did not see '/3d' in image source url but returning shapes anyways")
+                    return "shapes"
             else:
                 await asyncio.sleep(2)
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
@@ -110,6 +118,28 @@ class AsyncPlaywrightSolver(AsyncSolver):
                 return
             else:
                 await asyncio.sleep(5)
+
+    async def solve_icon(self) -> None:
+        if not await self._any_selector_in_list_present(["#captcha-verify-image"]):
+            logging.debug("Went to solve icon captcha but #captcha-verify-image was not present")
+            return
+        challenge = await self._get_icon_challenge_text()
+        image = download_image_b64(await self._get_shapes_image_url(), headers=self.headers, proxy=self.proxy)
+        solution = self.client.icon(challenge, image)
+        image_element = self.page.locator("#captcha-verify-image")
+        bounding_box = await image_element.bounding_box()
+        if not bounding_box:
+            raise AttributeError("Image element was found but had no bounding box")
+        for point in solution.proportional_points:
+            await self._click_proportional(bounding_box, point.proportion_x, point.proportion_y)
+        await self.page.locator(".verify-captcha-submit-button").click()
+
+    async def _get_icon_challenge_text(self) -> str:
+        challenge_element = self.page.locator(".captcha_verify_bar")
+        text = await challenge_element.text_content()
+        if not text:
+            raise ValueError(".captcha_verify_bar was found but did not have any text.")
+        return text
 
     async def _compute_rotate_slide_distance(self, angle: int) -> int:
         slide_length = await self._get_slide_length()

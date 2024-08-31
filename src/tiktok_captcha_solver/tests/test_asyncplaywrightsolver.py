@@ -8,7 +8,6 @@ import pytest
 
 from ..asyncplaywrightsolver import AsyncPlaywrightSolver
 
-
 async def open_tiktkok_login(page: Page) -> None:
     await page.goto("https://www.tiktok.com/login/phone-or-email/email")
     await asyncio.sleep(10)

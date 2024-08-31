@@ -6,6 +6,13 @@ class ShapesCaptchaResponse(BaseModel):
     point_two_proportion_x: float
     point_two_proportion_y: float
 
+class ProportionalPoint(BaseModel):
+    proportion_x: float
+    proportion_y: float
+
+class IconCaptchaResponse(BaseModel):
+    proportional_points: list[ProportionalPoint]
+
 class RotateCaptchaResponse(BaseModel):
     angle: int
 

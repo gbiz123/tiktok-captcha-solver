@@ -4,7 +4,7 @@ import logging
 
 from ..downloader import download_image_b64
 from ..api import ApiClient
-from tiktok_captcha_solver.models import PuzzleCaptchaResponse, RotateCaptchaResponse, ShapesCaptchaResponse
+from tiktok_captcha_solver.models import IconCaptchaResponse, PuzzleCaptchaResponse, RotateCaptchaResponse, ShapesCaptchaResponse
 
 api_client = ApiClient(os.environ["API_KEY"])
 
@@ -24,8 +24,14 @@ def test_puzzle():
 
 
 def test_shapes():
-    # image = download_image_b64("https://raw.githubusercontent.com/gbiz123/sadcaptcha-code-examples/master/images/tiktok3d.png")
     with open("/home/gregb/ToughdataLLC/SadCaptcha/sadcaptcha-image-processor/src/test/resources/tiktok3d.png", "rb") as image_file:
         image = base64.b64encode(image_file.read()).decode()
         res = api_client.shapes(image)
         assert isinstance(res, ShapesCaptchaResponse)
+
+def test_icon():
+    with open("/home/gregb/ToughdataLLC/SadCaptcha/sadcaptcha-image-processor/src/test/resources/tiktokicon.jpg", "rb") as image_file:
+        challenge = "Which of these objects has a brim?"
+        image = base64.b64encode(image_file.read()).decode()
+        res = api_client.icon(challenge, image)
+        assert isinstance(res, IconCaptchaResponse)

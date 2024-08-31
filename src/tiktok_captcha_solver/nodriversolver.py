@@ -10,79 +10,74 @@ from selenium.webdriver.remote.webelement import WebElement
 from undetected_chromedriver import logging
 from undetected_chromedriver.patcher import random
 
+from nodriver import Tab
+
+from tiktok_captcha_solver.asyncsolver import AsyncSolver
+
 from .api import ApiClient
 from .downloader import download_image_b64
 from .solver import Solver
 
 
-class SeleniumSolver(Solver):
+class NodriverSolver(AsyncSolver):
 
     client: ApiClient
-    chromedriver: Chrome
+    tab: Tab
 
     def __init__(
             self, 
-            chromedriver: Chrome,
+            tab: Tab,
             sadcaptcha_api_key: str,
             headers: dict | None = None,
             proxy: str | None = None
         ) -> None:
-        self.chromedriver = chromedriver
+        self.tab = tab
         self.client = ApiClient(sadcaptcha_api_key)
         self.headers = headers
         self.proxy = proxy
 
-    def captcha_is_present(self, timeout: int = 15) -> bool:
+    async def captcha_is_present(self, timeout: int = 15) -> bool:
         for _ in range(timeout * 2):
-            if self._any_selector_in_list_present(self.captcha_wrappers):
+            if await self._any_selector_in_list_present(self.captcha_wrappers):
                 print("Captcha detected")
                 return True
             time.sleep(0.5)
         logging.debug("Captcha not found")
         return False
 
-    def captcha_is_not_present(self, timeout: int = 15) -> bool:
+    async def captcha_is_not_present(self, timeout: int = 15) -> bool:
         for _ in range(timeout * 2):
-            if len(self.chromedriver.find_elements(By.CSS_SELECTOR, self.captcha_wrappers[0])) == 0:
+            if len(self.tab.find_elements(By.CSS_SELECTOR, self.captcha_wrappers[0])) == 0:
                 print("Captcha detected")
                 return True
             time.sleep(0.5)
         logging.debug("Captcha not found")
         return False
 
-    def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate", "icon"]:
+    async def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate"]:
         for _ in range(15):
             if self._any_selector_in_list_present(self.puzzle_selectors):
                 return "puzzle"
             elif self._any_selector_in_list_present(self.rotate_selectors):
                 return "rotate"
             elif self._any_selector_in_list_present(self.shapes_selectors):
-                img_url = self._get_shapes_image_url()
-                if "/icon" in img_url:
-                    logging.debug("detected icon")
-                    return "icon"
-                elif "/3d" in img_url:
-                    logging.debug("detected shapes")
-                    return "shapes"
-                else:
-                    logging.warn("did not see '/3d' in image source url but returning shapes anyways")
-                    return "shapes"
+                return "shapes"
             else:
                 time.sleep(2)
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
 
-    def solve_shapes(self) -> None:
+    async def solve_shapes(self) -> None:
         if not self._any_selector_in_list_present(["#captcha-verify-image"]):
             logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
             return
         image = download_image_b64(self._get_shapes_image_url(), headers=self.headers, proxy=self.proxy)
         solution = self.client.shapes(image)
-        image_element = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
+        image_element = self.tab.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
         self._click_proportional(image_element, solution.point_one_proportion_x, solution.point_one_proportion_y)
         self._click_proportional(image_element, solution.point_two_proportion_x, solution.point_two_proportion_y)
-        self.chromedriver.find_element(By.CSS_SELECTOR, ".verify-captcha-submit-button").click()
+        self.tab.find_element(By.CSS_SELECTOR, ".verify-captcha-submit-button").click()
 
-    def solve_rotate(self) -> None:
+    async def solve_rotate(self) -> None:
         if not self._any_selector_in_list_present(["[data-testid=whirl-inner-img]"]):
             logging.debug("Went to solve rotate but whirl-inner-img was not present")
             return
@@ -92,7 +87,7 @@ class SeleniumSolver(Solver):
         distance = self._compute_rotate_slide_distance(solution.angle)
         self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
 
-    def solve_puzzle(self) -> None:
+    async def solve_puzzle(self) -> None:
         if not self._any_selector_in_list_present(["#captcha-verify-image"]):
             logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
             return
@@ -102,78 +97,59 @@ class SeleniumSolver(Solver):
         distance = self._compute_puzzle_slide_distance(solution.slide_x_proportion)
         self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
 
-    def solve_icon(self) -> None:
-        if not self._any_selector_in_list_present(["#captcha-verify-image"]):
-            logging.debug("Went to solve icon but #captcha-verify-image was not present")
-            return
-        challenge = self._get_icon_challenge_text()
-        image = download_image_b64(self._get_shapes_image_url(), headers=self.headers, proxy=self.proxy)
-        solution = self.client.icon(challenge, image)
-        image_element = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
-        for point in solution.proportional_points:
-            self._click_proportional(image_element, point.proportion_x, point.proportion_y)
-        self.chromedriver.find_element(By.CSS_SELECTOR, ".verify-captcha-submit-button").click()
-
-    def _get_icon_challenge_text(self) -> str:
-        challenge_element = self.chromedriver.find_element(By.CSS_SELECTOR, ".captcha_verify_bar")
-        text = challenge_element.text
-        if not text:
-            raise ValueError(".captcha_verify_bar was found but did not have any text.")
-        return text
-
-    def _compute_rotate_slide_distance(self, angle: int) -> int:
+    async def _compute_rotate_slide_distance(self, angle: int) -> int:
         slide_length = self._get_slide_length()
         icon_length = self._get_slide_icon_length()
         return int(((slide_length - icon_length) * angle) / 360)
 
-    def _compute_puzzle_slide_distance(self, proportion_x: float) -> int:
-        e = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
+    async def _compute_puzzle_slide_distance(self, proportion_x: float) -> int:
+        e = self.tab.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
         return int(proportion_x * e.size["width"])
 
-    def _get_slide_length(self) -> int:
-        e = self.chromedriver.find_element(By.CSS_SELECTOR, ".captcha_verify_slide--slidebar")
+    async def _get_slide_length(self) -> int:
+        e = self.tab.find_element(By.CSS_SELECTOR, ".captcha_verify_slide--slidebar")
         return e.size['width']
 
-    def _get_slide_icon_length(self) -> int:
-        e = self.chromedriver.find_element(By.CSS_SELECTOR, ".secsdk-captcha-drag-icon")
+    async def _get_slide_icon_length(self) -> int:
+        e = self.tab.find_element(By.CSS_SELECTOR, ".secsdk-captcha-drag-icon")
         return e.size['width']
 
-    def _get_rotate_inner_image_url(self) -> str:
-        e = self.chromedriver.find_element(By.CSS_SELECTOR, "[data-testid=whirl-inner-img]")
+    async def _get_rotate_inner_image_url(self) -> str:
+        e = self.tab.find_element(By.CSS_SELECTOR, "[data-testid=whirl-inner-img]")
         url = e.get_attribute("src")
         if not url:
             raise ValueError("Inner image URL was None")
         return url
 
-    def _get_rotate_outer_image_url(self) -> str:
-        e = self.chromedriver.find_element(By.CSS_SELECTOR, "[data-testid=whirl-outer-img]")
+    async def _get_rotate_outer_image_url(self) -> str:
+        e = self.tab.find_element(By.CSS_SELECTOR, "[data-testid=whirl-outer-img]")
         url = e.get_attribute("src")
         if not url:
             raise ValueError("Outer image URL was None")
         return url
 
-    def _get_puzzle_image_url(self) -> str:
-        e = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
+    async def _get_puzzle_image_url(self) -> str:
+        e = self.tab.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
         url = e.get_attribute("src")
         if not url:
             raise ValueError("Puzzle image URL was None")
         return url
 
-    def _get_piece_image_url(self) -> str:
-        e = self.chromedriver.find_element(By.CSS_SELECTOR, ".captcha_verify_img_slide")
+    async def _get_piece_image_url(self) -> str:
+        e = self.tab.find_element(By.CSS_SELECTOR, ".captcha_verify_img_slide")
         url = e.get_attribute("src")
         if not url:
             raise ValueError("Piece image URL was None")
         return url
 
-    def _get_shapes_image_url(self) -> str:
-        e = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
+    async def _get_shapes_image_url(self) -> str:
+        e = self.tab.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
         url = e.get_attribute("src")
         if not url:
             raise ValueError("Shapes image URL was None")
         return url
 
-    def _click_proportional(
+    async def _click_proportional(
             self,
             element: WebElement,
             proportion_x: float,
@@ -191,7 +167,7 @@ class SeleniumSolver(Solver):
         y_origin = element.location["y"]
         x_offset = (proportion_x * element.size["width"])
         y_offset = (proportion_y * element.size["height"]) 
-        action = ActionBuilder(self.chromedriver)
+        action = ActionBuilder(self.tab)
         action.pointer_action \
             .move_to_location(x_origin + x_offset, y_origin + y_offset) \
             .pause(random.randint(1, 10) / 11) \
@@ -199,9 +175,9 @@ class SeleniumSolver(Solver):
             .pause(random.randint(1, 10) / 11)
         action.perform()
 
-    def _drag_element_horizontal(self, css_selector: str, x: int) -> None:
-        e = self.chromedriver.find_element(By.CSS_SELECTOR, css_selector)
-        actions = ActionChains(self.chromedriver, duration=0)
+    async def _drag_element_horizontal(self, css_selector: str, x: int) -> None:
+        e = self.tab.find_element(By.CSS_SELECTOR, css_selector)
+        actions = ActionChains(self.tab, duration=0)
         actions.click_and_hold(e)
         time.sleep(0.1)
         for _ in range(0, x - 15):
@@ -216,9 +192,9 @@ class SeleniumSolver(Solver):
         actions.pause(0.1)
         actions.release().perform()
 
-    def _any_selector_in_list_present(self, selectors: list[str]) -> bool:
+    async def _any_selector_in_list_present(self, selectors: list[str]) -> bool:
         for selector in selectors:
-            for ele in self.chromedriver.find_elements(By.CSS_SELECTOR, selector):
+            for ele in self.tab.find_elements(By.CSS_SELECTOR, selector):
                 if ele.is_displayed():
                     logging.debug("Detected selector: " + selector + " from list " + ", ".join(selectors))
                     return True

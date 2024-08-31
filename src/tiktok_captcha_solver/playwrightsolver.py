@@ -45,14 +45,23 @@ class PlaywrightSolver(Solver):
         except (TimeoutError, AssertionError):
             return False
 
-    def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate"]:
+    def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate", "icon"]:
         for _ in range(15):
             if self._any_selector_in_list_present(self.puzzle_selectors):
                 return "puzzle"
             elif self._any_selector_in_list_present(self.rotate_selectors):
                 return "rotate"
             if self._any_selector_in_list_present(self.shapes_selectors):
-                return "shapes"
+                img_url = self._get_shapes_image_url()
+                if "/icon" in img_url:
+                    logging.debug("detected icon")
+                    return "icon"
+                elif "/3d" in img_url:
+                    logging.debug("detected shapes")
+                    return "shapes"
+                else:
+                    logging.warn("did not see '/3d' in image source url but returning shapes anyways")
+                    return "shapes"
             else:
                 time.sleep(2)
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
@@ -92,6 +101,28 @@ class PlaywrightSolver(Solver):
         solution = self.client.puzzle(puzzle, piece)
         distance = self._compute_puzzle_slide_distance(solution.slide_x_proportion)
         self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
+
+    def solve_icon(self) -> None:
+        if not self._any_selector_in_list_present(["#captcha-verify-image"]):
+            logging.debug("Went to solve icon captcha but #captcha-verify-image was not present")
+            return
+        challenge = self._get_icon_challenge_text()
+        image = download_image_b64(self._get_shapes_image_url(), headers=self.headers, proxy=self.proxy)
+        solution = self.client.icon(challenge, image)
+        image_element = self.page.locator("#captcha-verify-image")
+        bounding_box = image_element.bounding_box()
+        if not bounding_box:
+            raise AttributeError("Image element was found but had no bounding box")
+        for point in solution.proportional_points:
+            self._click_proportional(bounding_box, point.proportion_x, point.proportion_y)
+        self.page.locator(".verify-captcha-submit-button").click()
+
+    def _get_icon_challenge_text(self) -> str:
+        challenge_element = self.page.locator(".captcha_verify_bar")
+        text = challenge_element.text_content()
+        if not text:
+            raise ValueError(".captcha_verify_bar was found but did not have any text.")
+        return text
 
     def _compute_rotate_slide_distance(self, angle: int) -> int:
         slide_length = self._get_slide_length()

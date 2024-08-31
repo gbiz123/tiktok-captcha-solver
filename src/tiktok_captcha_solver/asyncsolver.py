@@ -27,6 +27,7 @@ class AsyncSolver(ABC):
 
     @property
     def shapes_selectors(self) -> list[str]:
+        """This selector actually covers both shapes (Matching objects) and icon (Which object) captcha"""
         return [
             ".verify-captcha-submit-button" 
         ]
@@ -53,6 +54,9 @@ class AsyncSolver(ABC):
                 case "shapes": 
                     logging.debug("Detected shapes")
                     await self.solve_shapes()
+                case "icon":
+                    logging.debug("Detected icon")
+                    await self.solve_icon()
             if await self.captcha_is_not_present(timeout=5):
                 return
             else:
@@ -67,7 +71,7 @@ class AsyncSolver(ABC):
         pass
 
     @abstractmethod
-    async def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate"]:
+    async def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate", "icon"]:
         pass
 
     @abstractmethod
@@ -81,4 +85,9 @@ class AsyncSolver(ABC):
     @abstractmethod
     async def solve_puzzle(self) -> None:
         pass
+
+    @abstractmethod
+    async def solve_icon(self) -> None:
+        pass
+
 
