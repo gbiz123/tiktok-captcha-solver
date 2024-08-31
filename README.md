@@ -2,19 +2,20 @@
 This project is the [SadCaptcha TikTok Captcha Solver](https://www.sadcaptcha.com?ref=ghclientrepo) API client.
 The purpose is to make integrating SadCaptcha into your Selenium, Playwright, or Async Playwright app as simple as one line of code.
 
-
-Instructions for integrating with Selenium, Playwright, and Async Playwright are described below in their respective sections.
+SadCaptcha can solve any of the four TikTok captcha challenges pictured below:
 
 <div align="center">
-  <hr>
   <a href="https://www.sadcaptcha.com?ref=simonfarah" target="_blank">
     <img src="https://sadcaptcha.b-cdn.net/tiktok3d.webp" width="100" alt="TikTok Captcha Solver">
     <img src="https://sadcaptcha.b-cdn.net/tiktokrotate.webp" width="100" alt="TikTok Captcha Solver">
     <img src="https://sadcaptcha.b-cdn.net/tiktokpuzzle.webp" width="100" alt="TikTok Captcha Solver">
     <img src="https://sadcaptcha.b-cdn.net/tiktokicon.webp" width="100" alt="TikTok Captcha Solver">
     <br/>
-  </a>
 </div>
+
+Instructions for integrating with Selenium, Playwright, and Async Playwright are described below in their respective sections.
+
+
 
 ## Requirements
 - Python >= 3.10
