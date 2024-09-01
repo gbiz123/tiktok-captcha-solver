@@ -1,9 +1,17 @@
 # TikTok Captcha Solver API
 This project is the [SadCaptcha TikTok Captcha Solver](https://www.sadcaptcha.com?ref=ghclientrepo) API client.
 The purpose is to make integrating SadCaptcha into your Selenium, Playwright, or Async Playwright app as simple as one line of code.
-
-
 Instructions for integrating with Selenium, Playwright, and Async Playwright are described below in their respective sections.
+
+This tool can solve any of the four captcha challenges pictured below:
+
+<div align="center">
+    <img src="https://sadcaptcha.b-cdn.net/tiktok3d.webp" width="100" alt="TikTok Captcha Solver">
+    <img src="https://sadcaptcha.b-cdn.net/tiktokrotate.webp" width="100" alt="TikTok Captcha Solver">
+    <img src="https://sadcaptcha.b-cdn.net/tiktokpuzzle.webp" width="100" alt="TikTok Captcha Solver">
+    <img src="https://sadcaptcha.b-cdn.net/tiktokicon.webp" width="100" alt="TikTok Captcha Solver">
+    <br/>
+</div>
 
 ## Requirements
 - Python >= 3.10
@@ -148,6 +156,9 @@ res = client.puzzle("base64 encoded puzzle", "base64 encoded piece")
 
 # Shapes
 res = client.shapes("base64 encoded shapes image")
+
+# Icon (Video upload)
+res = client.icon("Which of these objects... ?", base64 encoded icon image")
 ```
 
 ## Troubleshooting
