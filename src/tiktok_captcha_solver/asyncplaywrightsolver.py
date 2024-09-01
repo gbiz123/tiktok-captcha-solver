@@ -239,8 +239,8 @@ class AsyncPlaywrightSolver(AsyncSolver):
         await self.page.mouse.down()
         await asyncio.sleep(random.randint(1, 10) / 11)
         await self.page.mouse.move(start_x + x, start_y, steps=100)
-        overshoot = random.choice([5, 6, 7, 8])
-        await self.page.mouse.move(start_x + x + overshoot, start_y, steps=100) # overshoot forward
+        overshoot = random.choice([1, 2, 3, 4])
+        await self.page.mouse.move(start_x + x + overshoot, start_y + overshoot, steps=100) # overshoot forward
         await self.page.mouse.move(start_x + x, start_y, steps=75) # overshoot back
         await asyncio.sleep(0.001)
         await self.page.mouse.up()
