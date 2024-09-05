@@ -66,7 +66,6 @@ def test_detect_douyin(caplog):
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
         page.goto("https://www.douyin.com")
-        page.goto("https://www.douyin.com/discover")
         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
         assert sadcaptcha.page_is_douyin()
 

@@ -34,18 +34,27 @@ class SeleniumSolver(Solver):
 
     def captcha_is_present(self, timeout: int = 15) -> bool:
         for _ in range(timeout * 2):
-            if self._any_selector_in_list_present(self.captcha_wrappers):
-                print("Captcha detected")
-                return True
+            if self.page_is_douyin():
+                if self._any_selector_in_list_present([self.douyin_frame_selector]):
+                    return True
+            else:
+                if self._any_selector_in_list_present(self.captcha_wrappers):
+                    print("Captcha detected")
+                    return True
             time.sleep(0.5)
         logging.debug("Captcha not found")
         return False
 
     def captcha_is_not_present(self, timeout: int = 15) -> bool:
         for _ in range(timeout * 2):
-            if len(self.chromedriver.find_elements(By.CSS_SELECTOR, self.captcha_wrappers[0])) == 0:
-                print("Captcha detected")
-                return True
+            if self.page_is_douyin():
+                if len(self.chromedriver.find_elements(By.CSS_SELECTOR, self.douyin_frame_selector)) == 0:
+                    print("Captcha detected")
+                    return True
+            else:
+                if len(self.chromedriver.find_elements(By.CSS_SELECTOR, self.captcha_wrappers[0])) == 0:
+                    print("Captcha detected")
+                    return True
             time.sleep(0.5)
         logging.debug("Captcha not found")
         return False
@@ -70,6 +79,13 @@ class SeleniumSolver(Solver):
             else:
                 time.sleep(2)
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
+
+    def page_is_douyin(self) -> bool:
+        if "douyin" in self.chromedriver.current_url:
+            logging.debug("page is douyin")
+            return True
+        logging.debug("page is tiktok")
+        return False
 
     def solve_shapes(self) -> None:
         if not self._any_selector_in_list_present(["#captcha-verify-image"]):
@@ -113,6 +129,13 @@ class SeleniumSolver(Solver):
         for point in solution.proportional_points:
             self._click_proportional(image_element, point.proportion_x, point.proportion_y)
         self.chromedriver.find_element(By.CSS_SELECTOR, ".verify-captcha-submit-button").click()
+
+    def solve_douyin_puzzle(self) -> None:
+        puzzle = download_image_b64(self._get_douyin_puzzle_image_url(), headers=self.headers, proxy=self.proxy)
+        piece = download_image_b64(self._get_douyin_piece_image_url(), headers=self.headers, proxy=self.proxy)
+        solution = self.client.puzzle(puzzle, piece)
+        distance = self._compute_douyin_puzzle_slide_distance(solution.slide_x_proportion)
+        self._drag_element_horizontal(".captcha-slider-btn", distance, frame_selector=self.douyin_frame_selector)
 
     def _get_icon_challenge_text(self) -> str:
         challenge_element = self.chromedriver.find_element(By.CSS_SELECTOR, ".captcha_verify_bar")
@@ -166,6 +189,39 @@ class SeleniumSolver(Solver):
             raise ValueError("Piece image URL was None")
         return url
 
+    def _get_douyin_puzzle_image_url(self) -> str:
+        frame = self.chromedriver.find_element(By.CSS_SELECTOR, self.douyin_frame_selector)
+        self.chromedriver.switch_to.frame(frame)
+        try:
+            e = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha_verify_image")
+            url = e.get_attribute("src")
+            if not url:
+                raise ValueError("Puzzle image URL was None")
+            return url
+        finally:
+            self.chromedriver.switch_to.default_content()
+
+    def _compute_douyin_puzzle_slide_distance(self, proportion_x: float) -> int:
+        frame = self.chromedriver.find_element(By.CSS_SELECTOR, self.douyin_frame_selector)
+        self.chromedriver.switch_to.frame(frame)
+        try:
+            e = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha_verify_image")
+            return int(proportion_x * e.size["width"])
+        finally:
+            self.chromedriver.switch_to.default_content()
+
+    def _get_douyin_piece_image_url(self) -> str:
+        frame = self.chromedriver.find_element(By.CSS_SELECTOR, self.douyin_frame_selector)
+        self.chromedriver.switch_to.frame(frame)
+        try:
+            e = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha-verify_img_slide")
+            url = e.get_attribute("src")
+            if not url:
+                raise ValueError("Piece image URL was None")
+            return url
+        finally:
+            self.chromedriver.switch_to.default_content()
+
     def _get_shapes_image_url(self) -> str:
         e = self.chromedriver.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
         url = e.get_attribute("src")
@@ -199,22 +255,30 @@ class SeleniumSolver(Solver):
             .pause(random.randint(1, 10) / 11)
         action.perform()
 
-    def _drag_element_horizontal(self, css_selector: str, x: int) -> None:
-        e = self.chromedriver.find_element(By.CSS_SELECTOR, css_selector)
-        actions = ActionChains(self.chromedriver, duration=0)
-        actions.click_and_hold(e)
-        time.sleep(0.1)
-        for _ in range(0, x - 15):
-            actions.move_by_offset(1, 0)
-        for _ in range(0, 20):
-            actions.move_by_offset(1, 0)
-            actions.pause(0.01)
-        actions.pause(0.7)
-        for _ in range(0, 5):
-            actions.move_by_offset(-1, 0)
-            actions.pause(0.05)
-        actions.pause(0.1)
-        actions.release().perform()
+    def _drag_element_horizontal(self, css_selector: str, x: int, frame_selector: str | None = None) -> None:
+        try:
+            if frame_selector:
+                frame = self.chromedriver.find_element(By.CSS_SELECTOR, self.douyin_frame_selector)
+                self.chromedriver.switch_to.frame(frame)
+                e = self.chromedriver.find_element(By.CSS_SELECTOR, css_selector)
+            else:
+                e = self.chromedriver.find_element(By.CSS_SELECTOR, css_selector)
+            actions = ActionChains(self.chromedriver, duration=0)
+            actions.click_and_hold(e)
+            time.sleep(0.1)
+            for _ in range(0, x - 15):
+                actions.move_by_offset(1, 0)
+            for _ in range(0, 20):
+                actions.move_by_offset(1, 0)
+                actions.pause(0.01)
+            actions.pause(0.7)
+            for _ in range(0, 5):
+                actions.move_by_offset(-1, 0)
+                actions.pause(0.05)
+            actions.pause(0.1)
+            actions.release().perform()
+        finally:
+            self.chromedriver.switch_to.default_content()
 
     def _any_selector_in_list_present(self, selectors: list[str]) -> bool:
         for selector in selectors:

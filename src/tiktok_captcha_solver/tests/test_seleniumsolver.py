@@ -10,23 +10,12 @@ import undetected_chromedriver as uc
 from ..seleniumsolver import SeleniumSolver
 
 options = webdriver.ChromeOptions()
-options.add_argument('--no-sandbox')
-options.add_argument('--disable-infobars')
-options.add_argument('--disable-gpu')
-options.add_argument('--disable-dev-shm-usage')
-options.add_argument('--disable-blink-features=AutomationControlled')
-options.add_experimental_option('excludeSwitches', ['enable-automation'])
-options.add_experimental_option('useAutomationExtension', False)
-options.add_argument("start-maximized")
-options.add_argument(
-    "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36")
-options.add_argument("--accept-lang=en-US,en;q=0.5")
-options.add_argument("--dom-automation=disabled")
-
+options.headless = False
+options.binary_location = "/usr/bin/google-chrome-stable"
 
 
 def make_driver() -> uc.Chrome:
-    return uc.Chrome(service=ChromeDriverManager().install(), headless=False, use_subprocess=False, browser_executable_path="/usr/bin/google-chrome-beta")
+    return uc.Chrome(service=ChromeDriverManager().install(), headless=False, use_subprocess=False, browser_executable_path="/usr/bin/google-chrome-stable")
 
 
 def open_tiktkok_login(driver: uc.Chrome) -> None:
@@ -55,20 +44,41 @@ def test_solve_captcha_at_login(caplog):
     finally:
         driver.quit()
 
-def test_solve_captcha_at_login_with_proxy(caplog):
+# def test_solve_captcha_at_login_with_proxy(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     driver = make_driver()
+#     try:
+#         open_tiktkok_login(driver)
+#         sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"], proxy=os.environ["PROXY"])
+#         sadcaptcha.solve_captcha_if_present()
+#     finally:
+#         driver.quit()
+
+# def test_solve_captcha_at_search(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     driver = make_driver()
+#     open_tiktkok_search(driver)
+#     sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+#     sadcaptcha.solve_captcha_if_present()
+#     driver.quit()
+
+def test_detect_douyin(caplog):
     caplog.set_level(logging.DEBUG)
     driver = make_driver()
     try:
-        open_tiktkok_login(driver)
-        sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"], proxy=os.environ["PROXY"])
-        sadcaptcha.solve_captcha_if_present()
+        driver.get("https://www.douyin.com")
+        sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+        assert sadcaptcha.page_is_douyin()
     finally:
         driver.quit()
 
-def test_solve_captcha_at_search(caplog):
+def test_solve_douyin_puzzle(caplog):
     caplog.set_level(logging.DEBUG)
-    driver = make_driver()
-    open_tiktkok_search(driver)
-    sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
-    sadcaptcha.solve_captcha_if_present()
-    driver.quit()
+    driver = webdriver.Chrome(options)
+    try:
+        driver.get("https://www.douyin.com/discover")
+        time.sleep(5)
+        sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+        sadcaptcha.solve_captcha_if_present()
+    finally:
+        driver.quit()

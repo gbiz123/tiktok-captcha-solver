@@ -158,21 +158,15 @@ class PlaywrightSolver(Solver):
             return int(proportion_x * box["width"])
         raise AttributeError("#captcha-verify-image was found but had no bouding box")
 
-    def _get_slide_length(self, frame_selector: str | None = None) -> int:
-        if frame_selector:
-            e = self.page.frame_locator(frame_selector).locator(".captcha_verify_slide--slidebar")
-        else:
-            e = self.page.locator(".captcha_verify_slide--slidebar")
+    def _get_slide_length(self) -> int:
+        e = self.page.locator(".captcha_verify_slide--slidebar")
         box = e.bounding_box()
         if box:
             return int(box["width"])
         raise AttributeError(".captcha_verify_slide--slidebar was found but had no bouding box")
 
-    def _get_slide_icon_length(self, frame_selector: str | None = None) -> int:
-        if frame_selector:
-            e = self.page.frame_locator(frame_selector).locator(".secsdk-captcha-drag-icon")
-        else:
-            e = self.page.locator(".secsdk-captcha-drag-icon")
+    def _get_slide_icon_length(self) -> int:
+        e = self.page.locator(".secsdk-captcha-drag-icon")
         box = e.bounding_box()
         if box:
             return int(box["width"])
