@@ -10,7 +10,9 @@ class Solver(ABC):
 
     @property
     def captcha_wrappers(self) -> list[str]:
-        return [".captcha-disable-scroll"]
+        return [
+            ".captcha-disable-scroll"
+        ]
 
     @property
     def rotate_selectors(self) -> list[str]:
@@ -31,6 +33,9 @@ class Solver(ABC):
             ".verify-captcha-submit-button" 
         ]
 
+    @property
+    def douyin_frame_selector(self) -> Literal["#captcha_container > iframe"]:
+        return "#captcha_container > iframe"
 
     def solve_captcha_if_present(self, captcha_detect_timeout: int = 15, retries: int = 3) -> None:
         """Solves any captcha that is present, if one is detected
@@ -43,19 +48,26 @@ class Solver(ABC):
             if not self.captcha_is_present(captcha_detect_timeout):
                 logging.debug("Captcha is not present")
                 return
-            match self.identify_captcha():
-                case "puzzle": 
-                    logging.debug("Detected puzzle")
-                    self.solve_puzzle()
-                case "rotate": 
-                    logging.debug("Detected rotate")
-                    self.solve_rotate()
-                case "shapes": 
-                    logging.debug("Detected shapes")
-                    self.solve_shapes()
-                case "icon":
-                    logging.debug("Detected icon")
-                    self.solve_icon()
+            if self.page_is_douyin():
+                logging.debug("Solving douyin puzzle")
+                try:
+                    self.solve_douyin_puzzle()
+                except ValueError:
+                    logging.debug("Douyin puzzle was not ready, trying again in 5 seconds")
+            else:
+                match self.identify_captcha():
+                    case "puzzle": 
+                        logging.debug("Detected puzzle")
+                        self.solve_puzzle()
+                    case "rotate": 
+                        logging.debug("Detected rotate")
+                        self.solve_rotate()
+                    case "shapes": 
+                        logging.debug("Detected shapes")
+                        self.solve_shapes()
+                    case "icon":
+                        logging.debug("Detected icon")
+                        self.solve_icon()
             if self.captcha_is_not_present(timeout=5):
                 return
             else:
@@ -74,6 +86,10 @@ class Solver(ABC):
         pass
 
     @abstractmethod
+    def page_is_douyin(self) -> bool:
+        pass
+
+    @abstractmethod
     def solve_shapes(self) -> None:
         pass
 
@@ -87,5 +103,9 @@ class Solver(ABC):
 
     @abstractmethod
     def solve_icon(self) -> None:
+        pass
+
+    @abstractmethod
+    def solve_douyin_puzzle(self) -> None:
         pass
 

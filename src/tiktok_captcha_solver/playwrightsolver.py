@@ -31,16 +31,24 @@ class PlaywrightSolver(Solver):
 
     def captcha_is_present(self, timeout: int = 15) -> bool:
         try:
-            locator = self.page.locator(self.captcha_wrappers[0])
-            expect(locator.first).to_be_visible(timeout=timeout * 1000)
+            if self.page_is_douyin():
+                douyin_locator = self.page.frame_locator(self.douyin_frame_selector).locator("*")
+                expect(douyin_locator.first).not_to_have_count(0)
+            else:
+                tiktok_locator = self.page.locator(self.captcha_wrappers[0])
+                expect(tiktok_locator.first).to_be_visible(timeout=timeout * 1000)
             return True
         except (TimeoutError, AssertionError):
             return False
 
     def captcha_is_not_present(self, timeout: int = 15) -> bool:
         try:
-            locator = self.page.locator(self.captcha_wrappers[0])
-            expect(locator.first).to_have_count(0, timeout=timeout * 1000)
+            if self.page_is_douyin():
+                douyin_locator = self.page.frame_locator(self.douyin_frame_selector).locator("*")
+                expect(douyin_locator.first).to_have_count(0)
+            else:
+                tiktok_locator = self.page.locator(self.captcha_wrappers[0])
+                expect(tiktok_locator.first).to_have_count(0, timeout=timeout * 1000)
             return True
         except (TimeoutError, AssertionError):
             return False
@@ -65,6 +73,13 @@ class PlaywrightSolver(Solver):
             else:
                 time.sleep(2)
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
+
+    def page_is_douyin(self) -> bool:
+        if "douyin" in self.page.url:
+            logging.debug("page is douyin")
+            return True
+        logging.debug("page is tiktok")
+        return False
 
     def solve_shapes(self) -> None:
         if not self._any_selector_in_list_present(["#captcha-verify-image"]):
@@ -117,6 +132,13 @@ class PlaywrightSolver(Solver):
             self._click_proportional(bounding_box, point.proportion_x, point.proportion_y)
         self.page.locator(".verify-captcha-submit-button").click()
 
+    def solve_douyin_puzzle(self) -> None:
+        puzzle = download_image_b64(self._get_douyin_puzzle_image_url(), headers=self.headers, proxy=self.proxy)
+        piece = download_image_b64(self._get_douyin_piece_image_url(), headers=self.headers, proxy=self.proxy)
+        solution = self.client.puzzle(puzzle, piece)
+        distance = self._compute_douyin_puzzle_slide_distance(solution.slide_x_proportion)
+        self._drag_element_horizontal(".captcha-slider-btn", distance, frame_selector=self.douyin_frame_selector)
+
     def _get_icon_challenge_text(self) -> str:
         challenge_element = self.page.locator(".captcha_verify_bar")
         text = challenge_element.text_content()
@@ -136,15 +158,21 @@ class PlaywrightSolver(Solver):
             return int(proportion_x * box["width"])
         raise AttributeError("#captcha-verify-image was found but had no bouding box")
 
-    def _get_slide_length(self) -> int:
-        e = self.page.locator(".captcha_verify_slide--slidebar")
+    def _get_slide_length(self, frame_selector: str | None = None) -> int:
+        if frame_selector:
+            e = self.page.frame_locator(frame_selector).locator(".captcha_verify_slide--slidebar")
+        else:
+            e = self.page.locator(".captcha_verify_slide--slidebar")
         box = e.bounding_box()
         if box:
             return int(box["width"])
         raise AttributeError(".captcha_verify_slide--slidebar was found but had no bouding box")
 
-    def _get_slide_icon_length(self) -> int:
-        e = self.page.locator(".secsdk-captcha-drag-icon")
+    def _get_slide_icon_length(self, frame_selector: str | None = None) -> int:
+        if frame_selector:
+            e = self.page.frame_locator(frame_selector).locator(".secsdk-captcha-drag-icon")
+        else:
+            e = self.page.locator(".secsdk-captcha-drag-icon")
         box = e.bounding_box()
         if box:
             return int(box["width"])
@@ -173,6 +201,27 @@ class PlaywrightSolver(Solver):
 
     def _get_piece_image_url(self) -> str:
         e = self.page.locator(".captcha_verify_img_slide")
+        url = e.get_attribute("src")
+        if not url:
+            raise ValueError("Piece image URL was None")
+        return url
+
+    def _get_douyin_puzzle_image_url(self) -> str:
+        e = self.page.frame_locator(self.douyin_frame_selector).locator("#captcha_verify_image")
+        url = e.get_attribute("src")
+        if not url:
+            raise ValueError("Puzzle image URL was None")
+        return url
+
+    def _compute_douyin_puzzle_slide_distance(self, proportion_x: float) -> int:
+        e = self.page.frame_locator(self.douyin_frame_selector).locator("#captcha_verify_image")
+        box = e.bounding_box()
+        if box:
+            return int(proportion_x * box["width"])
+        raise AttributeError("#captcha-verify-image was found but had no bouding box")
+
+    def _get_douyin_piece_image_url(self) -> str:
+        e = self.page.frame_locator(self.douyin_frame_selector).locator("#captcha-verify_img_slide")
         url = e.get_attribute("src")
         if not url:
             raise ValueError("Piece image URL was None")
@@ -210,8 +259,11 @@ class PlaywrightSolver(Solver):
         self.page.mouse.up()
         time.sleep(random.randint(1, 10) / 11)
 
-    def _drag_element_horizontal(self, css_selector: str, x: int) -> None:
-        e = self.page.locator(css_selector)
+    def _drag_element_horizontal(self, css_selector: str, x: int, frame_selector: str | None = None) -> None:
+        if frame_selector:
+            e = self.page.frame_locator(frame_selector).locator(css_selector)
+        else:
+            e = self.page.locator(css_selector)
         box = e.bounding_box()
         if not box:
             raise AttributeError("Element had no bounding box")

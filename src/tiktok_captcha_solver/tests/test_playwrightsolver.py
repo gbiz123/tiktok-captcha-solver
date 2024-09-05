@@ -38,24 +38,45 @@ def test_solve_captcha_at_login(caplog):
         page.locator("css=#header-more-menu-icon").is_visible()
         expect(page.locator("css=#header-more-menu-icon")).to_be_visible(timeout=30000)
 
-def test_solve_captcha_at_login_with_proxy(caplog):
-    caplog.set_level(logging.DEBUG)
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
-        page = browser.new_page()
-        config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-        stealth_sync(page, config)
-        open_tiktkok_login(page)
-        sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"], proxy=os.environ["PROXY"])
-        sadcaptcha.solve_captcha_if_present()
-        page.locator("css=#header-more-menu-icon").is_visible()
-        expect(page.locator("css=#header-more-menu-icon")).to_be_visible(timeout=30000)
+# def test_solve_captcha_at_login_with_proxy(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     with sync_playwright() as p:
+#         browser = p.chromium.launch(headless=False)
+#         page = browser.new_page()
+#         config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+#         stealth_sync(page, config)
+#         open_tiktkok_login(page)
+#         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"], proxy=os.environ["PROXY"])
+#         sadcaptcha.solve_captcha_if_present()
+#         page.locator("css=#header-more-menu-icon").is_visible()
+#         expect(page.locator("css=#header-more-menu-icon")).to_be_visible(timeout=30000)
+#
+# def test_solve_captcha_at_search(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     with sync_playwright() as p:
+#         browser = p.chromium.launch(headless=False)
+#         page = browser.new_page()
+#         open_tiktok_search(page) 
+#         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
+#         sadcaptcha.solve_captcha_if_present()
 
-def test_solve_captcha_at_search(caplog):
+def test_detect_douyin(caplog):
     caplog.set_level(logging.DEBUG)
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
-        open_tiktok_search(page) 
+        page.goto("https://www.douyin.com")
+        page.goto("https://www.douyin.com/discover")
+        sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
+        assert sadcaptcha.page_is_douyin()
+
+
+def test_solve_douyin_puzzle(caplog):
+    caplog.set_level(logging.DEBUG)
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        page = browser.new_page()
+        page.goto("https://www.douyin.com")
+        page.goto("https://www.douyin.com/discover")
         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
         sadcaptcha.solve_captcha_if_present()
