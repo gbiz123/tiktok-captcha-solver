@@ -32,6 +32,9 @@ class AsyncSolver(ABC):
             ".verify-captcha-submit-button" 
         ]
 
+    @property
+    def douyin_frame_selector(self) -> Literal["#captcha_container > iframe"]:
+        return "#captcha_container > iframe"
 
     async def solve_captcha_if_present(self, captcha_detect_timeout: int = 15, retries: int = 3) -> None:
         """Solves any captcha that is present, if one is detected
@@ -44,19 +47,26 @@ class AsyncSolver(ABC):
             if not await self.captcha_is_present(captcha_detect_timeout):
                 logging.debug("Captcha is not present")
                 return
-            match await self.identify_captcha():
-                case "puzzle": 
-                    logging.debug("Detected puzzle")
-                    await self.solve_puzzle()
-                case "rotate": 
-                    logging.debug("Detected rotate")
-                    await self.solve_rotate()
-                case "shapes": 
-                    logging.debug("Detected shapes")
-                    await self.solve_shapes()
-                case "icon":
-                    logging.debug("Detected icon")
-                    await self.solve_icon()
+            if self.page_is_douyin():
+                logging.debug("Solving douyin puzzle")
+                try:
+                    await self.solve_douyin_puzzle()
+                except ValueError as e:
+                    logging.debug("Douyin puzzle was not ready, trying again in 5 seconds")
+            else:
+                match await self.identify_captcha():
+                    case "puzzle": 
+                        logging.debug("Detected puzzle")
+                        await self.solve_puzzle()
+                    case "rotate": 
+                        logging.debug("Detected rotate")
+                        await self.solve_rotate()
+                    case "shapes": 
+                        logging.debug("Detected shapes")
+                        await self.solve_shapes()
+                    case "icon":
+                        logging.debug("Detected icon")
+                        await self.solve_icon()
             if await self.captcha_is_not_present(timeout=5):
                 return
             else:
@@ -75,6 +85,10 @@ class AsyncSolver(ABC):
         pass
 
     @abstractmethod
+    def page_is_douyin(self) -> bool:
+        pass
+
+    @abstractmethod
     async def solve_shapes(self) -> None:
         pass
 
@@ -89,5 +103,10 @@ class AsyncSolver(ABC):
     @abstractmethod
     async def solve_icon(self) -> None:
         pass
+
+    @abstractmethod
+    async def solve_douyin_puzzle(self) -> None:
+        pass
+
 
 

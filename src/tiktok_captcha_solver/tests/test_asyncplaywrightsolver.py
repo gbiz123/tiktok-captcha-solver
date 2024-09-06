@@ -59,3 +59,24 @@ async def test_solve_captcha_at_search(caplog):
         await open_tiktok_search(page) 
         sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
         await sadcaptcha.solve_captcha_if_present()
+
+@pytest.mark.asyncio
+async def test_detect_douyin(caplog):
+    caplog.set_level(logging.DEBUG)
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=False)
+        page = await browser.new_page()
+        await page.goto("https://www.douyin.com")
+        sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
+        assert sadcaptcha.page_is_douyin()
+
+@pytest.mark.asyncio
+async def test_solve_douyin_puzzle(caplog):
+    caplog.set_level(logging.DEBUG)
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=False)
+        page = await browser.new_page()
+        await page.goto("https://www.douyin.com")
+        await page.goto("https://www.douyin.com/discover")
+        sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
+        await sadcaptcha.solve_captcha_if_present()

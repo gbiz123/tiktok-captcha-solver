@@ -31,16 +31,24 @@ class AsyncPlaywrightSolver(AsyncSolver):
 
     async def captcha_is_present(self, timeout: int = 15) -> bool:
         try:
-            locator = self.page.locator(self.captcha_wrappers[0])
-            await expect(locator.first).to_be_visible(timeout=timeout * 1000)
+            if self.page_is_douyin():
+                douyin_locator = self.page.frame_locator(self.douyin_frame_selector).locator("*")
+                await expect(douyin_locator.first).not_to_have_count(0)
+            else:
+                tiktok_locator = self.page.locator(self.captcha_wrappers[0])
+                await expect(tiktok_locator.first).to_be_visible(timeout=timeout * 1000)
             return True
         except (TimeoutError, AssertionError):
             return False
 
     async def captcha_is_not_present(self, timeout: int = 15) -> bool:
         try:
-            locator = self.page.locator(self.captcha_wrappers[0])
-            await expect(locator.first).to_have_count(0, timeout=timeout * 1000)
+            if self.page_is_douyin():
+                douyin_locator = self.page.frame_locator(self.douyin_frame_selector).locator("*")
+                await expect(douyin_locator.first).to_have_count(0)
+            else:
+                tiktok_locator = self.page.locator(self.captcha_wrappers[0])
+                await expect(tiktok_locator.first).to_have_count(0, timeout=timeout * 1000)
             return True
         except (TimeoutError, AssertionError):
             return False
@@ -67,6 +75,13 @@ class AsyncPlaywrightSolver(AsyncSolver):
             else:
                 await asyncio.sleep(2)
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
+
+    def page_is_douyin(self) -> bool:
+        if "douyin" in self.page.url:
+            logging.debug("page is douyin")
+            return True
+        logging.debug("page is tiktok")
+        return False
 
     async def solve_shapes(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -133,6 +148,34 @@ class AsyncPlaywrightSolver(AsyncSolver):
         for point in solution.proportional_points:
             await self._click_proportional(bounding_box, point.proportion_x, point.proportion_y)
         await self.page.locator(".verify-captcha-submit-button").click()
+
+    async def solve_douyin_puzzle(self) -> None:
+        puzzle = download_image_b64(await self._get_douyin_puzzle_image_url(), headers=self.headers, proxy=self.proxy)
+        piece = download_image_b64(await self._get_douyin_piece_image_url(), headers=self.headers, proxy=self.proxy)
+        solution = self.client.puzzle(puzzle, piece)
+        distance = await self._compute_douyin_puzzle_slide_distance(solution.slide_x_proportion)
+        await self._drag_element_horizontal(".captcha-slider-btn", distance, frame_selector=self.douyin_frame_selector)
+
+    async def _get_douyin_puzzle_image_url(self) -> str:
+        e = self.page.frame_locator(self.douyin_frame_selector).locator("#captcha_verify_image")
+        url = await e.get_attribute("src")
+        if not url:
+            raise ValueError("Puzzle image URL was None")
+        return url
+
+    async def _compute_douyin_puzzle_slide_distance(self, proportion_x: float) -> int:
+        e = self.page.frame_locator(self.douyin_frame_selector).locator("#captcha_verify_image")
+        box = await e.bounding_box()
+        if box:
+            return int(proportion_x * box["width"])
+        raise AttributeError("#captcha-verify-image was found but had no bouding box")
+
+    async def _get_douyin_piece_image_url(self) -> str:
+        e = self.page.frame_locator(self.douyin_frame_selector).locator("#captcha-verify_img_slide")
+        url = await e.get_attribute("src")
+        if not url:
+            raise ValueError("Piece image URL was None")
+        return url
 
     async def _get_icon_challenge_text(self) -> str:
         challenge_element = self.page.locator(".captcha_verify_bar")
@@ -227,8 +270,11 @@ class AsyncPlaywrightSolver(AsyncSolver):
         await self.page.mouse.up()
         await asyncio.sleep(random.randint(1, 10) / 11)
 
-    async def _drag_element_horizontal(self, css_selector: str, x: int) -> None:
-        e = self.page.locator(css_selector)
+    async def _drag_element_horizontal(self, css_selector: str, x: int, frame_selector: str | None = None) -> None:
+        if frame_selector:
+            e = self.page.frame_locator(frame_selector).locator(css_selector)
+        else:
+            e = self.page.locator(css_selector)
         box = await e.bounding_box()
         if not box:
             raise AttributeError("Element had no bounding box")
