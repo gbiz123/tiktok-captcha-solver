@@ -10,7 +10,7 @@ import undetected_chromedriver as uc
 from ..seleniumsolver import SeleniumSolver
 
 options = webdriver.ChromeOptions()
-options.headless = False
+options.add_argument("--headless=0")
 options.binary_location = "/usr/bin/google-chrome-stable"
 
 
@@ -32,7 +32,7 @@ def open_tiktkok_login(driver: uc.Chrome) -> None:
 
 def open_tiktkok_search(driver: uc.Chrome) -> None:
     search_query = "davidteather"
-    driver.get(f"https://www.tiktok.com/search/user?q={search_query}&t=1715558822399")
+    driver.get(f"https://www.tiktok.com/@therock")
 
 def test_solve_captcha_at_login(caplog):
     caplog.set_level(logging.DEBUG)
@@ -54,13 +54,13 @@ def test_solve_captcha_at_login(caplog):
 #     finally:
 #         driver.quit()
 
-# def test_solve_captcha_at_search(caplog):
-#     caplog.set_level(logging.DEBUG)
-#     driver = make_driver()
-#     open_tiktkok_search(driver)
-#     sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
-#     sadcaptcha.solve_captcha_if_present()
-#     driver.quit()
+def test_solve_captcha_at_search(caplog):
+    caplog.set_level(logging.DEBUG)
+    driver = make_driver()
+    open_tiktkok_search(driver)
+    sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+    sadcaptcha.solve_captcha_if_present()
+    driver.quit()
 
 def test_detect_douyin(caplog):
     caplog.set_level(logging.DEBUG)

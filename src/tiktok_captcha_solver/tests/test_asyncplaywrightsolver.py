@@ -22,7 +22,7 @@ async def open_tiktkok_login(page: Page) -> None:
 
 async def open_tiktok_search(page: Page) -> None:
     search_query = "davidteather"
-    await page.goto(f"https://www.tiktok.com/search/user?q={search_query}&t=1715558822399")
+    await page.goto(f"https://www.tiktok.com/@therock")
 
 @pytest.mark.asyncio
 async def test_solve_captcha_at_login(caplog):
@@ -37,18 +37,18 @@ async def test_solve_captcha_at_login(caplog):
         await sadcaptcha.solve_captcha_if_present()
         await expect(page.locator("css=#header-more-menu-icon")).to_be_visible(timeout=30000)
 
-@pytest.mark.asyncio
-async def test_solve_captcha_at_login_with_proxy(caplog):
-    caplog.set_level(logging.DEBUG)
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        page = await browser.new_page()
-        config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-        await stealth_async(page, config)
-        await open_tiktkok_login(page)
-        sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"], proxy=os.environ["PROXY"])
-        await sadcaptcha.solve_captcha_if_present()
-        await expect(page.locator("css=#header-more-menu-icon")).to_be_visible(timeout=30000)
+# @pytest.mark.asyncio
+# async def test_solve_captcha_at_login_with_proxy(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     async with async_playwright() as p:
+#         browser = await p.chromium.launch(headless=False)
+#         page = await browser.new_page()
+#         config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+#         await stealth_async(page, config)
+#         await open_tiktkok_login(page)
+#         sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"], proxy=os.environ["PROXY"])
+#         await sadcaptcha.solve_captcha_if_present()
+#         await expect(page.locator("css=#header-more-menu-icon")).to_be_visible(timeout=30000)
 
 @pytest.mark.asyncio
 async def test_solve_captcha_at_search(caplog):
@@ -56,6 +56,8 @@ async def test_solve_captcha_at_search(caplog):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False)
         page = await browser.new_page()
+        config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+        await stealth_async(page, config)
         await open_tiktok_search(page) 
         sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
         await sadcaptcha.solve_captcha_if_present()

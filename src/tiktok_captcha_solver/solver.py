@@ -11,7 +11,8 @@ class Solver(ABC):
     @property
     def captcha_wrappers(self) -> list[str]:
         return [
-            ".captcha-disable-scroll"
+            ".captcha-disable-scroll",
+            ".captcha_verify_container"
         ]
 
     @property
@@ -52,7 +53,7 @@ class Solver(ABC):
                 logging.debug("Solving douyin puzzle")
                 try:
                     self.solve_douyin_puzzle()
-                except ValueError:
+                except ValueError as e:
                     logging.debug("Douyin puzzle was not ready, trying again in 5 seconds")
             else:
                 match self.identify_captcha():

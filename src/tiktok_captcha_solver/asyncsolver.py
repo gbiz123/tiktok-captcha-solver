@@ -10,7 +10,7 @@ class AsyncSolver(ABC):
 
     @property
     def captcha_wrappers(self) -> list[str]:
-        return [".captcha-disable-scroll"]
+        return [".captcha-disable-scroll", ".captcha_verify_container"]
 
     @property
     def rotate_selectors(self) -> list[str]:

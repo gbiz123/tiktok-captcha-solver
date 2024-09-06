@@ -69,7 +69,6 @@ def test_detect_douyin(caplog):
         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
         assert sadcaptcha.page_is_douyin()
 
-
 def test_solve_douyin_puzzle(caplog):
     caplog.set_level(logging.DEBUG)
     with sync_playwright() as p:
