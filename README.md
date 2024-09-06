@@ -3,7 +3,7 @@ This project is the [SadCaptcha TikTok Captcha Solver](https://www.sadcaptcha.co
 The purpose is to make integrating SadCaptcha into your Selenium, Playwright, or Async Playwright app as simple as one line of code.
 Instructions for integrating with Selenium, Playwright, and Async Playwright are described below in their respective sections.
 
-This tool can solve any of the four captcha challenges pictured below:
+This tool works on both TikTok and Douyin and can solve any of the four captcha challenges pictured below:
 
 <div align="center">
     <img src="https://sadcaptcha.b-cdn.net/tiktok3d.webp" width="100" alt="TikTok Captcha Solver">
@@ -41,7 +41,7 @@ driver = uc.Chrome(headless=False) # Use default undetected_chromedriver configu
 api_key = "YOUR_API_KEY_HERE"
 sadcaptcha = SeleniumSolver(driver, api_key)
 
-# Selenium code that causes a TikTok captcha...
+# Selenium code that causes a TikTok or Douyin captcha...
 
 sadcaptcha.solve_captcha_if_present()
 ```
@@ -68,7 +68,7 @@ with sync_playwright() as p:
     config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
     stealth_sync(page, config) # Use correct playwright_stealth configuration!
     
-    # Playwright code that causes a TikTok captcha...
+    # Playwright code that causes a TikTok or Douyin captcha...
 
     sadcaptcha = PlaywrightSolver(page, api_key)
     sadcaptcha.solve_captcha_if_present()
@@ -98,7 +98,7 @@ async def main()
         config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
         await stealth_async(page, config) # Use correct playwright_stealth configuration!
         
-        # Playwright code that causes a TikTok captcha...
+        # Playwright code that causes a TikTok or Douyin captcha...
 
         sadcaptcha = AsyncPlaywrightSolver(page, api_key)
         await sadcaptcha.solve_captcha_if_present()
