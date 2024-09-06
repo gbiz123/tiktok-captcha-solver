@@ -3,7 +3,7 @@ This project is the [SadCaptcha TikTok Captcha Solver](https://www.sadcaptcha.co
 The purpose is to make integrating SadCaptcha into your Selenium, Playwright, or Async Playwright app as simple as one line of code.
 Instructions for integrating with Selenium, Playwright, and Async Playwright are described below in their respective sections.
 
-This tool can solve any of the four captcha challenges pictured below:
+This tool works on both TikTok and Douyin and can solve any of the four captcha challenges pictured below:
 
 <div align="center">
     <img src="https://sadcaptcha.b-cdn.net/tiktok3d.webp" width="100" alt="TikTok Captcha Solver">
