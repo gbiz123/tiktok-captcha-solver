@@ -34,6 +34,15 @@ def open_tiktkok_search(driver: uc.Chrome) -> None:
     search_query = "davidteather"
     driver.get(f"https://www.tiktok.com/@therock")
 
+def test_does_not_false_positive():
+    driver = make_driver()
+    try:
+        driver.get("https://www.tiktok.com/login/phone-or-email/email")
+        sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+        assert sadcaptcha.captcha_is_present(timeout=5) == False
+    finally:
+        driver.quit()
+
 def test_solve_captcha_at_login(caplog):
     caplog.set_level(logging.DEBUG)
     driver = make_driver()
