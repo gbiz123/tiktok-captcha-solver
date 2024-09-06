@@ -13,6 +13,8 @@ This tool can solve any of the four captcha challenges pictured below:
     <br/>
 </div>
 
+This tool also works on the Douyin website to solve the Douyin puzzle captcha.
+
 ## Requirements
 - Python >= 3.10
 - **If using Selenium** - Selenium properly installed and in `PATH`
