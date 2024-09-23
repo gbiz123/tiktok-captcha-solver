@@ -2,41 +2,12 @@
 
 import time
 from abc import ABC, abstractmethod
-from typing import Literal
 
 from undetected_chromedriver import logging
 
+from .captchatype import CaptchaType
+
 class Solver(ABC):
-
-    @property
-    def captcha_wrappers(self) -> list[str]:
-        return [
-            ".captcha-disable-scroll",
-            ".captcha_verify_container"
-        ]
-
-    @property
-    def rotate_selectors(self) -> list[str]:
-        return [
-            "[data-testid=whirl-inner-img]",
-            "[data-testid=whirl-outer-img]"
-        ]
-
-    @property
-    def puzzle_selectors(self) -> list[str]:
-        return [
-            "img.captcha_verify_img_slide"
-        ]
-
-    @property
-    def shapes_selectors(self) -> list[str]:
-        return [
-            ".verify-captcha-submit-button" 
-        ]
-
-    @property
-    def douyin_frame_selector(self) -> Literal["#captcha_container > iframe"]:
-        return "#captcha_container > iframe"
 
     def solve_captcha_if_present(self, captcha_detect_timeout: int = 15, retries: int = 3) -> None:
         """Solves any captcha that is present, if one is detected
@@ -57,18 +28,30 @@ class Solver(ABC):
                     logging.debug("Douyin puzzle was not ready, trying again in 5 seconds")
             else:
                 match self.identify_captcha():
-                    case "puzzle": 
-                        logging.debug("Detected puzzle")
+                    case CaptchaType.PUZZLE_V1: 
+                        logging.debug("Detected puzzle v1")
                         self.solve_puzzle()
-                    case "rotate": 
-                        logging.debug("Detected rotate")
+                    case CaptchaType.PUZZLE_V2: 
+                        logging.debug("Detected puzzle v2")
+                        self.solve_puzzle_v2()
+                    case CaptchaType.ROTATE_V1: 
+                        logging.debug("Detected rotate v1")
                         self.solve_rotate()
-                    case "shapes": 
-                        logging.debug("Detected shapes")
+                    case CaptchaType.ROTATE_V2: 
+                        logging.debug("Detected rotate v2")
+                        self.solve_rotate_v2()
+                    case CaptchaType.SHAPES_V1: 
+                        logging.debug("Detected shapes v2")
                         self.solve_shapes()
-                    case "icon":
-                        logging.debug("Detected icon")
+                    case CaptchaType.SHAPES_V2: 
+                        logging.debug("Detected shapes v2")
+                        self.solve_shapes_v2()
+                    case CaptchaType.ICON_V1:
+                        logging.debug("Detected icon v1")
                         self.solve_icon()
+                    case CaptchaType.ICON_V2:
+                        logging.debug("Detected icon v2")
+                        self.solve_icon_v2()
             if self.captcha_is_not_present(timeout=5):
                 return
             else:
@@ -83,7 +66,7 @@ class Solver(ABC):
         pass
 
     @abstractmethod
-    def identify_captcha(self) -> Literal["puzzle", "shapes", "rotate", "icon"]:
+    def identify_captcha(self) -> CaptchaType:
         pass
 
     @abstractmethod
@@ -95,7 +78,15 @@ class Solver(ABC):
         pass
 
     @abstractmethod
+    def solve_shapes_v2(self) -> None:
+        pass
+
+    @abstractmethod
     def solve_rotate(self) -> None:
+        pass
+
+    @abstractmethod
+    def solve_rotate_v2(self) -> None:
         pass
 
     @abstractmethod
@@ -103,10 +94,21 @@ class Solver(ABC):
         pass
 
     @abstractmethod
+    def solve_puzzle_v2(self) -> None:
+        pass
+
+    @abstractmethod
     def solve_icon(self) -> None:
+        pass
+
+    @abstractmethod
+    def solve_icon_v2(self) -> None:
         pass
 
     @abstractmethod
     def solve_douyin_puzzle(self) -> None:
         pass
+
+
+
 

@@ -38,9 +38,15 @@ async def test_does_not_false_positive(caplog):
 
 @pytest.mark.asyncio
 async def test_solve_captcha_at_login(caplog):
+    proxy = {
+        "server": "pr.oxylabs.io:7777",
+        "username": "customer-toughdata-cc-br",
+        "password": "toughproxies"
+    }
     caplog.set_level(logging.DEBUG)
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
+        #browser = await p.chromium.launch(headless=False, proxy=proxy)
+        browser = await p.chromium.launch(headless=False, proxy=proxy)
         page = await browser.new_page()
         config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
         await stealth_async(page, config)

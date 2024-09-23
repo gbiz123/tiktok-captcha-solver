@@ -2,7 +2,7 @@ import base64
 import os
 import logging
 
-from ..downloader import download_image_b64
+from ..downloader import fetch_image_b64
 from ..api import ApiClient
 from tiktok_captcha_solver.models import IconCaptchaResponse, PuzzleCaptchaResponse, RotateCaptchaResponse, ShapesCaptchaResponse
 
@@ -10,15 +10,15 @@ api_client = ApiClient(os.environ["API_KEY"])
 
 def test_rotate(caplog):
     caplog.set_level(logging.DEBUG)
-    inner = download_image_b64("https://raw.githubusercontent.com/gbiz123/sadcaptcha-code-examples/master/images/inner_tt.png")
-    outer = download_image_b64("https://raw.githubusercontent.com/gbiz123/sadcaptcha-code-examples/master/images/outer_tt.png")
+    inner = fetch_image_b64("https://raw.githubusercontent.com/gbiz123/sadcaptcha-code-examples/master/images/inner_tt.png")
+    outer = fetch_image_b64("https://raw.githubusercontent.com/gbiz123/sadcaptcha-code-examples/master/images/outer_tt.png")
     res = api_client.rotate(outer, inner)
     assert isinstance(res, RotateCaptchaResponse)
 
 
 def test_puzzle():
-    piece = download_image_b64("https://raw.githubusercontent.com/gbiz123/sadcaptcha-code-examples/master/images/piece.png")
-    puzzle = download_image_b64("https://raw.githubusercontent.com/gbiz123/sadcaptcha-code-examples/master/images/puzzle.jpg")
+    piece = fetch_image_b64("https://raw.githubusercontent.com/gbiz123/sadcaptcha-code-examples/master/images/piece.png")
+    puzzle = fetch_image_b64("https://raw.githubusercontent.com/gbiz123/sadcaptcha-code-examples/master/images/puzzle.jpg")
     res = api_client.puzzle(puzzle, piece)
     assert isinstance(res, PuzzleCaptchaResponse)
 

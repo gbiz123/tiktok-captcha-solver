@@ -15,7 +15,7 @@ from nodriver import Tab
 from tiktok_captcha_solver.asyncsolver import AsyncSolver
 
 from .api import ApiClient
-from .downloader import download_image_b64
+from .downloader import fetch_image_b64
 from .solver import Solver
 
 
@@ -70,7 +70,7 @@ class NodriverSolver(AsyncSolver):
         if not self._any_selector_in_list_present(["#captcha-verify-image"]):
             logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
             return
-        image = download_image_b64(self._get_shapes_image_url(), headers=self.headers, proxy=self.proxy)
+        image = fetch_image_b64(self._get_shapes_image_url(), headers=self.headers, proxy=self.proxy)
         solution = self.client.shapes(image)
         image_element = self.tab.find_element(By.CSS_SELECTOR, "#captcha-verify-image")
         self._click_proportional(image_element, solution.point_one_proportion_x, solution.point_one_proportion_y)
@@ -81,8 +81,8 @@ class NodriverSolver(AsyncSolver):
         if not self._any_selector_in_list_present(["[data-testid=whirl-inner-img]"]):
             logging.debug("Went to solve rotate but whirl-inner-img was not present")
             return
-        outer = download_image_b64(self._get_rotate_outer_image_url(), headers=self.headers, proxy=self.proxy)
-        inner = download_image_b64(self._get_rotate_inner_image_url(), headers=self.headers, proxy=self.proxy)
+        outer = fetch_image_b64(self._get_rotate_outer_image_url(), headers=self.headers, proxy=self.proxy)
+        inner = fetch_image_b64(self._get_rotate_inner_image_url(), headers=self.headers, proxy=self.proxy)
         solution = self.client.rotate(outer, inner)
         distance = self._compute_rotate_slide_distance(solution.angle)
         self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
@@ -91,8 +91,8 @@ class NodriverSolver(AsyncSolver):
         if not self._any_selector_in_list_present(["#captcha-verify-image"]):
             logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
             return
-        puzzle = download_image_b64(self._get_puzzle_image_url(), headers=self.headers, proxy=self.proxy)
-        piece = download_image_b64(self._get_piece_image_url(), headers=self.headers, proxy=self.proxy)
+        puzzle = fetch_image_b64(self._get_puzzle_image_url(), headers=self.headers, proxy=self.proxy)
+        piece = fetch_image_b64(self._get_piece_image_url(), headers=self.headers, proxy=self.proxy)
         solution = self.client.puzzle(puzzle, piece)
         distance = self._compute_puzzle_slide_distance(solution.slide_x_proportion)
         self._drag_element_horizontal(".secsdk-captcha-drag-icon", distance)
