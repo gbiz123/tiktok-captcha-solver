@@ -1,6 +1,7 @@
 """This class handles the captcha solving for selenium users"""
 
 import time
+from typing import override
 
 from selenium.webdriver import ActionChains, Chrome
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
@@ -34,6 +35,7 @@ class SeleniumSolver(Solver):
         self.headers = headers
         self.proxy = proxy
 
+    @override
     def captcha_is_present(self, timeout: int = 15) -> bool:
         for _ in range(timeout * 2):
             if self.page_is_douyin():
@@ -50,6 +52,7 @@ class SeleniumSolver(Solver):
         logging.debug("Captcha not found")
         return False
 
+    @override
     def captcha_is_not_present(self, timeout: int = 15) -> bool:
         for _ in range(timeout * 2):
             if self.page_is_douyin():
@@ -67,6 +70,7 @@ class SeleniumSolver(Solver):
         logging.debug("Captcha not found")
         return False
 
+    @override
     def identify_captcha(self) -> CaptchaType:
         for _ in range(60):
             if self._any_selector_in_list_present([selectors.PuzzleV1.PIECE]):
@@ -107,6 +111,7 @@ class SeleniumSolver(Solver):
                 time.sleep(0.5)
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
 
+    @override
     def page_is_douyin(self) -> bool:
         if "douyin" in self.chromedriver.current_url:
             logging.debug("page is douyin")
@@ -114,6 +119,7 @@ class SeleniumSolver(Solver):
         logging.debug("page is tiktok")
         return False
 
+    @override
     def solve_shapes(self) -> None:
         if not self._any_selector_in_list_present([selectors.ShapesV1.IMAGE]):
             logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
@@ -125,6 +131,7 @@ class SeleniumSolver(Solver):
         self._click_proportional(image_element, solution.point_two_proportion_x, solution.point_two_proportion_y)
         self.chromedriver.find_element(By.CSS_SELECTOR, selectors.ShapesV1.SUBMIT_BUTTON).click()
 
+    @override
     def solve_shapes_v2(self) -> None:
         if not self._any_selector_in_list_present([selectors.ShapesV2.IMAGE]):
             logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
@@ -136,6 +143,7 @@ class SeleniumSolver(Solver):
         self._click_proportional(image_element, solution.point_two_proportion_x, solution.point_two_proportion_y)
         self.chromedriver.find_element(By.CSS_SELECTOR, selectors.ShapesV2.SUBMIT_BUTTON).click()
 
+    @override
     def solve_rotate(self) -> None:
         if not self._any_selector_in_list_present([selectors.RotateV1.INNER]):
             logging.debug("Went to solve rotate but whirl-inner-img was not present")
@@ -148,6 +156,7 @@ class SeleniumSolver(Solver):
         distance = compute_rotate_slide_distance(solution.angle, slide_bar_width, slider_button_width)
         self._drag_element_horizontal(selectors.RotateV1.SLIDER_DRAG_BUTTON, distance)
 
+    @override
     def solve_rotate_v2(self) -> None:
         if not self._any_selector_in_list_present([selectors.RotateV2.INNER]):
             logging.debug("Went to solve rotate but whirl-inner-img was not present")
@@ -160,6 +169,7 @@ class SeleniumSolver(Solver):
         distance = compute_rotate_slide_distance(solution.angle, slide_bar_width, slider_button_width)
         self._drag_element_horizontal(selectors.RotateV2.SLIDER_DRAG_BUTTON, distance)
 
+    @override
     def solve_puzzle(self) -> None:
         if not self._any_selector_in_list_present([selectors.PuzzleV1.PIECE]):
             logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
@@ -171,6 +181,7 @@ class SeleniumSolver(Solver):
         distance = compute_puzzle_slide_distance(solution.slide_x_proportion, puzzle_width)
         self._drag_element_horizontal(selectors.PuzzleV1.SLIDER_DRAG_BUTTON, distance)
 
+    @override
     def solve_puzzle_v2(self) -> None:
         if not self._any_selector_in_list_present([selectors.PuzzleV2.PIECE]):
             logging.debug("Went to solve puzzle but #captcha-verify-image was not present")
@@ -182,6 +193,7 @@ class SeleniumSolver(Solver):
         distance = compute_puzzle_slide_distance(solution.slide_x_proportion, puzzle_width)
         self._drag_element_horizontal(selectors.PuzzleV2.SLIDER_DRAG_BUTTON, distance)
 
+    @override
     def solve_icon(self) -> None:
         if not self._any_selector_in_list_present([selectors.ShapesV1.IMAGE]):
             logging.debug("Went to solve icon but #captcha-verify-image was not present")
@@ -194,6 +206,7 @@ class SeleniumSolver(Solver):
             self._click_proportional(image_element, point.proportion_x, point.proportion_y)
         self.chromedriver.find_element(By.CSS_SELECTOR, selectors.IconV1.SUBMIT_BUTTON).click()
 
+    @override
     def solve_icon_v2(self) -> None:
         if not self._any_selector_in_list_present([selectors.ShapesV2.IMAGE]):
             logging.debug("Went to solve icon but #captcha-verify-image was not present")
@@ -206,6 +219,7 @@ class SeleniumSolver(Solver):
             self._click_proportional(image_element, point.proportion_x, point.proportion_y)
         self.chromedriver.find_element(By.CSS_SELECTOR, selectors.IconV2.SUBMIT_BUTTON).click()
 
+    @override
     def solve_douyin_puzzle(self) -> None:
         puzzle = fetch_image_b64(self._get_douyin_puzzle_image_url(), headers=self.headers, proxy=self.proxy)
         piece = fetch_image_b64(self._get_douyin_piece_image_url(), headers=self.headers, proxy=self.proxy)

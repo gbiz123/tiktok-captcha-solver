@@ -20,8 +20,8 @@ class PuzzleV1:
     SLIDER_DRAG_BUTTON = ".secsdk-captcha-drag-icon"
 
 class PuzzleV2:
-    PIECE = ".captcha-verify-container > div > div > div > div > img"
-    PUZZLE = "#captcha-verify-image"
+    PIECE = ".captcha-verify-container .cap-absolute img"
+    PUZZLE = ".captcha-verify-container div.cap-relative > img"
     SLIDER_DRAG_BUTTON = ".secsdk-captcha-drag-icon"
 
 class ShapesV1:
@@ -29,8 +29,8 @@ class ShapesV1:
     SUBMIT_BUTTON = ".verify-captcha-submit-button" 
 
 class ShapesV2:
-    IMAGE = ".captcha-verify-container > div > div > div > img.cap-absolute"
-    SUBMIT_BUTTON = ".captcha-verify-container > div > div > div > button.cap-w-full" 
+    IMAGE = ".captcha-verify-container div.cap-relative img"
+    SUBMIT_BUTTON = ".captcha-verify-container .cap-relative button.cap-w-full" 
 
 class IconV1:
     IMAGE = "#captcha-verify-image"
@@ -38,8 +38,8 @@ class IconV1:
     TEXT = ".captcha_verify_bar"
 
 class IconV2:
-    IMAGE = ".captcha-verify-container > div > div > div > img.cap-absolute"
-    SUBMIT_BUTTON = ".captcha-verify-container > div > div > div > button.cap-w-full" 
+    IMAGE = ".captcha-verify-container div.cap-relative img"
+    SUBMIT_BUTTON = ".captcha-verify-container .cap-relative button.cap-w-full" 
     TEXT = ".captcha-verify-container > div > div > span"
 
 class DouyinPuzzle:
