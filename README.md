@@ -30,7 +30,7 @@ pip install tiktok-captcha-solver
 ## Selenium Client 
 Import the package, set up the `SeleniumSolver` class, and call it whenever you need.
 This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
-It is the recommended method if you are using Playwright.
+It is the recommended method if you are using selenium.
 
 ```py
 from tiktok_captcha_solver import SeleniumSolver
