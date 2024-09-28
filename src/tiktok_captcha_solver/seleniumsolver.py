@@ -1,7 +1,7 @@
 """This class handles the captcha solving for selenium users"""
 
 import time
-from typing import override
+from typing import Any, override
 
 from selenium.webdriver import ActionChains, Chrome
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
@@ -27,7 +27,7 @@ class SeleniumSolver(Solver):
             self, 
             chromedriver: Chrome,
             sadcaptcha_api_key: str,
-            headers: dict | None = None,
+            headers: dict[str, Any] | None = None,
             proxy: str | None = None
         ) -> None:
         self.chromedriver = chromedriver
@@ -73,19 +73,19 @@ class SeleniumSolver(Solver):
     @override
     def identify_captcha(self) -> CaptchaType:
         for _ in range(60):
-            if self._any_selector_in_list_present([selectors.PuzzleV1.PIECE]):
+            if self._any_selector_in_list_present([selectors.PuzzleV1.UNIQUE_IDENTIFIER]):
                 logging.debug("detected puzzle")
                 return CaptchaType.PUZZLE_V1
-            if self._any_selector_in_list_present([selectors.PuzzleV2.PIECE]):
+            if self._any_selector_in_list_present([selectors.PuzzleV2.UNIQUE_IDENTIFIER]):
                 logging.debug("detected puzzle v2")
                 return CaptchaType.PUZZLE_V2
-            elif self._any_selector_in_list_present([selectors.RotateV1.OUTER]):
+            elif self._any_selector_in_list_present([selectors.RotateV1.UNIQUE_IDENTIFIER]):
                 logging.debug("detected rotate v1")
                 return CaptchaType.ROTATE_V1
-            elif self._any_selector_in_list_present([selectors.RotateV2.OUTER]):
+            elif self._any_selector_in_list_present([selectors.RotateV2.UNIQUE_IDENTIFIER]):
                 logging.debug("detected rotate v2")
                 return CaptchaType.ROTATE_V2
-            if self._any_selector_in_list_present([selectors.ShapesV1.SUBMIT_BUTTON]):
+            if self._any_selector_in_list_present([selectors.ShapesV1.UNIQUE_IDENTIFIER]):
                 img_url = self._get_image_url(selectors.ShapesV1.IMAGE)
                 if "/icon" in img_url:
                     logging.debug("detected icon v1")
@@ -96,7 +96,7 @@ class SeleniumSolver(Solver):
                 else:
                     logging.warn("did not see '/3d' in image source url but returning shapes v1 anyways")
                     return CaptchaType.SHAPES_V1
-            if self._any_selector_in_list_present([selectors.ShapesV2.SUBMIT_BUTTON]):
+            if self._any_selector_in_list_present([selectors.ShapesV2.UNIQUE_IDENTIFIER]):
                 img_url = self._get_image_url(selectors.ShapesV2.IMAGE)
                 if "/icon" in img_url:
                     logging.debug("detected icon v2")

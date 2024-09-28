@@ -2,6 +2,7 @@
 
 import logging
 import random
+from typing import Any, override
 from playwright.async_api import FloatRect, Page, expect
 from playwright.async_api import TimeoutError
 from undetected_chromedriver.reactor import asyncio
@@ -22,7 +23,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             self,
             page: Page,
             sadcaptcha_api_key: str,
-            headers: dict | None = None,
+            headers: dict[str, Any] | None = None,
             proxy: str | None = None
         ) -> None:
         self.page = page
@@ -30,6 +31,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
         self.headers = headers
         self.proxy = proxy
 
+    @override
     async def captcha_is_present(self, timeout: int = 15) -> bool:
         if self.page_is_douyin():
             try:
@@ -46,6 +48,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
                 return False
         return True
 
+    @override
     async def captcha_is_not_present(self, timeout: int = 15) -> bool:
         if self.page_is_douyin():
             try:
@@ -62,21 +65,22 @@ class AsyncPlaywrightSolver(AsyncSolver):
                 return False
         return True
 
+    @override
     async def identify_captcha(self) -> CaptchaType:
         for _ in range(60):
-            if await self._any_selector_in_list_present([selectors.PuzzleV1.PIECE]):
+            if await self._any_selector_in_list_present([selectors.PuzzleV1.UNIQUE_IDENTIFIER]):
                 logging.debug("detected puzzle")
                 return CaptchaType.PUZZLE_V1
-            if await self._any_selector_in_list_present([selectors.PuzzleV2.PIECE]):
+            if await self._any_selector_in_list_present([selectors.PuzzleV2.UNIQUE_IDENTIFIER]):
                 logging.debug("detected puzzle v2")
                 return CaptchaType.PUZZLE_V2
-            elif await self._any_selector_in_list_present([selectors.RotateV1.OUTER]):
+            elif await self._any_selector_in_list_present([selectors.RotateV1.UNIQUE_IDENTIFIER]):
                 logging.debug("detected rotate v1")
                 return CaptchaType.ROTATE_V1
-            elif await self._any_selector_in_list_present([selectors.RotateV2.OUTER]):
+            elif await self._any_selector_in_list_present([selectors.RotateV2.UNIQUE_IDENTIFIER]):
                 logging.debug("detected rotate v2")
                 return CaptchaType.ROTATE_V2
-            if await self._any_selector_in_list_present([selectors.ShapesV1.SUBMIT_BUTTON]):
+            if await self._any_selector_in_list_present([selectors.ShapesV1.UNIQUE_IDENTIFIER]):
                 img_url = await self._get_image_url(selectors.ShapesV1.IMAGE)
                 if "/icon" in img_url:
                     logging.debug("detected icon v1")
@@ -87,8 +91,8 @@ class AsyncPlaywrightSolver(AsyncSolver):
                 else:
                     logging.warn("did not see '/3d' in image source url but returning shapes v1 anyways")
                     return CaptchaType.SHAPES_V1
-            if await self._any_selector_in_list_present([selectors.ShapesV2.SUBMIT_BUTTON]):
-                img_url = await self._get_image_url(selectors.ShapesV1.IMAGE)
+            if await self._any_selector_in_list_present([selectors.ShapesV2.UNIQUE_IDENTIFIER]):
+                img_url = await self._get_image_url(selectors.ShapesV2.IMAGE)
                 if "/icon" in img_url:
                     logging.debug("detected icon v2")
                     return CaptchaType.ICON_V2
@@ -102,6 +106,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
                 await asyncio.sleep(0.5)
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
 
+    @override
     def page_is_douyin(self) -> bool:
         if "douyin" in self.page.url:
             logging.debug("page is douyin")
@@ -109,6 +114,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
         logging.debug("page is tiktok")
         return False
 
+    @override
     async def solve_shapes(self, retries: int = 3) -> None:
         for _ in range(retries):
             if not await self._any_selector_in_list_present([selectors.ShapesV1.IMAGE]):
@@ -128,6 +134,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             else:
                 await asyncio.sleep(5)
 
+    @override
     async def solve_shapes_v2(self, retries: int = 3) -> None:
         for _ in range(retries):
             if not await self._any_selector_in_list_present([selectors.ShapesV2.IMAGE]):
@@ -147,6 +154,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             else:
                 await asyncio.sleep(5)
 
+    @override
     async def solve_rotate(self, retries: int = 3) -> None:
         for _ in range(retries):
             if not await self._any_selector_in_list_present([selectors.RotateV1.INNER]):
@@ -166,6 +174,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             else:
                 await asyncio.sleep(5)
 
+    @override
     async def solve_rotate_v2(self, retries: int = 3) -> None:
         for _ in range(retries):
             if not await self._any_selector_in_list_present([selectors.RotateV2.INNER]):
@@ -185,6 +194,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             else:
                 await asyncio.sleep(5)
 
+    @override
     async def solve_puzzle(self, retries: int = 3) -> None:
         for _ in range(retries):
             if not await self._any_selector_in_list_present([selectors.PuzzleV1.PIECE]):
@@ -194,7 +204,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             piece = fetch_image_b64(await self._get_image_url(selectors.PuzzleV1.PIECE), headers=self.headers, proxy=self.proxy)
             solution = self.client.puzzle(puzzle, piece)
             puzzle_width = await self._get_element_width(selectors.PuzzleV1.PUZZLE)
-            distance = await compute_puzzle_slide_distance(solution.slide_x_proportion, puzzle_width)
+            distance = compute_puzzle_slide_distance(solution.slide_x_proportion, puzzle_width)
             await self._drag_element_horizontal(selectors.PuzzleV1.SLIDER_DRAG_BUTTON, distance)
             if await self.captcha_is_not_present(timeout=5):
                 return
