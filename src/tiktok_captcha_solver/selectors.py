@@ -1,6 +1,3 @@
-from enum import UNIQUE
-
-
 class Wrappers:
     V1 = ".captcha-disable-scroll"
     V2 = ".captcha-verify-container"
@@ -26,7 +23,6 @@ class PuzzleV1:
     UNIQUE_IDENTIFIER = ".captcha-disable-scroll img.captcha_verify_img_slide"
 
 class PuzzleV2:
-    # Does not uniquely identify! False positive with icon and shapes
     PIECE = ".captcha-verify-container .cap-absolute img"
     PUZZLE = "#captcha-verify-image"
     SLIDER_DRAG_BUTTON = ".secsdk-captcha-drag-icon"

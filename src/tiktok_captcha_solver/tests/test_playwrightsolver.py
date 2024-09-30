@@ -5,6 +5,8 @@ import os
 from playwright.sync_api import Page, sync_playwright, expect
 from playwright_stealth import stealth_sync, StealthConfig
 
+from tiktok_captcha_solver.captchatype import CaptchaType
+
 from ..playwrightsolver import PlaywrightSolver
 
 
@@ -35,6 +37,34 @@ def test_does_not_false_positive(caplog):
         page.goto("https://www.tiktok.com/login/phone-or-email/email")
         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
         assert sadcaptcha.captcha_is_present(timeout=5) == False
+
+def test_shapes_v2_is_detected(caplog):
+    caplog.set_level(logging.DEBUG)
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        page = browser.new_page()
+        page.goto("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_shapes.html")
+        sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
+        assert sadcaptcha.identify_captcha() == CaptchaType.SHAPES_V2
+
+def test_rotate_v2_is_detected(caplog):
+    caplog.set_level(logging.DEBUG)
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        page = browser.new_page()
+        page.goto("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_rotate.html")
+        sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
+        assert sadcaptcha.identify_captcha() == CaptchaType.ROTATE_V2
+
+
+def test_puzzle_v2_is_detected(caplog):
+    caplog.set_level(logging.DEBUG)
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        page = browser.new_page()
+        page.goto("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_puzzle.html")
+        sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
+        assert sadcaptcha.identify_captcha() == CaptchaType.PUZZLE_V2
 
 def test_solve_captcha_at_login(caplog):
     caplog.set_level(logging.DEBUG)
