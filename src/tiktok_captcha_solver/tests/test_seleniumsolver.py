@@ -12,13 +12,13 @@ from tiktok_captcha_solver.captchatype import CaptchaType
 
 from ..seleniumsolver import SeleniumSolver
 
-options = uc.ChromeOptions()
-# options.add_argument('--proxy-server=http://pr.oxylabs.io:7777')
-options.add_argument('--ignore-certificate-errors')
-options.binary_location = "/usr/bin/google-chrome-stable"
 
 
 def make_driver() -> uc.Chrome:
+    options = uc.ChromeOptions()
+    # options.add_argument('--proxy-server=http://pr.oxylabs.io:7777')
+    options.add_argument('--ignore-certificate-errors')
+    options.binary_location = "/usr/bin/google-chrome-stable"
     return uc.Chrome(
         service=ChromeDriverManager().install(),
         headless=False,

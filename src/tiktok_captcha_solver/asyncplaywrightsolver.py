@@ -331,7 +331,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
         await self.page.mouse.up()
         await asyncio.sleep(random.randint(1, 10) / 11)
 
-    async def _drag_element_horizontal(self, css_selector: str, x: int, frame_selector: str | None = None) -> None:
+    async def _drag_element_horizontal(self, css_selector: str, x_offset: int, frame_selector: str | None = None) -> None:
         if frame_selector:
             e = self.page.frame_locator(frame_selector).locator(css_selector)
         else:
@@ -344,12 +344,16 @@ class AsyncPlaywrightSolver(AsyncSolver):
         await self.page.mouse.move(start_x, start_y)
         await asyncio.sleep(random.randint(1, 10) / 11)
         await self.page.mouse.down()
-        await asyncio.sleep(random.randint(1, 10) / 11)
-        await self.page.mouse.move(start_x + x, start_y, steps=100)
-        overshoot = random.choice([1, 2, 3, 4])
-        await self.page.mouse.move(start_x + x + overshoot, start_y + overshoot, steps=100) # overshoot forward
-        await self.page.mouse.move(start_x + x, start_y, steps=75) # overshoot back
-        await asyncio.sleep(0.001)
+        for pixel in range(0, x_offset + 5):
+            await self.page.mouse.move(start_x + pixel, start_y)
+            await asyncio.sleep(0.01)
+        await asyncio.sleep(0.25)
+        for pixel in range(-5, 2):
+            await self.page.mouse.move(start_x + x_offset - pixel, start_y + pixel) # overshoot back
+            await asyncio.sleep(0.05)
+        await asyncio.sleep(0.2)
+        await self.page.mouse.move(start_x + x_offset, start_y, steps=75) 
+        await asyncio.sleep(0.3)
         await self.page.mouse.up()
 
     async def _any_selector_in_list_present(self, selectors: list[str]) -> bool:

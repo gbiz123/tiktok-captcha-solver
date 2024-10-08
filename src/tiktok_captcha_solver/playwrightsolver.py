@@ -336,7 +336,7 @@ class PlaywrightSolver(Solver):
         self.page.mouse.up()
         time.sleep(random.randint(1, 10) / 11)
 
-    def _drag_element_horizontal(self, css_selector: str, x: int, frame_selector: str | None = None) -> None:
+    def _drag_element_horizontal(self, css_selector: str, x_offset: int, frame_selector: str | None = None) -> None:
         if frame_selector:
             e = self.page.frame_locator(frame_selector).locator(css_selector)
         else:
@@ -349,12 +349,16 @@ class PlaywrightSolver(Solver):
         self.page.mouse.move(start_x, start_y)
         time.sleep(random.randint(1, 10) / 11)
         self.page.mouse.down()
-        time.sleep(random.randint(1, 10) / 11)
-        self.page.mouse.move(start_x + x, start_y, steps=100)
-        overshoot = random.choice([1, 2, 3, 4])
-        self.page.mouse.move(start_x + x + overshoot, start_y + overshoot, steps=100) # overshoot forward
-        self.page.mouse.move(start_x + x, start_y, steps=75) # overshoot back
-        time.sleep(0.001)
+        for pixel in range(0, x_offset + 5):
+            self.page.mouse.move(start_x + pixel, start_y)
+            time.sleep(0.01)
+        time.sleep(0.25)
+        for pixel in range(-5, 2):
+            self.page.mouse.move(start_x + x_offset - pixel, start_y + pixel) # overshoot back
+            time.sleep(0.05)
+        time.sleep(0.2)
+        self.page.mouse.move(start_x + x_offset, start_y, steps=75) 
+        time.sleep(0.3)
         self.page.mouse.up()
 
     def _any_selector_in_list_present(self, selectors: list[str]) -> bool:

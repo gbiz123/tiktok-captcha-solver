@@ -317,14 +317,15 @@ class SeleniumSolver(Solver):
             time.sleep(0.1)
             for _ in range(0, x - 15):
                 actions.move_by_offset(1, 0)
+                actions.pause(0.01)
             for _ in range(0, 20):
                 actions.move_by_offset(1, 0)
-                actions.pause(0.01)
+                actions.pause(0.05)
             actions.pause(0.7)
             for _ in range(0, 5):
                 actions.move_by_offset(-1, 0)
-                actions.pause(0.05)
-            actions.pause(0.1)
+                actions.pause(0.1)
+            actions.pause(0.5)
             actions.release().perform()
         finally:
             self.chromedriver.switch_to.default_content()
