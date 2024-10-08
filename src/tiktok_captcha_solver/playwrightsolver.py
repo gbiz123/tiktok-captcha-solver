@@ -3,7 +3,7 @@
 import logging
 import random
 import time
-from typing import Any, override
+from typing import Any
 
 from playwright.sync_api import FloatRect, Page, expect
 from playwright.sync_api import TimeoutError
@@ -32,7 +32,6 @@ class PlaywrightSolver(Solver):
         self.headers = headers
         self.proxy = proxy
 
-    @override
     def captcha_is_present(self, timeout: int = 15) -> bool:
         if self.page_is_douyin():
             try:
@@ -49,7 +48,6 @@ class PlaywrightSolver(Solver):
                 return False
         return True
 
-    @override
     def captcha_is_not_present(self, timeout: int = 15) -> bool:
         if self.page_is_douyin():
             try:
@@ -66,7 +64,6 @@ class PlaywrightSolver(Solver):
                 return False
         return True
 
-    @override
     def identify_captcha(self) -> CaptchaType:
         for _ in range(60):
             if self._any_selector_in_list_present([selectors.PuzzleV1.UNIQUE_IDENTIFIER]):
@@ -107,7 +104,6 @@ class PlaywrightSolver(Solver):
                 time.sleep(0.5)
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
 
-    @override
     def page_is_douyin(self) -> bool:
         if "douyin" in self.page.url:
             logging.debug("page is douyin")
@@ -115,7 +111,6 @@ class PlaywrightSolver(Solver):
         logging.debug("page is tiktok")
         return False
 
-    @override
     def solve_shapes(self, retries: int = 3) -> None:
         for _ in range(retries):
             if not self._any_selector_in_list_present([selectors.ShapesV1.IMAGE]):
@@ -135,7 +130,6 @@ class PlaywrightSolver(Solver):
             else:
                 time.sleep(5)
 
-    @override
     def solve_shapes_v2(self, retries: int = 3) -> None:
         for _ in range(retries):
             if not self._any_selector_in_list_present([selectors.ShapesV2.IMAGE]):
@@ -155,7 +149,6 @@ class PlaywrightSolver(Solver):
             else:
                 time.sleep(5)
 
-    @override
     def solve_rotate(self, retries: int = 3) -> None:
         for _ in range(retries):
             if not self._any_selector_in_list_present([selectors.RotateV1.INNER]):
@@ -175,7 +168,6 @@ class PlaywrightSolver(Solver):
             else:
                 time.sleep(5)
 
-    @override
     def solve_rotate_v2(self, retries: int = 3) -> None:
         for _ in range(retries):
             if not self._any_selector_in_list_present([selectors.RotateV2.INNER]):
@@ -195,7 +187,6 @@ class PlaywrightSolver(Solver):
             else:
                 time.sleep(5)
 
-    @override
     def solve_puzzle(self, retries: int = 3) -> None:
         for _ in range(retries):
             if not self._any_selector_in_list_present([selectors.PuzzleV1.PIECE]):
@@ -212,7 +203,6 @@ class PlaywrightSolver(Solver):
             else:
                 time.sleep(5)
 
-    @override
     def solve_puzzle_v2(self, retries: int = 3) -> None:
         for _ in range(retries):
             if not self._any_selector_in_list_present([selectors.PuzzleV2.PIECE]):
@@ -229,7 +219,6 @@ class PlaywrightSolver(Solver):
             else:
                 time.sleep(5)
 
-    @override
     def solve_icon(self) -> None:
         if not self._any_selector_in_list_present([selectors.IconV1.IMAGE]):
             logging.debug("Went to solve icon captcha but #captcha-verify-image was not present")
@@ -245,7 +234,6 @@ class PlaywrightSolver(Solver):
             self._click_proportional(bounding_box, point.proportion_x, point.proportion_y)
         self.page.locator(selectors.IconV1.SUBMIT_BUTTON).click()
 
-    @override
     def solve_icon_v2(self) -> None:
         if not self._any_selector_in_list_present([selectors.IconV2.IMAGE]):
             logging.debug("Went to solve icon captcha but #captcha-verify-image was not present")
@@ -261,7 +249,6 @@ class PlaywrightSolver(Solver):
             self._click_proportional(bounding_box, point.proportion_x, point.proportion_y)
         self.page.locator(selectors.IconV2.SUBMIT_BUTTON).click()
 
-    @override
     def solve_douyin_puzzle(self) -> None:
         puzzle = fetch_image_b64(self._get_douyin_puzzle_image_url(), headers=self.headers, proxy=self.proxy)
         piece = fetch_image_b64(self._get_douyin_piece_image_url(), headers=self.headers, proxy=self.proxy)
