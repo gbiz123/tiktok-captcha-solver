@@ -127,7 +127,7 @@ BASE_URL = 'https://www.sadcaptcha.com/api/v1'
 LICENSE_KEY = ''
 puzzle_url = f'{BASE_URL}/puzzle?licenseKey={LICENSE_KEY}'
 
-def solve_rotate():
+def solve_puzzle():
     driver.save_screenshot('puzzle.png')
 
     full_image = Image.open('puzzle.png')
