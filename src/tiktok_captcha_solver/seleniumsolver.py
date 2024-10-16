@@ -11,7 +11,7 @@ from undetected_chromedriver import logging
 from undetected_chromedriver.patcher import random
 
 from . import selectors
-from .geometry import compute_puzzle_slide_distance, compute_rotate_slide_distance
+from .geometry import compute_pixel_fraction, compute_rotate_slide_distance
 from .captchatype import CaptchaType
 from .api import ApiClient
 from .downloader import fetch_image_b64
@@ -169,7 +169,7 @@ class SeleniumSolver(Solver):
         piece = fetch_image_b64(self._get_image_url(selectors.PuzzleV1.PIECE), headers=self.headers, proxy=self.proxy)
         solution = self.client.puzzle(puzzle, piece)
         puzzle_width = self._get_element_width(selectors.PuzzleV1.PUZZLE)
-        distance = compute_puzzle_slide_distance(solution.slide_x_proportion, puzzle_width)
+        distance = compute_pixel_fraction(solution.slide_x_proportion, puzzle_width)
         self._drag_element_horizontal(selectors.PuzzleV1.SLIDER_DRAG_BUTTON, distance)
 
     def solve_puzzle_v2(self) -> None:
@@ -180,7 +180,8 @@ class SeleniumSolver(Solver):
         piece = fetch_image_b64(self._get_image_url(selectors.PuzzleV2.PIECE), headers=self.headers, proxy=self.proxy)
         solution = self.client.puzzle(puzzle, piece)
         puzzle_width = self._get_element_width(selectors.PuzzleV2.PUZZLE)
-        distance = compute_puzzle_slide_distance(solution.slide_x_proportion, puzzle_width)
+        slide_button_adjustment = int(self._get_element_width(selectors.PuzzleV2.SLIDER_DRAG_BUTTON) / 2)
+        distance = compute_pixel_fraction(solution.slide_x_proportion, puzzle_width) - slide_button_adjustment
         self._drag_element_horizontal(selectors.PuzzleV2.SLIDER_DRAG_BUTTON, distance)
 
     def solve_icon(self) -> None:

@@ -38,6 +38,19 @@ async def test_does_not_false_positive(caplog):
         sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
         assert await sadcaptcha.captcha_is_present(timeout=5) == False
 
+@pytest.mark.asyncio
+async def test_solve_at_scroll(caplog) -> None:
+    caplog.set_level(logging.DEBUG)
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=False)
+        page = await browser.new_page()
+        config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+        # stealth_sync(page, config)
+        await page.goto("https://www.tiktok.com/")
+        input("Trigger a captcha...")
+        sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
+        await sadcaptcha.solve_captcha_if_present(captcha_detect_timeout=10)
+
 
 @pytest.mark.asyncio
 async def test_shapes_v2_is_detected(caplog):
@@ -81,12 +94,11 @@ async def test_puzzle_v2_is_detected(caplog):
 async def test_solve_captcha_at_login(caplog):
     proxy = {
         "server": "pr.oxylabs.io:7777",
-        "username": "customer-toughdata-cc-br",
-        "password": "toughproxies"
+        "username": "customer-toughdata-cc-us",
+        "password": "Toughproxies_123"
     }
     caplog.set_level(logging.DEBUG)
     async with async_playwright() as p:
-        #browser = await p.chromium.launch(headless=False, proxy=proxy)
         browser = await p.chromium.launch(headless=False, proxy=proxy)
         page = await browser.new_page()
         config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)

@@ -27,6 +27,18 @@ def open_tiktok_search(page: Page) -> None:
     search_query = "davidteather"
     page.goto(f"https://www.tiktok.com/search/user?q={search_query}&t=1715558822399")
 
+def test_solve_at_scroll(caplog) -> None:
+    caplog.set_level(logging.DEBUG)
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        page = browser.new_page()
+        config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+        # stealth_sync(page, config)
+        page.goto("https://www.tiktok.com/")
+        input("Trigger a captcha...")
+        sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
+        sadcaptcha.solve_captcha_if_present(captcha_detect_timeout=1)
+
 def test_does_not_false_positive(caplog):
     caplog.set_level(logging.DEBUG)
     with sync_playwright() as p:

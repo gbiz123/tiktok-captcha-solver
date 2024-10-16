@@ -3,6 +3,8 @@ import time
 import logging
 import os
 
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -25,6 +27,17 @@ def make_driver() -> uc.Chrome:
         use_subprocess=False,
         options=options,
         browser_executable_path="/usr/bin/google-chrome-stable"
+    )
+
+def make_driver_normal() -> WebDriver:
+    options = webdriver.ChromeOptions()
+    # options.add_argument('--proxy-server=http://pr.oxylabs.io:7777')
+    options.add_argument('--ignore-certificate-errors')
+    options.binary_location = "/usr/bin/google-chrome-stable"
+    options.headless = False
+    return webdriver.Chrome(
+        service=Service(ChromeDriverManager().install()),
+        options=options,
     )
 
 
@@ -56,6 +69,16 @@ def open_tiktkok_login(driver: uc.Chrome) -> None:
 def open_tiktkok_search(driver: uc.Chrome) -> None:
     search_query = "davidteather"
     driver.get(f"https://www.tiktok.com/@therock")
+
+def test_solve_at_scroll(caplog) -> None:
+    caplog.set_level(logging.DEBUG)
+    driver = make_driver_normal()
+    driver.get("https://www.tiktok.com/")
+    input("Trigger a captcha...")
+    sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+    with open("src/tiktok_captcha_solver/tests/puzzle_video_search.html", "w") as f:
+        f.write(driver.page_source)
+    sadcaptcha.solve_captcha_if_present()
 
 # def test_does_not_false_positive():
 #     driver = make_driver()
@@ -102,6 +125,8 @@ def test_solve_captcha_at_login(caplog):
         open_tiktkok_login(driver)
         sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
         sadcaptcha.solve_captcha_if_present()
+        time.sleep(3)
+        assert not sadcaptcha.captcha_is_present()
     finally:
         driver.quit()
 

@@ -12,7 +12,7 @@ from .captchatype import CaptchaType
 from .asyncsolver import AsyncSolver
 from .api import ApiClient
 from .downloader import fetch_image_b64
-from .geometry import compute_puzzle_slide_distance, compute_rotate_slide_distance
+from .geometry import compute_pixel_fraction, compute_rotate_slide_distance
 
 class AsyncPlaywrightSolver(AsyncSolver):
 
@@ -195,7 +195,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             piece = fetch_image_b64(await self._get_image_url(selectors.PuzzleV1.PIECE), headers=self.headers, proxy=self.proxy)
             solution = self.client.puzzle(puzzle, piece)
             puzzle_width = await self._get_element_width(selectors.PuzzleV1.PUZZLE)
-            distance = compute_puzzle_slide_distance(solution.slide_x_proportion, puzzle_width)
+            distance = compute_pixel_fraction(solution.slide_x_proportion, puzzle_width)
             await self._drag_element_horizontal(selectors.PuzzleV1.SLIDER_DRAG_BUTTON, distance)
             if await self.captcha_is_not_present(timeout=5):
                 return
@@ -207,12 +207,14 @@ class AsyncPlaywrightSolver(AsyncSolver):
             if not await self._any_selector_in_list_present([selectors.PuzzleV2.PIECE]):
                 logging.debug("Went to solve puzzle but piece image was not present")
                 return
-            puzzle = fetch_image_b64(await self._get_image_url(selectors.PuzzleV2.PIECE), headers=self.headers, proxy=self.proxy)
+            puzzle = fetch_image_b64(await self._get_image_url(selectors.PuzzleV2.PUZZLE), headers=self.headers, proxy=self.proxy)
             piece = fetch_image_b64(await self._get_image_url(selectors.PuzzleV2.PIECE), headers=self.headers, proxy=self.proxy)
             solution = self.client.puzzle(puzzle, piece)
             puzzle_width = await self._get_element_width(selectors.PuzzleV2.PUZZLE)
-            distance = compute_puzzle_slide_distance(solution.slide_x_proportion, puzzle_width)
-            await self._drag_element_horizontal(selectors.PuzzleV2.SLIDER_DRAG_BUTTON, distance)
+            slide_button_adjustment = int((await self._get_element_width(selectors.PuzzleV2.SLIDER_DRAG_BUTTON)) / 2)
+            distance = compute_pixel_fraction(solution.slide_x_proportion, puzzle_width) - slide_button_adjustment
+            logging.debug("distance = " + str(distance))
+            await self._drag_element_horizontal(selectors.PuzzleV2.SLIDER_DRAG_BUTTON, distance) 
             if await self.captcha_is_not_present(timeout=5):
                 return
             else:

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: tiktok-captcha-solver
-Version: 0.4.0
+Version: 0.4.2
 Summary: This package integrates with Selenium or Playwright to solve any TikTok captcha in one line of code.
 Author-email: Toughdata LLC <greg@toughdata.net>
 Project-URL: Homepage, https://www.sadcaptcha.com
@@ -57,7 +57,7 @@ pip install tiktok-captcha-solver
 ## Selenium Client 
 Import the package, set up the `SeleniumSolver` class, and call it whenever you need.
 This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
-It is the recommended method if you are using Playwright.
+It is the recommended method if you are using selenium.
 
 ```py
 from tiktok_captcha_solver import SeleniumSolver
