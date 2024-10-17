@@ -26,6 +26,7 @@ class PuzzleV2:
     PIECE = ".captcha-verify-container .cap-absolute img"
     PUZZLE = "#captcha-verify-image"
     SLIDER_DRAG_BUTTON = ".secsdk-captcha-drag-icon"
+    PIECE_IMAGE_CONTAINER = ".captcha-verify-container div[draggable=true]:has(img[draggable=false])"
     UNIQUE_IDENTIFIER = ".captcha-verify-container #captcha-verify-image"
 
 class ShapesV1:

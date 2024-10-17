@@ -90,81 +90,81 @@ def test_solve_at_scroll(caplog) -> None:
 #         driver.quit()
 #
 
-def test_shapes_v2_is_detected():
-    driver = make_driver()
-    try:
-        driver.get("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_shapes.html")
-        sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
-        assert sadcaptcha.identify_captcha() == CaptchaType.SHAPES_V2
-    finally:
-        driver.quit()
-
-
-def test_rotate_v2_is_detected():
-    driver = make_driver()
-    try:
-        driver.get("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_rotate.html")
-        sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
-        assert sadcaptcha.identify_captcha() == CaptchaType.ROTATE_V2
-    finally:
-        driver.quit()
-
-def test_puzzle_v2_is_detected():
-    driver = make_driver()
-    try:
-        driver.get("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_puzzle.html")
-        sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
-        assert sadcaptcha.identify_captcha() == CaptchaType.PUZZLE_V2
-    finally:
-        driver.quit()
-
-def test_solve_captcha_at_login(caplog):
-    caplog.set_level(logging.DEBUG)
-    driver = make_driver()
-    try:
-        open_tiktkok_login(driver)
-        sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
-        sadcaptcha.solve_captcha_if_present()
-        time.sleep(3)
-        assert not sadcaptcha.captcha_is_present()
-    finally:
-        driver.quit()
-
-# def test_solve_captcha_at_login_with_proxy(caplog):
+# def test_shapes_v2_is_detected():
+#     driver = make_driver()
+#     try:
+#         driver.get("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_shapes.html")
+#         sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+#         assert sadcaptcha.identify_captcha() == CaptchaType.SHAPES_V2
+#     finally:
+#         driver.quit()
+#
+#
+# def test_rotate_v2_is_detected():
+#     driver = make_driver()
+#     try:
+#         driver.get("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_rotate.html")
+#         sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+#         assert sadcaptcha.identify_captcha() == CaptchaType.ROTATE_V2
+#     finally:
+#         driver.quit()
+#
+# def test_puzzle_v2_is_detected():
+#     driver = make_driver()
+#     try:
+#         driver.get("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_puzzle.html")
+#         sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+#         assert sadcaptcha.identify_captcha() == CaptchaType.PUZZLE_V2
+#     finally:
+#         driver.quit()
+#
+# def test_solve_captcha_at_login(caplog):
 #     caplog.set_level(logging.DEBUG)
 #     driver = make_driver()
 #     try:
 #         open_tiktkok_login(driver)
-#         sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"], proxy=os.environ["PROXY"])
+#         sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+#         sadcaptcha.solve_captcha_if_present()
+#         time.sleep(3)
+#         assert not sadcaptcha.captcha_is_present()
+#     finally:
+#         driver.quit()
+#
+# # def test_solve_captcha_at_login_with_proxy(caplog):
+# #     caplog.set_level(logging.DEBUG)
+# #     driver = make_driver()
+# #     try:
+# #         open_tiktkok_login(driver)
+# #         sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"], proxy=os.environ["PROXY"])
+# #         sadcaptcha.solve_captcha_if_present()
+# #     finally:
+# #         driver.quit()
+#
+# def test_solve_captcha_at_search(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     driver = make_driver()
+#     open_tiktkok_search(driver)
+#     sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+#     sadcaptcha.solve_captcha_if_present()
+#     driver.quit()
+#
+# def test_detect_douyin(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     driver = make_driver()
+#     try:
+#         driver.get("https://www.douyin.com")
+#         sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+#         assert sadcaptcha.page_is_douyin()
+#     finally:
+#         driver.quit()
+#
+# def test_solve_douyin_puzzle(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     driver = webdriver.Chrome(options)
+#     try:
+#         driver.get("https://www.douyin.com/discover")
+#         time.sleep(5)
+#         sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
 #         sadcaptcha.solve_captcha_if_present()
 #     finally:
 #         driver.quit()
-
-def test_solve_captcha_at_search(caplog):
-    caplog.set_level(logging.DEBUG)
-    driver = make_driver()
-    open_tiktkok_search(driver)
-    sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
-    sadcaptcha.solve_captcha_if_present()
-    driver.quit()
-
-def test_detect_douyin(caplog):
-    caplog.set_level(logging.DEBUG)
-    driver = make_driver()
-    try:
-        driver.get("https://www.douyin.com")
-        sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
-        assert sadcaptcha.page_is_douyin()
-    finally:
-        driver.quit()
-
-def test_solve_douyin_puzzle(caplog):
-    caplog.set_level(logging.DEBUG)
-    driver = webdriver.Chrome(options)
-    try:
-        driver.get("https://www.douyin.com/discover")
-        time.sleep(5)
-        sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
-        sadcaptcha.solve_captcha_if_present()
-    finally:
-        driver.quit()

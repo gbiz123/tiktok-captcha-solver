@@ -13,7 +13,7 @@ from .captchatype import CaptchaType
 from .solver import Solver
 from .api import ApiClient
 from .downloader import fetch_image_b64
-from .geometry import compute_pixel_fraction, compute_rotate_slide_distance
+from .geometry import compute_pixel_fraction, compute_rotate_slide_distance, get_translateX_from_style
 
 class PlaywrightSolver(Solver):
 
@@ -212,9 +212,13 @@ class PlaywrightSolver(Solver):
             piece = fetch_image_b64(self._get_image_url(selectors.PuzzleV2.PIECE), headers=self.headers, proxy=self.proxy)
             solution = self.client.puzzle(puzzle, piece)
             puzzle_width = self._get_element_width(selectors.PuzzleV2.PUZZLE)
-            slide_button_adjustment = int(self._get_element_width(selectors.PuzzleV2.SLIDER_DRAG_BUTTON) / 2)
-            distance = compute_pixel_fraction(solution.slide_x_proportion, puzzle_width) - slide_button_adjustment
-            self._drag_element_horizontal(selectors.PuzzleV2.SLIDER_DRAG_BUTTON, distance)
+            distance = compute_pixel_fraction(solution.slide_x_proportion, puzzle_width)
+            logging.debug("distance = " + str(distance))
+            self._drag_ele_until_watched_ele_has_translateX(
+                selectors.PuzzleV2.SLIDER_DRAG_BUTTON,
+                selectors.PuzzleV2.PIECE_IMAGE_CONTAINER,
+                distance
+            ) 
             if self.captcha_is_not_present(timeout=5):
                 return
             else:
@@ -324,6 +328,36 @@ class PlaywrightSolver(Solver):
         self.page.mouse.up()
         time.sleep(random.randint(1, 10) / 11)
 
+    def _drag_ele_until_watched_ele_has_translateX(self, drag_ele_selector: str, watch_ele_selector: str, target_translateX: int) -> None:
+        """This method drags the element drag_ele_selector until the translateX value of watch_ele_selector is equal to translateX_target.
+        This is necessary because there is a small difference between the amount the puzzle piece slides and 
+        the amount of pixels the drag element has been dragged in TikTok puzzle v2."""
+        drag_ele = self.page.locator(drag_ele_selector)
+        watch_ele = self.page.locator(watch_ele_selector)
+        style = watch_ele.get_attribute("style")
+        if not style:
+            raise ValueError("element had no attribut style: " + watch_ele_selector)
+        current_translateX = get_translateX_from_style(style)
+        drag_ele_box = drag_ele.bounding_box()
+        if not drag_ele_box:
+            raise AttributeError("element had no bounding box: " + drag_ele_selector)
+        start_x = (drag_ele_box["x"] + (drag_ele_box["width"] / 1.337))
+        start_y = (drag_ele_box["y"] +  (drag_ele_box["height"] / 1.337))
+        self.page.mouse.move(start_x, start_y)
+        time.sleep(random.randint(1, 10) / 11)
+        self.page.mouse.down()
+        current_x = start_x
+        while current_translateX != target_translateX:
+            current_x = current_x + 1
+            self.page.mouse.move(current_x, start_y)
+            time.sleep(0.01)
+            style = watch_ele.get_attribute("style")
+            if not style:
+                raise ValueError("element had no attribut style: " + watch_ele_selector)
+            current_translateX = get_translateX_from_style(style)
+        time.sleep(0.3)
+        self.page.mouse.up()
+        
     def _drag_element_horizontal(self, css_selector: str, x_offset: int, frame_selector: str | None = None) -> None:
         if frame_selector:
             e = self.page.frame_locator(frame_selector).locator(css_selector)

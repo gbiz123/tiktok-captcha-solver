@@ -1,5 +1,6 @@
 """This class handles the captcha solving for selenium users"""
 
+from platform import release
 import time
 from typing import Any
 
@@ -11,7 +12,7 @@ from undetected_chromedriver import logging
 from undetected_chromedriver.patcher import random
 
 from . import selectors
-from .geometry import compute_pixel_fraction, compute_rotate_slide_distance
+from .geometry import compute_pixel_fraction, compute_rotate_slide_distance, get_translateX_from_style
 from .captchatype import CaptchaType
 from .api import ApiClient
 from .downloader import fetch_image_b64
@@ -180,9 +181,12 @@ class SeleniumSolver(Solver):
         piece = fetch_image_b64(self._get_image_url(selectors.PuzzleV2.PIECE), headers=self.headers, proxy=self.proxy)
         solution = self.client.puzzle(puzzle, piece)
         puzzle_width = self._get_element_width(selectors.PuzzleV2.PUZZLE)
-        slide_button_adjustment = int(self._get_element_width(selectors.PuzzleV2.SLIDER_DRAG_BUTTON) / 2)
-        distance = compute_pixel_fraction(solution.slide_x_proportion, puzzle_width) - slide_button_adjustment
-        self._drag_element_horizontal(selectors.PuzzleV2.SLIDER_DRAG_BUTTON, distance)
+        distance = compute_pixel_fraction(solution.slide_x_proportion, puzzle_width)
+        self._drag_ele_until_watched_ele_has_translateX(
+            selectors.PuzzleV2.SLIDER_DRAG_BUTTON,
+            selectors.PuzzleV2.PIECE_IMAGE_CONTAINER,
+            distance
+        ) 
 
     def solve_icon(self) -> None:
         if not self._any_selector_in_list_present([selectors.ShapesV1.IMAGE]):
@@ -291,6 +295,33 @@ class SeleniumSolver(Solver):
             .click() \
             .pause(random.randint(1, 10) / 11)
         action.perform()
+
+    def _drag_ele_until_watched_ele_has_translateX(self, drag_ele_selector: str, watch_ele_selector: str, target_translateX: int) -> None:
+        """This method drags the element drag_ele_selector until the translateX value of watch_ele_selector is equal to translateX_target.
+        This is necessary because there is a small difference between the amount the puzzle piece slides and 
+        the amount of pixels the drag element has been dragged in TikTok puzzle v2."""
+        drag_ele = self.chromedriver.find_element(By.CSS_SELECTOR, drag_ele_selector)
+        watch_ele = self.chromedriver.find_element(By.CSS_SELECTOR, watch_ele_selector)
+        style = watch_ele.get_attribute("style")
+        if not style:
+            raise ValueError("element had no attribut style: " + watch_ele_selector)
+        current_translateX = get_translateX_from_style(style)
+        actions = ActionChains(self.chromedriver, duration=0)
+        # Start with a slight move_by_offset() because for some reason running perform() right after click_and_hold() does nothing
+        actions.click_and_hold(drag_ele) \
+                .move_by_offset(10, 0) \
+                .perform()
+        time.sleep(0.1)
+        while current_translateX != target_translateX:
+            actions.move_by_offset(1, 0) \
+                .pause(0.001) \
+                .perform()
+            style = watch_ele.get_attribute("style")
+            if not style:
+                raise ValueError("element had no attribute style: " + watch_ele_selector)
+            current_translateX = get_translateX_from_style(style)
+        time.sleep(0.3)
+        actions.release().perform()
 
     def _drag_element_horizontal(self, css_selector: str, x: int, frame_selector: str | None = None) -> None:
         try:
