@@ -2,7 +2,7 @@
 This project is the [SadCaptcha TikTok Captcha Solver](https://www.sadcaptcha.com?ref=ghclientrepo) API client.
 The purpose is to make integrating SadCaptcha into your Selenium, Playwright, or Async Playwright app as simple as one line of code.
 Instructions for integrating with Selenium, Playwright, and Async Playwright are described below in their respective sections. 
-This API also works on mobile devices. 
+This API also works on mobile devices (Appium, etc.). 
 
 This tool works on both TikTok and Douyin and can solve any of the four captcha challenges pictured below:
 
@@ -118,7 +118,7 @@ Here is a working example for Puzzle and Rotate captcha.
 keep in mind, you will need to adjust the `captcha_box` and `offset_x` varaibles according to your particular mobile device.
 
 ```py
-from PIL import Image
+from PIL import Image, ImageDraw
 import base64
 import requests
 
@@ -138,6 +138,9 @@ def solve_puzzle():
     captcha_box2 = (300, 945, 1016, 1475)
     captcha_image2 = full_image.crop(captcha_box2)
     captcha_image2.save('puzzle_screenshot1.png')
+
+    draw = ImageDraw.Draw(captcha_image1)
+    draw.ellipse([(0, 0), (captcha_image1.width / 4, captcha_image1.height)], fill="blue", outline="blue")
 
     with open('puzzle_screenshot.png', 'rb') as f:
         puzzle = base64.b64encode(f.read()).decode()
