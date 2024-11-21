@@ -133,14 +133,15 @@ def solve_puzzle():
     full_image = Image.open('puzzle.png')
     captcha_box1 = (165, 1175, 303, 1330)
     captcha_image1 = full_image.crop(captcha_box1)
+    # Draw circle over left side to occlude the puzzle piece in the main image
+    draw = ImageDraw.Draw(captcha_image1)
+    draw.ellipse([(0, 0), (captcha_image1.width / 4, captcha_image1.height)], fill="blue", outline="blue")
     captcha_image1.save('puzzle_screenshot.png')
 
     captcha_box2 = (300, 945, 1016, 1475)
     captcha_image2 = full_image.crop(captcha_box2)
     captcha_image2.save('puzzle_screenshot1.png')
 
-    draw = ImageDraw.Draw(captcha_image1)
-    draw.ellipse([(0, 0), (captcha_image1.width / 4, captcha_image1.height)], fill="blue", outline="blue")
 
     with open('puzzle_screenshot.png', 'rb') as f:
         puzzle = base64.b64encode(f.read()).decode()
