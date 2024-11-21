@@ -128,16 +128,20 @@ LICENSE_KEY = ''
 puzzle_url = f'{BASE_URL}/puzzle?licenseKey={LICENSE_KEY}'
 
 def solve_puzzle():
+    # Screenshot of page
     driver.save_screenshot('puzzle.png')
-
     full_image = Image.open('puzzle.png')
+
+    # Full puzzle image - adjust box to your device
     captcha_box1 = (165, 1175, 303, 1330)
     captcha_image1 = full_image.crop(captcha_box1)
+
     # Draw circle over left side to occlude the puzzle piece in the main image
     draw = ImageDraw.Draw(captcha_image1)
     draw.ellipse([(0, 0), (captcha_image1.width / 4, captcha_image1.height)], fill="blue", outline="blue")
     captcha_image1.save('puzzle_screenshot.png')
 
+    # Puzzle piece image - adjust box to your device
     captcha_box2 = (300, 945, 1016, 1475)
     captcha_image2 = full_image.crop(captcha_box2)
     captcha_image2.save('puzzle_screenshot1.png')
