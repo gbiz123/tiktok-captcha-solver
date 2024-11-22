@@ -79,7 +79,7 @@ with sync_playwright() as p:
 
     sadcaptcha = PlaywrightSolver(
         page,
-        api_key
+        api_key,
         mouse_step_size=1, # Adjust to change mouse speed
         mouse_step_delay_ms=10 # Adjust to change mouse speed
     )
