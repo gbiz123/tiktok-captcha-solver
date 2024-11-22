@@ -41,7 +41,12 @@ import undetected_chromedriver as uc
 
 driver = uc.Chrome(headless=False) # Use default undetected_chromedriver configuration!
 api_key = "YOUR_API_KEY_HERE"
-sadcaptcha = SeleniumSolver(driver, api_key)
+sadcaptcha = SeleniumSolver(
+    driver,
+    api_key,
+    mouse_step_size=1, # Adjust to change mouse speed
+    mouse_step_delay_ms=10 # Adjust to change mouse speed
+)
 
 # Selenium code that causes a TikTok or Douyin captcha...
 
@@ -72,7 +77,12 @@ with sync_playwright() as p:
     
     # Playwright code that causes a TikTok or Douyin captcha...
 
-    sadcaptcha = PlaywrightSolver(page, api_key)
+    sadcaptcha = PlaywrightSolver(
+        page,
+        api_key
+        mouse_step_size=1, # Adjust to change mouse speed
+        mouse_step_delay_ms=10 # Adjust to change mouse speed
+    )
     sadcaptcha.solve_captcha_if_present()
 ```
 It is crucial that users of the Playwright client also use `playwright-stealth` with the configuration specified above.
@@ -102,7 +112,12 @@ async def main()
         
         # Playwright code that causes a TikTok or Douyin captcha...
 
-        sadcaptcha = AsyncPlaywrightSolver(page, api_key)
+        sadcaptcha = AsyncPlaywrightSolver(
+            page,
+            api_key,
+            mouse_step_size=1, # Adjust to change mouse speed
+            mouse_step_delay_ms=10 # Adjust to change mouse speed
+        )
         await sadcaptcha.solve_captcha_if_present()
 
 asyncio.run(main())
