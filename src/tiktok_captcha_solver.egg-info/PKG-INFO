@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: tiktok-captcha-solver
-Version: 0.6.0
+Version: 0.6.1
 Summary: This package integrates with Selenium or Playwright to solve any TikTok captcha in one line of code.
 Author-email: Toughdata LLC <greg@toughdata.net>
 Project-URL: Homepage, https://www.sadcaptcha.com
