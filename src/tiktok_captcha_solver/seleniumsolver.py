@@ -29,12 +29,16 @@ class SeleniumSolver(Solver):
             chromedriver: Chrome,
             sadcaptcha_api_key: str,
             headers: dict[str, Any] | None = None,
-            proxy: str | None = None
+            proxy: str | None = None,
+            mouse_step_size: int = 1,
+            mouse_step_delay_ms: int = 10
         ) -> None:
         self.chromedriver = chromedriver
         self.client = ApiClient(sadcaptcha_api_key)
         self.headers = headers
         self.proxy = proxy
+        self.mouse_step_size = mouse_step_size
+        self.mouse_step_delay_s = mouse_step_delay_ms / 1000
 
     def captcha_is_present(self, timeout: int = 15) -> bool:
         for _ in range(timeout * 2):
@@ -305,14 +309,15 @@ class SeleniumSolver(Solver):
             raise ValueError("element had no attribut style: " + watch_ele_selector)
         current_translateX = get_translateX_from_style(style)
         actions = ActionChains(self.chromedriver, duration=0)
-        # Start with a slight move_by_offset() because for some reason running perform() right after click_and_hold() does nothing
+        # Start with a slight move_by_offset() because for some reason running perform()
+        # right after click_and_hold() does nothing
         actions.click_and_hold(drag_ele) \
                 .move_by_offset(10, 0) \
                 .perform()
         time.sleep(0.1)
-        while current_translateX != target_translateX:
-            actions.move_by_offset(1, 0) \
-                .pause(0.001) \
+        while current_translateX <= target_translateX:
+            actions.move_by_offset(self.mouse_step_size, 0) \
+                .pause(self.mouse_step_delay_s) \
                 .perform()
             style = watch_ele.get_attribute("style")
             if not style:
@@ -332,16 +337,16 @@ class SeleniumSolver(Solver):
             actions = ActionChains(self.chromedriver, duration=0)
             actions.click_and_hold(e)
             time.sleep(0.1)
-            for _ in range(0, x - 15):
+            for _ in range(0, x - 15, self.mouse_step_size):
                 actions.move_by_offset(1, 0)
-                actions.pause(0.01)
+                actions.pause(self.mouse_step_delay_s)
             for _ in range(0, 20):
                 actions.move_by_offset(1, 0)
-                actions.pause(0.05)
+                actions.pause(self.mouse_step_delay_s / 2)
             actions.pause(0.7)
             for _ in range(0, 5):
                 actions.move_by_offset(-1, 0)
-                actions.pause(0.1)
+                actions.pause(self.mouse_step_delay_s)
             actions.pause(0.5)
             actions.release().perform()
         finally:

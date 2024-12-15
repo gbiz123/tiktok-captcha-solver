@@ -25,12 +25,16 @@ class PlaywrightSolver(Solver):
             page: Page,
             sadcaptcha_api_key: str,
             headers: dict[str, Any] | None = None,
-            proxy: str | None = None
+            proxy: str | None = None,
+            mouse_step_size: int = 1,
+            mouse_step_delay_ms: int = 10
         ) -> None:
         self.page = page
         self.client = ApiClient(sadcaptcha_api_key)
         self.headers = headers
         self.proxy = proxy
+        self.mouse_step_size = mouse_step_size
+        self.mouse_step_delay_ms = mouse_step_delay_ms
 
     def captcha_is_present(self, timeout: int = 15) -> bool:
         if self.page_is_douyin():
@@ -348,9 +352,9 @@ class PlaywrightSolver(Solver):
         self.page.mouse.down()
         current_x = start_x
         while current_translateX != target_translateX:
-            current_x = current_x + 1
+            current_x = current_x + self.mouse_step_size
             self.page.mouse.move(current_x, start_y)
-            time.sleep(0.01)
+            self.page.wait_for_timeout(self.mouse_step_delay_ms)
             style = watch_ele.get_attribute("style")
             if not style:
                 raise ValueError("element had no attribut style: " + watch_ele_selector)
@@ -371,13 +375,13 @@ class PlaywrightSolver(Solver):
         self.page.mouse.move(start_x, start_y)
         time.sleep(random.randint(1, 10) / 11)
         self.page.mouse.down()
-        for pixel in range(0, x_offset + 5):
+        for pixel in range(0, x_offset + 5, self.mouse_step_size):
             self.page.mouse.move(start_x + pixel, start_y)
-            time.sleep(0.01)
+            self.page.wait_for_timeout(self.mouse_step_delay_ms)
         time.sleep(0.25)
         for pixel in range(-5, 2):
             self.page.mouse.move(start_x + x_offset - pixel, start_y + pixel) # overshoot back
-            time.sleep(0.05)
+            self.page.wait_for_timeout(self.mouse_step_delay_ms / 2)
         time.sleep(0.2)
         self.page.mouse.move(start_x + x_offset, start_y, steps=75) 
         time.sleep(0.3)

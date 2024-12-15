@@ -41,7 +41,12 @@ import undetected_chromedriver as uc
 
 driver = uc.Chrome(headless=False) # Use default undetected_chromedriver configuration!
 api_key = "YOUR_API_KEY_HERE"
-sadcaptcha = SeleniumSolver(driver, api_key)
+sadcaptcha = SeleniumSolver(
+    driver,
+    api_key,
+    mouse_step_size=1, # Adjust to change mouse speed
+    mouse_step_delay_ms=10 # Adjust to change mouse speed
+)
 
 # Selenium code that causes a TikTok or Douyin captcha...
 
@@ -72,7 +77,12 @@ with sync_playwright() as p:
     
     # Playwright code that causes a TikTok or Douyin captcha...
 
-    sadcaptcha = PlaywrightSolver(page, api_key)
+    sadcaptcha = PlaywrightSolver(
+        page,
+        api_key,
+        mouse_step_size=1, # Adjust to change mouse speed
+        mouse_step_delay_ms=10 # Adjust to change mouse speed
+    )
     sadcaptcha.solve_captcha_if_present()
 ```
 It is crucial that users of the Playwright client also use `playwright-stealth` with the configuration specified above.
@@ -102,7 +112,12 @@ async def main()
         
         # Playwright code that causes a TikTok or Douyin captcha...
 
-        sadcaptcha = AsyncPlaywrightSolver(page, api_key)
+        sadcaptcha = AsyncPlaywrightSolver(
+            page,
+            api_key,
+            mouse_step_size=1, # Adjust to change mouse speed
+            mouse_step_delay_ms=10 # Adjust to change mouse speed
+        )
         await sadcaptcha.solve_captcha_if_present()
 
 asyncio.run(main())
@@ -128,19 +143,24 @@ LICENSE_KEY = ''
 puzzle_url = f'{BASE_URL}/puzzle?licenseKey={LICENSE_KEY}'
 
 def solve_puzzle():
+    # Screenshot of page
     driver.save_screenshot('puzzle.png')
-
     full_image = Image.open('puzzle.png')
+
+    # Full puzzle image - adjust box to your device
     captcha_box1 = (165, 1175, 303, 1330)
     captcha_image1 = full_image.crop(captcha_box1)
+
+    # Draw circle over left side to occlude the puzzle piece in the main image
+    draw = ImageDraw.Draw(captcha_image1)
+    draw.ellipse([(0, 0), (captcha_image1.width / 4, captcha_image1.height)], fill="blue", outline="blue")
     captcha_image1.save('puzzle_screenshot.png')
 
+    # Puzzle piece image - adjust box to your device
     captcha_box2 = (300, 945, 1016, 1475)
     captcha_image2 = full_image.crop(captcha_box2)
     captcha_image2.save('puzzle_screenshot1.png')
 
-    draw = ImageDraw.Draw(captcha_image1)
-    draw.ellipse([(0, 0), (captcha_image1.width / 4, captcha_image1.height)], fill="blue", outline="blue")
 
     with open('puzzle_screenshot.png', 'rb') as f:
         puzzle = base64.b64encode(f.read()).decode()

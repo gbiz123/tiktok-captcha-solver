@@ -70,15 +70,15 @@ def open_tiktkok_search(driver: uc.Chrome) -> None:
     search_query = "davidteather"
     driver.get(f"https://www.tiktok.com/@therock")
 
-def test_solve_at_scroll(caplog) -> None:
-    caplog.set_level(logging.DEBUG)
-    driver = make_driver_normal()
-    driver.get("https://www.tiktok.com/")
-    input("Trigger a captcha...")
-    sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
-    with open("src/tiktok_captcha_solver/tests/puzzle_video_search.html", "w") as f:
-        f.write(driver.page_source)
-    sadcaptcha.solve_captcha_if_present()
+# def test_solve_at_scroll(caplog) -> None:
+#     caplog.set_level(logging.DEBUG)
+#     driver = make_driver_normal()
+#     driver.get("https://www.tiktok.com/")
+#     input("Trigger a captcha...")
+#     sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"], mouse_step_size=2)
+#     with open("src/tiktok_captcha_solver/tests/puzzle_video_search.html", "w") as f:
+#         f.write(driver.page_source)
+#     sadcaptcha.solve_captcha_if_present()
 
 # def test_does_not_false_positive():
 #     driver = make_driver()

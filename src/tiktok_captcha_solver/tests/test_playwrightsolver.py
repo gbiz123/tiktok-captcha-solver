@@ -84,7 +84,7 @@ def test_solve_captcha_at_login(caplog):
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
         config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-        stealth_sync(page, config)
+        # stealth_sync(page, config)
         open_tiktkok_login(page)
         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
         sadcaptcha.solve_captcha_if_present()
