@@ -118,17 +118,17 @@ def test_solve_at_scroll(caplog) -> None:
 #     finally:
 #         driver.quit()
 #
-# def test_solve_captcha_at_login(caplog):
-#     caplog.set_level(logging.DEBUG)
-#     driver = make_driver()
-#     try:
-#         open_tiktkok_login(driver)
-#         sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
-#         sadcaptcha.solve_captcha_if_present()
-#         time.sleep(3)
-#         assert not sadcaptcha.captcha_is_present()
-#     finally:
-#         driver.quit()
+def test_solve_captcha_at_login(caplog):
+    caplog.set_level(logging.DEBUG)
+    driver = make_driver()
+    try:
+        open_tiktkok_login(driver)
+        sadcaptcha = SeleniumSolver(driver, os.environ["API_KEY"])
+        sadcaptcha.solve_captcha_if_present()
+        time.sleep(3)
+        assert not sadcaptcha.captcha_is_present()
+    finally:
+        driver.quit()
 #
 # # def test_solve_captcha_at_login_with_proxy(caplog):
 # #     caplog.set_level(logging.DEBUG)

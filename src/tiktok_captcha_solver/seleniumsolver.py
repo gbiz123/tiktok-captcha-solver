@@ -59,10 +59,8 @@ class SeleniumSolver(Solver):
                     logging.debug("Captcha detected")
                     return True
             else:
-                if len(self.chromedriver.find_elements(By.CSS_SELECTOR, selectors.Wrappers.V1)) == 0:
-                    logging.debug("Captcha not present")
-                    return True
-                if len(self.chromedriver.find_elements(By.CSS_SELECTOR, selectors.Wrappers.V2)) == 0:
+                if len(self.chromedriver.find_elements(By.CSS_SELECTOR, selectors.Wrappers.V1)) == 0 and \
+                        len(self.chromedriver.find_elements(By.CSS_SELECTOR, selectors.Wrappers.V2)) == 0:
                     logging.debug("Captcha not present")
                     return True
             time.sleep(0.5)
