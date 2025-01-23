@@ -132,6 +132,7 @@ Once you've done that, you can consume the response.
 Here is a working example for Puzzle and Rotate captcha. 
 keep in mind, you will need to adjust the `captcha_box` and `offset_x` varaibles according to your particular mobile device.
 
+### Puzzle slide
 ```py
 from PIL import Image, ImageDraw
 import base64
@@ -180,8 +181,11 @@ def solve_puzzle():
 
     driver.swipe(start_x=55, start_y=530, end_x=55 + int(offset_x), end_y=530, duration=1000)
     time.sleep(3)
+```
+The number `46` in my equation comes from the distance between the captcha image and the side of the screen, which is why you add it to the value `offset_x`. `start_x` is supposed to be the center of the puzzle piece. Similarly, `530` is supposed to be the center of the puzzle piece as well.
 
-
+### Rotate
+```
 # SOLVING ROTATE CAPTCHA
 BASE_URL = 'https://www.sadcaptcha.com/api/v1'
 LICENSE_KEY = ''
@@ -237,6 +241,7 @@ def solve_rotate():
 
     driver.swipe(start_x, start_y, start_x + int(offset_x), start_y, duration=1000)
 ```
+
 
 ## Using Proxies and Custom Headers
 SadCaptcha supports using proxies and custom headers such as user agent.
