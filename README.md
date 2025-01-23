@@ -185,7 +185,7 @@ def solve_puzzle():
 The number `46` in my equation comes from the distance between the captcha image and the side of the screen, which is why you add it to the value `offset_x`. `start_x` is supposed to be the center of the puzzle piece. Similarly, `530` is supposed to be the center of the puzzle piece as well.
 
 ### Rotate
-```
+```py
 # SOLVING ROTATE CAPTCHA
 BASE_URL = 'https://www.sadcaptcha.com/api/v1'
 LICENSE_KEY = ''
