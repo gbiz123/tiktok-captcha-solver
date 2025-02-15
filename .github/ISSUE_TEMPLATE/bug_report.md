@@ -1,3 +1,12 @@
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 # Help us help you! Providing detailed information will help us solve the issue quickly with minimal back-and-forth. Make sure your issue includes the following information, or it may be closed automatically:
 
 1. Paste the URL you're trying to access here: [PASTE URL HERE]
