@@ -21,7 +21,7 @@ def fetch_image_b64(
     If driver is passed, chromedriver will be used to evaluate javascript to download from blob
     If sync_page is passed, sync playwright will be used to evaluate javascript to download from blob
     """
-    if not any([sync_page, async_page, driver]):
+    if not any([sync_page, driver]):
         logging.debug(f"fetching {url} with requests")
         if proxy:
             proxies = {"http": proxy, "https": proxy}
