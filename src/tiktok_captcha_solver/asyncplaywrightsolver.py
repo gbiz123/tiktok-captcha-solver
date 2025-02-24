@@ -12,7 +12,7 @@ from . import selectors
 from .captchatype import CaptchaType
 from .asyncsolver import AsyncSolver
 from .api import ApiClient
-from .downloader import fetch_image_b64
+from .downloader import fetch_image_b64_async_page
 from .geometry import compute_pixel_fraction, compute_rotate_slide_distance, get_translateX_from_style
 
 class AsyncPlaywrightSolver(AsyncSolver):
@@ -120,7 +120,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             if not await self._any_selector_in_list_present([selectors.ShapesV1.IMAGE]):
                 logging.debug("Went to solve shapes but #captcha-verify-image was not present")
                 return
-            image = fetch_image_b64(await self._get_image_url(selectors.ShapesV1.IMAGE), headers=self.headers, proxy=self.proxy)
+            image = await fetch_image_b64_async_page(await self._get_image_url(selectors.ShapesV1.IMAGE), self.page)
             solution = self.client.shapes(image)
             image_element = self.page.locator(selectors.ShapesV1.IMAGE)
             bounding_box = await image_element.bounding_box()
@@ -139,7 +139,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             if not await self._any_selector_in_list_present([selectors.ShapesV2.IMAGE]):
                 logging.debug("Went to solve shapes but image was not present")
                 return
-            image = fetch_image_b64(await self._get_image_url(selectors.ShapesV2.IMAGE), headers=self.headers, proxy=self.proxy)
+            image = await fetch_image_b64_async_page(await self._get_image_url(selectors.ShapesV2.IMAGE), self.page)
             solution = self.client.shapes(image)
             image_element = self.page.locator(selectors.ShapesV2.IMAGE)
             bounding_box = await image_element.bounding_box()
@@ -158,8 +158,8 @@ class AsyncPlaywrightSolver(AsyncSolver):
             if not await self._any_selector_in_list_present([selectors.RotateV1.INNER]):
                 logging.debug("Went to solve rotate but whirl-inner-img was not present")
                 return
-            outer = fetch_image_b64(await self._get_image_url(selectors.RotateV1.OUTER), headers=self.headers, proxy=self.proxy)
-            inner = fetch_image_b64(await self._get_image_url(selectors.RotateV1.INNER), headers=self.headers, proxy=self.proxy)
+            outer = await fetch_image_b64_async_page(await self._get_image_url(selectors.RotateV1.OUTER), self.page)
+            inner = await fetch_image_b64_async_page(await self._get_image_url(selectors.RotateV1.INNER), self.page)
             solution = self.client.rotate(outer, inner)
             logging.debug(f"Solution angle: {solution}")
             slide_bar_width = await self._get_element_width(selectors.RotateV1.SLIDE_BAR)
@@ -177,8 +177,8 @@ class AsyncPlaywrightSolver(AsyncSolver):
             if not await self._any_selector_in_list_present([selectors.RotateV2.INNER]):
                 logging.debug("Went to solve rotate but whirl-inner-img was not present")
                 return
-            outer = fetch_image_b64(await self._get_image_url(selectors.RotateV2.OUTER), headers=self.headers, proxy=self.proxy)
-            inner = fetch_image_b64(await self._get_image_url(selectors.RotateV2.INNER), headers=self.headers, proxy=self.proxy)
+            outer = await fetch_image_b64_async_page(await self._get_image_url(selectors.RotateV2.OUTER), self.page)
+            inner = await fetch_image_b64_async_page(await self._get_image_url(selectors.RotateV2.INNER), self.page)
             solution = self.client.rotate(outer, inner)
             logging.debug(f"Solution angle: {solution}")
             slide_bar_width = await self._get_element_width(selectors.RotateV2.SLIDE_BAR)
@@ -196,8 +196,8 @@ class AsyncPlaywrightSolver(AsyncSolver):
             if not await self._any_selector_in_list_present([selectors.PuzzleV1.PIECE]):
                 logging.debug("Went to solve puzzle but piece image was not present")
                 return
-            puzzle = fetch_image_b64(await self._get_image_url(selectors.PuzzleV1.PIECE), headers=self.headers, proxy=self.proxy)
-            piece = fetch_image_b64(await self._get_image_url(selectors.PuzzleV1.PIECE), headers=self.headers, proxy=self.proxy)
+            puzzle = await fetch_image_b64_async_page(await self._get_image_url(selectors.PuzzleV1.PIECE), self.page)
+            piece = await fetch_image_b64_async_page(await self._get_image_url(selectors.PuzzleV1.PIECE), self.page)
             solution = self.client.puzzle(puzzle, piece)
             puzzle_width = await self._get_element_width(selectors.PuzzleV1.PUZZLE)
             distance = compute_pixel_fraction(solution.slide_x_proportion, puzzle_width)
@@ -212,8 +212,8 @@ class AsyncPlaywrightSolver(AsyncSolver):
             if not await self._any_selector_in_list_present([selectors.PuzzleV2.PIECE]):
                 logging.debug("Went to solve puzzle but piece image was not present")
                 return
-            puzzle = fetch_image_b64(await self._get_image_url(selectors.PuzzleV2.PUZZLE), headers=self.headers, proxy=self.proxy)
-            piece = fetch_image_b64(await self._get_image_url(selectors.PuzzleV2.PIECE), headers=self.headers, proxy=self.proxy)
+            puzzle = await fetch_image_b64_async_page(await self._get_image_url(selectors.PuzzleV2.PUZZLE), self.page)
+            piece = await fetch_image_b64_async_page(await self._get_image_url(selectors.PuzzleV2.PIECE), self.page)
             solution = self.client.puzzle(puzzle, piece)
             puzzle_width = await self._get_element_width(selectors.PuzzleV2.PUZZLE)
             distance = compute_pixel_fraction(solution.slide_x_proportion, puzzle_width)
@@ -233,7 +233,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             logging.debug("Went to solve icon captcha but #captcha-verify-image was not present")
             return
         challenge = await self._get_element_text(selectors.IconV1.TEXT)
-        image = fetch_image_b64(await self._get_image_url(selectors.IconV1.IMAGE), headers=self.headers, proxy=self.proxy)
+        image = await fetch_image_b64_async_page(await self._get_image_url(selectors.IconV1.IMAGE), self.page)
         solution = self.client.icon(challenge, image)
         image_element = self.page.locator(selectors.IconV1.IMAGE)
         bounding_box = await image_element.bounding_box()
@@ -248,7 +248,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             logging.debug("Went to solve icon captcha but #captcha-verify-image was not present")
             return
         challenge = await self._get_element_text(selectors.IconV2.TEXT)
-        image = fetch_image_b64(await self._get_image_url(selectors.IconV2.IMAGE), headers=self.headers, proxy=self.proxy)
+        image = await fetch_image_b64_async_page(await self._get_image_url(selectors.IconV2.IMAGE), self.page)
         solution = self.client.icon(challenge, image)
         image_element = self.page.locator(selectors.IconV2.IMAGE)
         bounding_box = await image_element.bounding_box()
@@ -259,8 +259,8 @@ class AsyncPlaywrightSolver(AsyncSolver):
         await self.page.locator(selectors.IconV2.SUBMIT_BUTTON).click()
 
     async def solve_douyin_puzzle(self) -> None:
-        puzzle = fetch_image_b64(await self._get_douyin_puzzle_image_url(), headers=self.headers, proxy=self.proxy)
-        piece = fetch_image_b64(await self._get_douyin_piece_image_url(), headers=self.headers, proxy=self.proxy)
+        puzzle = await fetch_image_b64_async_page(await self._get_douyin_puzzle_image_url(), self.page)
+        piece = await fetch_image_b64_async_page(await self._get_douyin_piece_image_url(), self.page)
         solution = self.client.puzzle(puzzle, piece)
         distance = await self._compute_douyin_puzzle_slide_distance(solution.slide_x_proportion)
         await self._drag_element_horizontal(".captcha-slider-btn", distance, frame_selector=selectors.DouyinPuzzle.FRAME)

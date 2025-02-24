@@ -120,7 +120,7 @@ class PlaywrightSolver(Solver):
             if not self._any_selector_in_list_present([selectors.ShapesV1.IMAGE]):
                 logging.debug("Went to solve shapes but #captcha-verify-image was not present")
                 return
-            image = fetch_image_b64(self._get_image_url(selectors.ShapesV1.IMAGE), headers=self.headers, proxy=self.proxy)
+            image = fetch_image_b64(self._get_image_url(selectors.ShapesV1.IMAGE), sync_page=self.page)
             solution = self.client.shapes(image)
             image_element = self.page.locator(selectors.ShapesV1.IMAGE)
             bounding_box = image_element.bounding_box()
@@ -139,7 +139,7 @@ class PlaywrightSolver(Solver):
             if not self._any_selector_in_list_present([selectors.ShapesV2.IMAGE]):
                 logging.debug("Went to solve shapes but image was not present")
                 return
-            image = fetch_image_b64(self._get_image_url(selectors.ShapesV2.IMAGE), headers=self.headers, proxy=self.proxy)
+            image = fetch_image_b64(self._get_image_url(selectors.ShapesV2.IMAGE), sync_page=self.page)
             solution = self.client.shapes(image)
             image_element = self.page.locator(selectors.ShapesV2.IMAGE)
             bounding_box = image_element.bounding_box()
@@ -158,8 +158,8 @@ class PlaywrightSolver(Solver):
             if not self._any_selector_in_list_present([selectors.RotateV1.INNER]):
                 logging.debug("Went to solve rotate but whirl-inner-img was not present")
                 return
-            outer = fetch_image_b64(self._get_image_url(selectors.RotateV1.OUTER), headers=self.headers, proxy=self.proxy)
-            inner = fetch_image_b64(self._get_image_url(selectors.RotateV1.INNER), headers=self.headers, proxy=self.proxy)
+            outer = fetch_image_b64(self._get_image_url(selectors.RotateV1.OUTER), sync_page=self.page)
+            inner = fetch_image_b64(self._get_image_url(selectors.RotateV1.INNER), sync_page=self.page)
             solution = self.client.rotate(outer, inner)
             logging.debug(f"Solution angle: {solution}")
             slide_bar_width = self._get_element_width(selectors.RotateV1.SLIDE_BAR)
@@ -177,8 +177,8 @@ class PlaywrightSolver(Solver):
             if not self._any_selector_in_list_present([selectors.RotateV2.INNER]):
                 logging.debug("Went to solve rotate but whirl-inner-img was not present")
                 return
-            outer = fetch_image_b64(self._get_image_url(selectors.RotateV2.OUTER), headers=self.headers, proxy=self.proxy)
-            inner = fetch_image_b64(self._get_image_url(selectors.RotateV2.INNER), headers=self.headers, proxy=self.proxy)
+            outer = fetch_image_b64(self._get_image_url(selectors.RotateV2.OUTER), sync_page=self.page)
+            inner = fetch_image_b64(self._get_image_url(selectors.RotateV2.INNER), sync_page=self.page)
             solution = self.client.rotate(outer, inner)
             logging.debug(f"Solution angle: {solution}")
             slide_bar_width = self._get_element_width(selectors.RotateV2.SLIDE_BAR)
@@ -196,8 +196,8 @@ class PlaywrightSolver(Solver):
             if not self._any_selector_in_list_present([selectors.PuzzleV1.PIECE]):
                 logging.debug("Went to solve puzzle but piece image was not present")
                 return
-            puzzle = fetch_image_b64(self._get_image_url(selectors.PuzzleV1.PUZZLE), headers=self.headers, proxy=self.proxy)
-            piece = fetch_image_b64(self._get_image_url(selectors.PuzzleV1.PIECE), headers=self.headers, proxy=self.proxy)
+            puzzle = fetch_image_b64(self._get_image_url(selectors.PuzzleV1.PUZZLE), sync_page=self.page)
+            piece = fetch_image_b64(self._get_image_url(selectors.PuzzleV1.PIECE), sync_page=self.page)
             solution = self.client.puzzle(puzzle, piece)
             puzzle_width = self._get_element_width(selectors.PuzzleV1.PUZZLE)
             distance = compute_pixel_fraction(solution.slide_x_proportion, puzzle_width)
@@ -207,13 +207,14 @@ class PlaywrightSolver(Solver):
             else:
                 time.sleep(5)
 
+
     def solve_puzzle_v2(self, retries: int = 3) -> None:
         for _ in range(retries):
             if not self._any_selector_in_list_present([selectors.PuzzleV2.PIECE]):
                 logging.debug("Went to solve puzzle but piece image was not present")
                 return
-            puzzle = fetch_image_b64(self._get_image_url(selectors.PuzzleV2.PUZZLE), headers=self.headers, proxy=self.proxy)
-            piece = fetch_image_b64(self._get_image_url(selectors.PuzzleV2.PIECE), headers=self.headers, proxy=self.proxy)
+            puzzle = fetch_image_b64(self._get_image_url(selectors.PuzzleV2.PUZZLE), sync_page=self.page)
+            piece = fetch_image_b64(self._get_image_url(selectors.PuzzleV2.PIECE), sync_page=self.page)
             solution = self.client.puzzle(puzzle, piece)
             puzzle_width = self._get_element_width(selectors.PuzzleV2.PUZZLE)
             distance = compute_pixel_fraction(solution.slide_x_proportion, puzzle_width)
@@ -233,7 +234,7 @@ class PlaywrightSolver(Solver):
             logging.debug("Went to solve icon captcha but #captcha-verify-image was not present")
             return
         challenge = self._get_element_text(selectors.IconV1.TEXT)
-        image = fetch_image_b64(self._get_image_url(selectors.IconV1.IMAGE), headers=self.headers, proxy=self.proxy)
+        image = fetch_image_b64(self._get_image_url(selectors.IconV1.IMAGE), sync_page=self.page)
         solution = self.client.icon(challenge, image)
         image_element = self.page.locator(selectors.IconV1.IMAGE)
         bounding_box = image_element.bounding_box()
@@ -248,7 +249,7 @@ class PlaywrightSolver(Solver):
             logging.debug("Went to solve icon captcha but #captcha-verify-image was not present")
             return
         challenge = self._get_element_text(selectors.IconV2.TEXT)
-        image = fetch_image_b64(selectors.IconV2.IMAGE, headers=self.headers, proxy=self.proxy)
+        image = fetch_image_b64(selectors.IconV2.IMAGE, sync_page=self.page)
         solution = self.client.icon(challenge, image)
         image_element = self.page.locator(selectors.IconV2.IMAGE)
         bounding_box = image_element.bounding_box()
@@ -259,8 +260,8 @@ class PlaywrightSolver(Solver):
         self.page.locator(selectors.IconV2.SUBMIT_BUTTON).click()
 
     def solve_douyin_puzzle(self) -> None:
-        puzzle = fetch_image_b64(self._get_douyin_puzzle_image_url(), headers=self.headers, proxy=self.proxy)
-        piece = fetch_image_b64(self._get_douyin_piece_image_url(), headers=self.headers, proxy=self.proxy)
+        puzzle = fetch_image_b64(self._get_douyin_puzzle_image_url(), sync_page=self.page)
+        piece = fetch_image_b64(self._get_douyin_piece_image_url(), sync_page=self.page)
         solution = self.client.puzzle(puzzle, piece)
         distance = self._compute_douyin_puzzle_slide_distance(solution.slide_x_proportion)
         self._drag_element_horizontal(".captcha-slider-btn", distance, frame_selector=selectors.DouyinPuzzle.FRAME)

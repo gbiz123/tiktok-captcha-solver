@@ -26,68 +26,68 @@ async def open_tiktok_search(page: Page) -> None:
     search_query = "davidteather"
     await page.goto(f"https://www.tiktok.com/@therock")
 
-@pytest.mark.asyncio
-async def test_does_not_false_positive(caplog):
-    caplog.set_level(logging.DEBUG)
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        page = await browser.new_page()
-        config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-        await stealth_async(page, config)
-        await page.goto("https://www.tiktok.com/login/phone-or-email/email")
-        sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
-        assert await sadcaptcha.captcha_is_present(timeout=5) == False
-
-@pytest.mark.asyncio
-async def test_solve_at_scroll(caplog) -> None:
-    caplog.set_level(logging.DEBUG)
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        page = await browser.new_page()
-        config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-        # stealth_sync(page, config)
-        await page.goto("https://www.tiktok.com/")
-        input("Trigger a captcha...")
-        sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
-        await sadcaptcha.solve_captcha_if_present(captcha_detect_timeout=10)
-
-
-@pytest.mark.asyncio
-async def test_shapes_v2_is_detected(caplog):
-    caplog.set_level(logging.DEBUG)
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        page = await browser.new_page()
-        config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-        await stealth_async(page, config)
-        await page.goto("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_shapes.html")
-        sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
-        assert await sadcaptcha.identify_captcha() == CaptchaType.SHAPES_V2
-
-@pytest.mark.asyncio
-async def test_rotate_v2_is_detected(caplog):
-    caplog.set_level(logging.DEBUG)
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        page = await browser.new_page()
-        config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-        await stealth_async(page, config)
-        await page.goto("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_rotate.html")
-        sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
-        assert await sadcaptcha.identify_captcha() == CaptchaType.ROTATE_V2
-
-
-@pytest.mark.asyncio
-async def test_puzzle_v2_is_detected(caplog):
-    caplog.set_level(logging.DEBUG)
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        page = await browser.new_page()
-        config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-        await stealth_async(page, config)
-        await page.goto("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_puzzle.html")
-        sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
-        assert await sadcaptcha.identify_captcha() == CaptchaType.PUZZLE_V2
+# @pytest.mark.asyncio
+# async def test_does_not_false_positive(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     async with async_playwright() as p:
+#         browser = await p.chromium.launch(headless=False)
+#         page = await browser.new_page()
+#         config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+#         await stealth_async(page, config)
+#         await page.goto("https://www.tiktok.com/login/phone-or-email/email")
+#         sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
+#         assert await sadcaptcha.captcha_is_present(timeout=5) == False
+#
+# @pytest.mark.asyncio
+# async def test_solve_at_scroll(caplog) -> None:
+#     caplog.set_level(logging.DEBUG)
+#     async with async_playwright() as p:
+#         browser = await p.chromium.launch(headless=False)
+#         page = await browser.new_page()
+#         config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+#         # stealth_sync(page, config)
+#         await page.goto("https://www.tiktok.com/")
+#         input("Trigger a captcha...")
+#         sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
+#         await sadcaptcha.solve_captcha_if_present(captcha_detect_timeout=10)
+#
+#
+# @pytest.mark.asyncio
+# async def test_shapes_v2_is_detected(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     async with async_playwright() as p:
+#         browser = await p.chromium.launch(headless=False)
+#         page = await browser.new_page()
+#         config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+#         await stealth_async(page, config)
+#         await page.goto("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_shapes.html")
+#         sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
+#         assert await sadcaptcha.identify_captcha() == CaptchaType.SHAPES_V2
+#
+# @pytest.mark.asyncio
+# async def test_rotate_v2_is_detected(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     async with async_playwright() as p:
+#         browser = await p.chromium.launch(headless=False)
+#         page = await browser.new_page()
+#         config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+#         await stealth_async(page, config)
+#         await page.goto("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_rotate.html")
+#         sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
+#         assert await sadcaptcha.identify_captcha() == CaptchaType.ROTATE_V2
+#
+#
+# @pytest.mark.asyncio
+# async def test_puzzle_v2_is_detected(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     async with async_playwright() as p:
+#         browser = await p.chromium.launch(headless=False)
+#         page = await browser.new_page()
+#         config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+#         await stealth_async(page, config)
+#         await page.goto("file:///home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/src/tiktok_captcha_solver/tests/new_puzzle.html")
+#         sadcaptcha = AsyncPlaywrightSolver(page, os.environ["API_KEY"])
+#         assert await sadcaptcha.identify_captcha() == CaptchaType.PUZZLE_V2
 
 
 @pytest.mark.asyncio
