@@ -10,7 +10,7 @@ def fetch_image_b64(url: str, headers: dict[str, Any] | None = None, proxy: str 
         proxies = {"http": proxy, "https": proxy}
     else:
         proxies = None
-    r = requests.get(url, headers=headers, proxies=proxies)
+    r = requests.get(url, headers=headers, proxies=proxies, stream=True)
     image = base64.b64encode(r.content).decode()
     logging.debug(f"Got image from {url} as B64: {image[0:20]}...")
     return image

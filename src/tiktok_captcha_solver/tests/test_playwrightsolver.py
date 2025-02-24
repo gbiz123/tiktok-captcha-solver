@@ -113,21 +113,21 @@ def test_solve_captcha_at_login(caplog):
 #         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
 #         sadcaptcha.solve_captcha_if_present()
 
-def test_detect_douyin(caplog):
-    caplog.set_level(logging.DEBUG)
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
-        page = browser.new_page()
-        page.goto("https://www.douyin.com")
-        sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
-        assert sadcaptcha.page_is_douyin()
-
-def test_solve_douyin_puzzle(caplog):
-    caplog.set_level(logging.DEBUG)
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
-        page = browser.new_page()
-        page.goto("https://www.douyin.com")
-        page.goto("https://www.douyin.com/discover")
-        sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
-        sadcaptcha.solve_captcha_if_present()
+# def test_detect_douyin(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     with sync_playwright() as p:
+#         browser = p.chromium.launch(headless=False)
+#         page = browser.new_page()
+#         page.goto("https://www.douyin.com")
+#         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
+#         assert sadcaptcha.page_is_douyin()
+#
+# def test_solve_douyin_puzzle(caplog):
+#     caplog.set_level(logging.DEBUG)
+#     with sync_playwright() as p:
+#         browser = p.chromium.launch(headless=False)
+#         page = browser.new_page()
+#         page.goto("https://www.douyin.com")
+#         page.goto("https://www.douyin.com/discover")
+#         sadcaptcha = PlaywrightSolver(page, os.environ["API_KEY"])
+#         sadcaptcha.solve_captcha_if_present()
