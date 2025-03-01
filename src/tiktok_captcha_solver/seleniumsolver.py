@@ -73,41 +73,45 @@ class SeleniumSolver(Solver):
 
     def identify_captcha(self) -> CaptchaType:
         for _ in range(60):
-            if self._any_selector_in_list_present([selectors.PuzzleV1.UNIQUE_IDENTIFIER]):
-                logging.debug("detected puzzle")
-                return CaptchaType.PUZZLE_V1
-            if self._any_selector_in_list_present([selectors.PuzzleV2.UNIQUE_IDENTIFIER]):
-                logging.debug("detected puzzle v2")
-                return CaptchaType.PUZZLE_V2
-            elif self._any_selector_in_list_present([selectors.RotateV1.UNIQUE_IDENTIFIER]):
-                logging.debug("detected rotate v1")
-                return CaptchaType.ROTATE_V1
-            elif self._any_selector_in_list_present([selectors.RotateV2.UNIQUE_IDENTIFIER]):
-                logging.debug("detected rotate v2")
-                return CaptchaType.ROTATE_V2
-            if self._any_selector_in_list_present([selectors.ShapesV1.UNIQUE_IDENTIFIER]):
-                img_url = self._get_image_url(selectors.ShapesV1.IMAGE)
-                if "/icon" in img_url:
-                    logging.debug("detected icon v1")
-                    return CaptchaType.ICON_V1
-                elif "/3d" in img_url:
-                    logging.debug("detected shapes v1")
-                    return CaptchaType.SHAPES_V1
+            try:
+                if self._any_selector_in_list_present([selectors.PuzzleV1.UNIQUE_IDENTIFIER]):
+                    logging.debug("detected puzzle")
+                    return CaptchaType.PUZZLE_V1
+                elif self._any_selector_in_list_present([selectors.PuzzleV2.UNIQUE_IDENTIFIER]):
+                    logging.debug("detected puzzle v2")
+                    return CaptchaType.PUZZLE_V2
+                elif self._any_selector_in_list_present([selectors.RotateV1.UNIQUE_IDENTIFIER]):
+                    logging.debug("detected rotate v1")
+                    return CaptchaType.ROTATE_V1
+                elif self._any_selector_in_list_present([selectors.RotateV2.UNIQUE_IDENTIFIER]):
+                    logging.debug("detected rotate v2")
+                    return CaptchaType.ROTATE_V2
+                elif self._any_selector_in_list_present([selectors.ShapesV1.UNIQUE_IDENTIFIER]):
+                    img_url = self._get_image_url(selectors.ShapesV1.IMAGE)
+                    if "/icon" in img_url:
+                        logging.debug("detected icon v1")
+                        return CaptchaType.ICON_V1
+                    elif "/3d" in img_url:
+                        logging.debug("detected shapes v1")
+                        return CaptchaType.SHAPES_V1
+                    else:
+                        logging.warn("did not see '/3d' in image source url but returning shapes v1 anyways")
+                        return CaptchaType.SHAPES_V1
+                elif self._any_selector_in_list_present([selectors.ShapesV2.UNIQUE_IDENTIFIER]):
+                    img_url = self._get_image_url(selectors.ShapesV2.IMAGE)
+                    if "/icon" in img_url:
+                        logging.debug("detected icon v2")
+                        return CaptchaType.ICON_V2
+                    elif "/3d" in img_url:
+                        logging.debug("detected shapes v2")
+                        return CaptchaType.SHAPES_V2
+                    else:
+                        logging.warning("did not see '/3d' in image source url but returning shapes v2 anyways")
+                        return CaptchaType.SHAPES_V2
                 else:
-                    logging.warn("did not see '/3d' in image source url but returning shapes v1 anyways")
-                    return CaptchaType.SHAPES_V1
-            if self._any_selector_in_list_present([selectors.ShapesV2.UNIQUE_IDENTIFIER]):
-                img_url = self._get_image_url(selectors.ShapesV2.IMAGE)
-                if "/icon" in img_url:
-                    logging.debug("detected icon v2")
-                    return CaptchaType.ICON_V2
-                elif "/3d" in img_url:
-                    logging.debug("detected shapes v2")
-                    return CaptchaType.SHAPES_V2
-                else:
-                    logging.warn("did not see '/3d' in image source url but returning shapes v2 anyways")
-                    return CaptchaType.SHAPES_V2
-            else:
+                    time.sleep(0.5)
+            except Exception as e:
+                logging.warning(f"Exception occurred identifying captcha: {str(e)}. Trying again")
                 time.sleep(0.5)
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
 
@@ -159,10 +163,16 @@ class SeleniumSolver(Solver):
         outer = fetch_image_b64(self._get_image_url(selectors.RotateV2.OUTER), driver=self.chromedriver)
         inner = fetch_image_b64(self._get_image_url(selectors.RotateV2.INNER), driver=self.chromedriver)
         solution = self.client.rotate(outer, inner)
+        logging.debug("angle solution: " + str(solution.angle))
         slide_bar_width = self._get_element_width(selectors.RotateV2.SLIDE_BAR)
         slider_button_width = self._get_element_width(selectors.RotateV2.SLIDER_DRAG_BUTTON)
         distance = compute_rotate_slide_distance(solution.angle, slide_bar_width, slider_button_width)
-        self._drag_element_horizontal(selectors.RotateV2.SLIDER_DRAG_BUTTON, distance)
+        logging.debug("slide distance: " + str(distance))
+        self._drag_ele_until_watched_ele_has_translateX(
+                selectors.RotateV2.SLIDER_DRAG_BUTTON,
+                selectors.RotateV2.SLIDER_DRAG_BUTTON,
+                distance
+        )
 
     def solve_puzzle(self) -> None:
         if not self._any_selector_in_list_present([selectors.PuzzleV1.PIECE]):

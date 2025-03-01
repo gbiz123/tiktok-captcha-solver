@@ -13,7 +13,7 @@ class RotateV2:
     INNER = ".captcha-verify-container > div > div > div > img.cap-absolute"
     OUTER = ".captcha-verify-container > div > div > div > img:first-child"
     SLIDE_BAR = ".captcha-verify-container > div > div > div.cap-w-full > div.cap-rounded-full"
-    SLIDER_DRAG_BUTTON = ".secsdk-captcha-drag-icon"
+    SLIDER_DRAG_BUTTON = ".captcha-verify-container div[draggable=true]"
     UNIQUE_IDENTIFIER = ".captcha-verify-container > div > div > div > img.cap-absolute"
 
 class PuzzleV1:
