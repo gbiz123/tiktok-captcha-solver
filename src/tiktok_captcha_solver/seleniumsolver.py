@@ -111,7 +111,7 @@ class SeleniumSolver(Solver):
                 else:
                     time.sleep(0.5)
             except Exception as e:
-                logging.warning(f"Exception occurred identifying captcha: {str(e)}. Trying again")
+                logging.debug(f"Exception occurred identifying captcha: {str(e)}. Trying again")
                 time.sleep(0.5)
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
 
