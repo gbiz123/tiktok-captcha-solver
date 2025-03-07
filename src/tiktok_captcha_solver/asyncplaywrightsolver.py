@@ -70,41 +70,45 @@ class AsyncPlaywrightSolver(AsyncSolver):
 
     async def identify_captcha(self) -> CaptchaType:
         for _ in range(60):
-            if await self._any_selector_in_list_present([selectors.PuzzleV1.UNIQUE_IDENTIFIER]):
-                logging.debug("detected puzzle")
-                return CaptchaType.PUZZLE_V1
-            if await self._any_selector_in_list_present([selectors.PuzzleV2.UNIQUE_IDENTIFIER]):
-                logging.debug("detected puzzle v2")
-                return CaptchaType.PUZZLE_V2
-            elif await self._any_selector_in_list_present([selectors.RotateV1.UNIQUE_IDENTIFIER]):
-                logging.debug("detected rotate v1")
-                return CaptchaType.ROTATE_V1
-            elif await self._any_selector_in_list_present([selectors.RotateV2.UNIQUE_IDENTIFIER]):
-                logging.debug("detected rotate v2")
-                return CaptchaType.ROTATE_V2
-            if await self._any_selector_in_list_present([selectors.ShapesV1.UNIQUE_IDENTIFIER]):
-                img_url = await self._get_image_url(selectors.ShapesV1.IMAGE)
-                if "/icon" in img_url:
-                    logging.debug("detected icon v1")
-                    return CaptchaType.ICON_V1
-                elif "/3d" in img_url:
-                    logging.debug("detected shapes v1")
-                    return CaptchaType.SHAPES_V1
+            try:
+                if await self._any_selector_in_list_present([selectors.PuzzleV1.UNIQUE_IDENTIFIER]):
+                    logging.debug("detected puzzle")
+                    return CaptchaType.PUZZLE_V1
+                if await self._any_selector_in_list_present([selectors.PuzzleV2.UNIQUE_IDENTIFIER]):
+                    logging.debug("detected puzzle v2")
+                    return CaptchaType.PUZZLE_V2
+                elif await self._any_selector_in_list_present([selectors.RotateV1.UNIQUE_IDENTIFIER]):
+                    logging.debug("detected rotate v1")
+                    return CaptchaType.ROTATE_V1
+                elif await self._any_selector_in_list_present([selectors.RotateV2.UNIQUE_IDENTIFIER]):
+                    logging.debug("detected rotate v2")
+                    return CaptchaType.ROTATE_V2
+                if await self._any_selector_in_list_present([selectors.ShapesV1.UNIQUE_IDENTIFIER]):
+                    img_url = await self._get_image_url(selectors.ShapesV1.IMAGE)
+                    if "/icon" in img_url:
+                        logging.debug("detected icon v1")
+                        return CaptchaType.ICON_V1
+                    elif "/3d" in img_url:
+                        logging.debug("detected shapes v1")
+                        return CaptchaType.SHAPES_V1
+                    else:
+                        logging.warn("did not see '/3d' in image source url but returning shapes v1 anyways")
+                        return CaptchaType.SHAPES_V1
+                if await self._any_selector_in_list_present([selectors.ShapesV2.UNIQUE_IDENTIFIER]):
+                    img_url = await self._get_image_url(selectors.ShapesV2.IMAGE)
+                    if "/icon" in img_url:
+                        logging.debug("detected icon v2")
+                        return CaptchaType.ICON_V2
+                    elif "/3d" in img_url:
+                        logging.debug("detected shapes v2")
+                        return CaptchaType.SHAPES_V2
+                    else:
+                        logging.warn("did not see '/3d' in image source url but returning shapes v2 anyways")
+                        return CaptchaType.SHAPES_V2
                 else:
-                    logging.warn("did not see '/3d' in image source url but returning shapes v1 anyways")
-                    return CaptchaType.SHAPES_V1
-            if await self._any_selector_in_list_present([selectors.ShapesV2.UNIQUE_IDENTIFIER]):
-                img_url = await self._get_image_url(selectors.ShapesV2.IMAGE)
-                if "/icon" in img_url:
-                    logging.debug("detected icon v2")
-                    return CaptchaType.ICON_V2
-                elif "/3d" in img_url:
-                    logging.debug("detected shapes v2")
-                    return CaptchaType.SHAPES_V2
-                else:
-                    logging.warn("did not see '/3d' in image source url but returning shapes v2 anyways")
-                    return CaptchaType.SHAPES_V2
-            else:
+                    await asyncio.sleep(0.5)
+            except Exception as e:
+                logging.debug(f"Exception occurred identifying captcha: {str(e)}. Trying again")
                 await asyncio.sleep(0.5)
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
 
