@@ -239,7 +239,9 @@ def solve_rotate():
     # 55 is the width of the slide button
     # 286 in the example is the width of the entire bar.
     # These values may vary based on your device!
-    result = ((286 - 55) * angle) / 360
+    slide_button_width = 55
+    slide_bar_width = 286
+    result = ((slide_bar_width - slide_button_width) * angle) / 360
     start_x = 55
     start_y = 530
     offset_x = result
