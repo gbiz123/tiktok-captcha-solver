@@ -219,6 +219,7 @@ def solve_rotate():
     captcha_image_with_hole.paste((0, 0, 0, 0), (0, 0), mask2)
     captcha_image_with_hole.save('captcha_image_with_hole.png')
 
+    # inner and outer images should be cropped to the edges of the circle, without whitespace on the edges
     with open('captcha_image_with_hole.png', 'rb') as f:
         outer = base64.b64encode(f.read()).decode('utf-8')
     with open('captcha_image_circular.png', 'rb') as f:
@@ -234,6 +235,10 @@ def solve_rotate():
     response = r.json()
     angle = response.get('angle', 0)
 
+    # calculate where the button needs to be dragged to
+    # 55 is the width of the slide button
+    # 286 in the example is the width of the entire bar.
+    # These values may vary based on your device!
     result = ((286 - 55) * angle) / 360
     start_x = 55
     start_y = 530
