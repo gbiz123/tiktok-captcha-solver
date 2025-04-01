@@ -226,7 +226,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
                 selectors.PuzzleV2.SLIDER_DRAG_BUTTON,
                 selectors.PuzzleV2.PIECE_IMAGE_CONTAINER,
                 distance
-            ) 
+            )
             if await self.captcha_is_not_present(timeout=5):
                 return
             else:
@@ -322,13 +322,13 @@ class AsyncPlaywrightSolver(AsyncSolver):
 
         Args:
             element: FloatRect to click inside
-            proportion_x: float from 0 to 1 defining the proportion x location to click 
-            proportion_y: float from 0 to 1 defining the proportion y location to click 
+            proportion_x: float from 0 to 1 defining the proportion x location to click
+            proportion_y: float from 0 to 1 defining the proportion y location to click
         """
         x_origin = bounding_box["x"]
         y_origin = bounding_box["y"]
         x_offset = (proportion_x * bounding_box["width"])
-        y_offset = (proportion_y * bounding_box["height"]) 
+        y_offset = (proportion_y * bounding_box["height"])
         await self.page.mouse.move(x_origin + x_offset, y_origin + y_offset)
         await asyncio.sleep(random.randint(1, 10) / 11)
         await self.page.mouse.down()
@@ -338,7 +338,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
 
     async def _drag_ele_until_watched_ele_has_translateX(self, drag_ele_selector: str, watch_ele_selector: str, target_translateX: int) -> None:
         """This method drags the element drag_ele_selector until the translateX value of watch_ele_selector is equal to translateX_target.
-        This is necessary because there is a small difference between the amount the puzzle piece slides and 
+        This is necessary because there is a small difference between the amount the puzzle piece slides and
         the amount of pixels the drag element has been dragged in TikTok puzzle v2."""
         drag_ele = self.page.locator(drag_ele_selector)
         watch_ele = self.page.locator(watch_ele_selector)
@@ -365,7 +365,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             current_translateX = get_translateX_from_style(style)
         await asyncio.sleep(0.3)
         await self.page.mouse.up()
-        
+
 
     async def _drag_element_horizontal(self, css_selector: str, x_offset: int, frame_selector: str | None = None) -> None:
         if frame_selector:
@@ -388,7 +388,7 @@ class AsyncPlaywrightSolver(AsyncSolver):
             await self.page.mouse.move(start_x + x_offset - pixel, start_y + pixel) # overshoot back
             await self.page.wait_for_timeout(self.mouse_step_delay_ms / 2)
         await asyncio.sleep(0.2)
-        await self.page.mouse.move(start_x + x_offset, start_y, steps=75) 
+        await self.page.mouse.move(start_x + x_offset, start_y, steps=75)
         await asyncio.sleep(0.3)
         await self.page.mouse.up()
 
