@@ -23,6 +23,11 @@ This tool works on both TikTok and Douyin and can solve any of the four captcha 
     - For Selenium, you can use [undetected-chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver)
     - For Playwright, you can use [playwright-stealth](https://pypi.org/project/playwright-stealth/)
 
+## Note for NodeJS users
+For users automating in NodeJS or another programming language, the recommended method is to download the chrome extension from the 
+chrome web store, unzip the file, patch the script.js file with your API key, and load it into your browser.
+This will save you a lot of time implementing the API on your own.
+
 ## Installation
 This project can be installed with `pip`. Just run the following command:
 ```
