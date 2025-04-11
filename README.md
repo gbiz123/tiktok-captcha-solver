@@ -250,38 +250,6 @@ def solve_rotate():
 ```
 
 
-## Using Proxies and Custom Headers
-SadCaptcha supports using proxies and custom headers such as user agent.
-This is useful to avoid detection.
-To implement this feature, pass your proxy URL and headers dictionary as a keyword argument to the constructor of the solver.
-```py
-api_key = "YOUR_API_KEY_HERE"
-proxy = "http://username:password@123.0.1.2:80"
-headers = {"User-Agent": "Chrome"}
-
-# With Selenium Solver
-driver = uc.Chrome(headless=False) # Use default undetected_chromedriver configuration!
-api_key = "YOUR_API_KEY_HERE"
-sadcaptcha = SeleniumSolver(driver, api_key, proxy=proxy, headers=headers)
-
-# With Playwright Solver
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False)
-    page = browser.new_page()
-    stealth_sync(page) # Use default playwright_stealth configuration!
-    sadcaptcha = PlaywrightSolver(page, api_key, proxy=proxy, headers=headers)
-    sadcaptcha.solve_captcha_if_present()
-
-# With Async PlaywrightSolver
-async def main()
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        page = await browser.new_page()
-        await stealth_async(page) # Use default playwright_stealth configuration!
-        sadcaptcha = AsyncPlaywrightSolver(page, api_key, headers=headers, proxy=proxy)
-        await sadcaptcha.solve_captcha_if_present()
-```
-
 ## API Client
 If you are not using Selenium or Playwright, you can still import and use the API client to help you make calls to SadCaptcha
 ```py
