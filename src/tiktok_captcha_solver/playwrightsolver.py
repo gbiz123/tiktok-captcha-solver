@@ -109,7 +109,7 @@ class PlaywrightSolver(Solver):
                     time.sleep(0.5)
             except Exception as e:
                 logging.debug(f"Exception occurred identifying captcha: {str(e)}. Trying again")
-                time.sleep(0.5)
+                continue
         raise ValueError("Neither puzzle, shapes, or rotate captcha was present.")
 
     def page_is_douyin(self) -> bool:
@@ -136,7 +136,7 @@ class PlaywrightSolver(Solver):
             if self.captcha_is_not_present(timeout=5):
                 return
             else:
-                time.sleep(5)
+                time.sleep(3)
 
     def solve_shapes_v2(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -155,7 +155,7 @@ class PlaywrightSolver(Solver):
             if self.captcha_is_not_present(timeout=5):
                 return
             else:
-                time.sleep(5)
+                time.sleep(3)
 
     def solve_rotate(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -174,7 +174,7 @@ class PlaywrightSolver(Solver):
             if self.captcha_is_not_present(timeout=5):
                 return
             else:
-                time.sleep(5)
+                time.sleep(3)
 
     def solve_rotate_v2(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -193,7 +193,9 @@ class PlaywrightSolver(Solver):
             if self.captcha_is_not_present(timeout=5):
                 return
             else:
-                time.sleep(5)
+                self.page.click(selectors.RotateV2.REFRESH_BUTTON)
+                logging.debug("clicked refresh button")
+                time.sleep(3)
 
     def solve_puzzle(self, retries: int = 3) -> None:
         for _ in range(retries):
@@ -209,7 +211,7 @@ class PlaywrightSolver(Solver):
             if self.captcha_is_not_present(timeout=5):
                 return
             else:
-                time.sleep(5)
+                time.sleep(3)
 
 
     def solve_puzzle_v2(self, retries: int = 3) -> None:
@@ -231,7 +233,7 @@ class PlaywrightSolver(Solver):
             if self.captcha_is_not_present(timeout=5):
                 return
             else:
-                time.sleep(5)
+                time.sleep(3)
 
     def solve_icon(self) -> None:
         if not self._any_selector_in_list_present([selectors.IconV1.IMAGE]):

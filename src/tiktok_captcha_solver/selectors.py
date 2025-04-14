@@ -15,6 +15,7 @@ class RotateV2:
     SLIDE_BAR = ".captcha-verify-container > div > div > div.cap-w-full > div.cap-rounded-full"
     SLIDER_DRAG_BUTTON = ".captcha-verify-container div[draggable=true]"
     UNIQUE_IDENTIFIER = ".captcha-verify-container > div > div > div > img.cap-absolute"
+    REFRESH_BUTTON = "#captcha_refresh_button"
 
 class PuzzleV1:
     PIECE = "img.captcha_verify_img_slide"

@@ -215,7 +215,9 @@ class AsyncPlaywrightSolver(AsyncSolver):
             if await self.captcha_is_not_present(timeout=5):
                 return
             else:
-                await asyncio.sleep(5)
+                self.page.click(selectors.RotateV2.REFRESH_BUTTON)
+                logging.debug("clicked refresh button")
+                await asyncio.sleep(3)
 
     async def solve_puzzle(self, retries: int = 3) -> None:
         for _ in range(retries):
