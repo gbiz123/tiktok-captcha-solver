@@ -35,100 +35,65 @@ pip install tiktok-captcha-solver
 ```
 
 ## Selenium Client 
-Import the package, set up the `SeleniumSolver` class, and call it whenever you need.
-This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
-It is the recommended method if you are using selenium.
+Import the function `make_undetected_chromedriver_solver`
+This function will create an undetected chromedriver instance patched with the tiktok Captcha Solver chrome extension.
+The extension will automatically detect and solve the captcha in the background, and there is nothing further you need to do.
 
 ```py
-from tiktok_captcha_solver import SeleniumSolver
+from tiktok_captcha_solver import make_undetected_chromedriver_solver
 from selenium_stealth import stealth
 import undetected_chromedriver as uc
 
-driver = uc.Chrome(headless=False) # Use default undetected_chromedriver configuration!
 api_key = "YOUR_API_KEY_HERE"
-sadcaptcha = SeleniumSolver(
-    driver,
-    api_key,
-    mouse_step_size=1, # Adjust to change mouse speed
-    mouse_step_delay_ms=10 # Adjust to change mouse speed
-)
+driver = make_undetected_chromedriver_solver(api_key) # Returns uc.Chrome instance
+stealth(driver) # Add stealth if needed
+# ... [The rest of your code that accesses tiktok goes here]
 
-# Selenium code that causes a TikTok or Douyin captcha...
-
-sadcaptcha.solve_captcha_if_present()
+# Now tiktok captchas will be automatically solved!
 ```
-
-It is crucial that you use `undetected_chromedriver` with the default configuration, instead of the standard Selenium chromedriver.
-Failure to use the `undetected_chromedriver` will result in "Verification failed" when attempting to solve the captcha.
+You may also pass `ChromeOptions` to `make_undetected_chromedriver_solver()`, as well as keyword arguments for `uc.Chrome()`.
 
 ## Playwright Client
-Import the package, set up the `PlaywrightSolver` class, and call it whenever you need.
-This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
-It is the recommended method if you are using playwright.
-
+Import the function `make_playwright_solver_context`
+This function will create a playwright BrowserContext instance patched with the tiktok Captcha Solver chrome extension.
+The extension will automatically detect and solve the captcha in the background, and there is nothing further you need to do.
 
 ```py
-from tiktok_captcha_solver import PlaywrightSolver
-from playwright.sync_api import Page, sync_playwright
-from playwright_stealth import stealth_sync, StealthConfig
+from tiktok_captcha_solver import make_playwright_solver_context
+from playwright.sync_api import sync_playwright
 
 api_key = "YOUR_API_KEY_HERE"
-
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False)
-    page = browser.new_page()
-    config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-    stealth_sync(page, config) # Use correct playwright_stealth configuration!
-    
-    # Playwright code that causes a TikTok or Douyin captcha...
+    context = make_playwright_solver_context(p, api_key) # Returns playwright BrowserContext instance
+    # ... [The rest of your code that accesses tiktok goes here]
 
-    sadcaptcha = PlaywrightSolver(
-        page,
-        api_key,
-        mouse_step_size=1, # Adjust to change mouse speed
-        mouse_step_delay_ms=10 # Adjust to change mouse speed
-    )
-    sadcaptcha.solve_captcha_if_present()
+# Now tiktok captchas will be automatically solved!
 ```
-It is crucial that users of the Playwright client also use `playwright-stealth` with the configuration specified above.
-Failure to use the `playwright-stealth` plugin will result in "Verification failed" when attempting to solve the captcha.
+You may also pass keyword args to this function, which will be passed directly to playwright's call to `playwright.chromium.launch_persistent_context()`.
+By default, the user data directory is a tempory directory that is deleted at the end of runtime.
 
 ## Async Playwright Client
-Import the package, set up the `AsyncPlaywrightSolver` class, and call it whenever you need.
-This turns the entire captcha detection, solution, retry, and verification process into a single line of code.
-It is the recommended method if you are using async playwright.
-
-
+Import the function `make_async_playwright_solver_context`
+This function will create an async playwright BrowserContext instance patched with the tiktok Captcha Solver chrome extension.
+The extension will automatically detect and solve the captcha in the background, and there is nothing further you need to do.
 
 ```py
 import asyncio
-from tiktok_captcha_solver import AsyncPlaywrightSolver
-from playwright.async_api import Page, async_playwright
-from playwright_stealth import stealth_async, StealthConfig
+from playwright.async_api import async_playwright
+from tiktok_captcha_solver import make_async_playwright_solver_context
 
-api_key = "YOUR_API_KEY_HERE"
-
-async def main()
+async def main():
+    api_key = "YOUR_API_KEY_HERE"
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        page = await browser.new_page()
-        config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-        await stealth_async(page, config) # Use correct playwright_stealth configuration!
-        
-        # Playwright code that causes a TikTok or Douyin captcha...
-
-        sadcaptcha = AsyncPlaywrightSolver(
-            page,
-            api_key,
-            mouse_step_size=1, # Adjust to change mouse speed
-            mouse_step_delay_ms=10 # Adjust to change mouse speed
-        )
-        await sadcaptcha.solve_captcha_if_present()
+        context = await make_async_playwright_solver_context(p, api_key) # Returns playwright BrowserContext instance
+        # ... [The rest of your code that accesses tiktok goes here]
 
 asyncio.run(main())
+
+# Now tiktok captchas will be automatically solved!
 ```
-It is crucial that users of the Playwright client also use `playwright-stealth` with the stealth configuration specified above.
-Failure to use the `playwright-stealth` plugin will result in "Verification failed" when attempting to solve the captcha.
+You may also pass keyword args to this function, which will be passed directly to playwright's call to `playwright.chromium.launch_persistent_context()`.
+By default, the user data directory is a tempory directory that is deleted at the end of runtime.
 
 ## Mobile (Appium)
 Currently there is no premade solver for Mobile/appium, but you can implement the API with relative ease.
