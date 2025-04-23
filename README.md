@@ -28,6 +28,10 @@ For users automating in NodeJS or another programming language, the recommended 
 chrome web store, unzip the file, patch the script.js file with your API key, and load it into your browser.
 This will save you a lot of time implementing the API on your own.
 
+## Note on running headless
+To run in headless mode, you need to use the launch arg `headless=new` or `headless=chrome` as a launch arg.
+Instructions to do this are in their own respective sections.
+
 ## Installation
 This project can be installed with `pip`. Just run the following command:
 ```
@@ -42,10 +46,14 @@ The extension will automatically detect and solve the captcha in the background,
 ```py
 from tiktok_captcha_solver import make_undetected_chromedriver_solver
 from selenium_stealth import stealth
+from selenium.webdriver import ChromeOptions
 import undetected_chromedriver as uc
 
+chrome_options = ChromeOptions()
+# chrome_options.add_argument("--headless=chrome") # If running headless, use this option
+
 api_key = "YOUR_API_KEY_HERE"
-driver = make_undetected_chromedriver_solver(api_key) # Returns uc.Chrome instance
+driver = make_undetected_chromedriver_solver(api_key, options=options) # Returns uc.Chrome instance
 stealth(driver) # Add stealth if needed
 # ... [The rest of your code that accesses tiktok goes here]
 
@@ -62,9 +70,11 @@ The extension will automatically detect and solve the captcha in the background,
 from tiktok_captcha_solver import make_playwright_solver_context
 from playwright.sync_api import sync_playwright
 
+launch_args = ["--headless=chrome"] # Need this arg if running headless
+
 api_key = "YOUR_API_KEY_HERE"
 with sync_playwright() as p:
-    context = make_playwright_solver_context(p, api_key) # Returns playwright BrowserContext instance
+    context = make_playwright_solver_context(p, api_key, args=launch_args) # Returns playwright BrowserContext instance
     # ... [The rest of your code that accesses tiktok goes here]
 
 # Now tiktok captchas will be automatically solved!
@@ -82,10 +92,12 @@ import asyncio
 from playwright.async_api import async_playwright
 from tiktok_captcha_solver import make_async_playwright_solver_context
 
+launch_args = ["--headless=chrome"] # Need this arg if running headless
+
 async def main():
     api_key = "YOUR_API_KEY_HERE"
     async with async_playwright() as p:
-        context = await make_async_playwright_solver_context(p, api_key) # Returns playwright BrowserContext instance
+        context = await make_async_playwright_solver_context(p, api_key, args=launch_args) # Returns playwright BrowserContext instance
         # ... [The rest of your code that accesses tiktok goes here]
 
 asyncio.run(main())
