@@ -31,6 +31,7 @@ This will save you a lot of time implementing the API on your own.
 ## Note on running headless
 To run in headless mode, you need to use the launch arg `headless=new` or `headless=chrome` as a launch arg.
 Instructions to do this are in their own respective sections.
+Another option is to use [Xvfb](https://www.x.org/archive/X11R7.7/doc/man/man1/Xvfb.1.xhtml) with `headless=True` to spoof a graphical environment.
 
 ## Installation
 This project can be installed with `pip`. Just run the following command:
