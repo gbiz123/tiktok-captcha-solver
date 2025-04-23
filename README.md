@@ -71,11 +71,14 @@ The extension will automatically detect and solve the captcha in the background,
 from tiktok_captcha_solver import make_playwright_solver_context
 from playwright.sync_api import sync_playwright
 
-launch_args = ["--headless=chrome"] # Need this arg if running headless
+# Need this arg if running headless
+launch_args = ["--headless=chrome"]
 
 api_key = "YOUR_API_KEY_HERE"
 with sync_playwright() as p:
-    context = make_playwright_solver_context(p, api_key, args=launch_args) # Returns playwright BrowserContext instance
+    # Keyword arguments are passed to p.chromium.launch_persistent_context()
+    # Returns playwright BrowserContext instance
+    context = make_playwright_solver_context(p, api_key, args=launch_args) 
     # ... [The rest of your code that accesses tiktok goes here]
 
 # Now tiktok captchas will be automatically solved!
@@ -93,12 +96,15 @@ import asyncio
 from playwright.async_api import async_playwright
 from tiktok_captcha_solver import make_async_playwright_solver_context
 
-launch_args = ["--headless=chrome"] # Need this arg if running headless
+# Need this arg if running headless
+launch_args = ["--headless=chrome"] 
 
 async def main():
     api_key = "YOUR_API_KEY_HERE"
     async with async_playwright() as p:
-        context = await make_async_playwright_solver_context(p, api_key, args=launch_args) # Returns playwright BrowserContext instance
+        # Keyword arguments are passed to p.chromium.launch_persistent_context()
+        # Returns playwright BrowserContext instance
+        context = await make_async_playwright_solver_context(p, api_key, args=launch_args) 
         # ... [The rest of your code that accesses tiktok goes here]
 
 asyncio.run(main())
