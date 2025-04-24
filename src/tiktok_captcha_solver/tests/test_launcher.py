@@ -36,6 +36,8 @@ def open_tiktkok_login(page: Page) -> None:
     time.sleep(2)
     page.locator('//button[contains(@data-e2e,"login-button")]').click();
     print("pressed login button")
+    time.sleep(5)
+    _ = page.screenshot(path="post_login_click.png")
     time.sleep(15)
 
 def test_launch_browser_with_crx_headless():
