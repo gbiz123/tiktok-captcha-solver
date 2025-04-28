@@ -71,8 +71,7 @@ The extension will automatically detect and solve the captcha in the background,
 from tiktok_captcha_solver import make_playwright_solver_context
 from playwright.sync_api import sync_playwright
 
-# Need this arg if running headless
-launch_args = ["--headless=chrome"]
+launch_args = ["--headless=chrome"] # or --headless=new if that doesn't work
 
 api_key = "YOUR_API_KEY_HERE"
 with sync_playwright() as p:
@@ -97,7 +96,7 @@ from playwright.async_api import async_playwright
 from tiktok_captcha_solver import make_async_playwright_solver_context
 
 # Need this arg if running headless
-launch_args = ["--headless=chrome"] 
+launch_args = ["--headless=chrome"] # or --headless=new if that doesn't work
 
 async def main():
     api_key = "YOUR_API_KEY_HERE"
