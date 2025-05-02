@@ -267,6 +267,10 @@ If you are using Playwright, you must use the `playwright_stealth` package with 
 Do not change the user agent, or modify any other browser characteristics as this is easily detected and flagged as suspicious behavior.
 
 ## Contact
+To contact us, make an accout and reach out through the contact form or message us on Telegram.
 - Homepage: https://www.sadcaptcha.com/
-- Email: greg@sadcaptcha.com
 - Telegram @toughdata
+
+## The SadCaptcha Team
+- [Michael P](https://github.com/michaelzeboth) - Python Client and Chrome Extension Maintainer
+- [Greg B](https://github.com/gbiz123) - Full Stack and Algorithm Developer
