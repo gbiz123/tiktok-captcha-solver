@@ -1,46 +1,41 @@
 import logging
 import tempfile
-import os
-import requests
 from typing import Any
+import io
+import os
+import zipfile
+import requests
 
 from selenium.webdriver import ChromeOptions
 import undetected_chromedriver as uc
+
 from playwright import sync_api
 from playwright import async_api
 
 LOGGER = logging.getLogger(__name__)
-SCRIPT_JS_URL = "https://raw.githubusercontent.com/gbiz123/sadcaptcha-chrome-extensino/refs/heads/master/script.js"
-
-def download_script_js() -> str:
-    """Download the latest script.js file from GitHub and return its content."""
-    response = requests.get(SCRIPT_JS_URL)
-    response.raise_for_status()  # Raise exception if download fails
-    LOGGER.debug("Downloaded script.js from GitHub")
-    return response.text
 
 def make_undetected_chromedriver_solver(
     api_key: str,
     options: ChromeOptions | None = None,
     **uc_chrome_kwargs
 ) -> uc.Chrome:
-    """Create an undetected chromedriver with SadCaptcha script injected."""
+    """Create an undetected chromedriver patched with SadCaptcha.
+    
+    Args:
+        api_key (str): SadCaptcha API key
+        options (ChromeOptions | None): Options to launch uc.Chrome with
+        uc_chrome_kwargs: keyword arguments for call to uc.Chrome
+    """
     if options is None:
         options = ChromeOptions()
-    
-    # Download and patch the script
-    script_content = download_script_js()
-    patched_script = patch_extension_script_with_key(script_content, api_key)
-    
-    # Launch Chrome
+    ext_dir = download_extension_to_unpacked()
+    _patch_extension_file_with_key(ext_dir.name, api_key)
+    verify_api_key_injection(ext_dir.name, api_key)
+    options.add_argument(f'--load-extension={ext_dir.name}')
     chrome = uc.Chrome(options=options, **uc_chrome_kwargs)
-    
-    # Set up a listener to inject the script on each page load
-    chrome.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
-        'source': patched_script
-    })
-    
-    LOGGER.debug("Created undetected chromedriver with SadCaptcha script")
+    # keep the temp dir alive for the lifetime of the driver
+    chrome._sadcaptcha_tmpdir = ext_dir      # ← prevents garbage collection
+    LOGGER.debug("created new undetected chromedriver patched with sadcaptcha")
     return chrome
 
 def make_playwright_solver_context(
@@ -49,35 +44,26 @@ def make_playwright_solver_context(
     user_data_dir: str | None = None,
     **playwright_context_kwargs
 ) -> sync_api.BrowserContext:
-    """Create a playwright context with SadCaptcha script injected on each page."""
+    """Create a playwright context patched with SadCaptcha.
+    
+    Args:
+        playwright (playwright.sync_api.playwright) - Playwright instance
+        api_key (str): SadCaptcha API key
+        user_data_dir (str | None): User data dir that is passed to playwright.chromium.launch_persistent_context. If None, a temporary directory will be used.
+        **playwright_context_kwargs: Keyword args which will be passed to playwright.chromium.launch_persistent_context()
+    """
+    ext_dir = download_extension_to_unpacked()
     if user_data_dir is None:
         user_data_dir_tempdir = tempfile.TemporaryDirectory()
         user_data_dir = user_data_dir_tempdir.name
-    
-    # Add common browser arguments
-    if "args" not in playwright_context_kwargs:
-        playwright_context_kwargs["args"] = [
-            '--disable-blink-features=AutomationControlled',
-            '--no-sandbox',         
-            '--disable-web-security',
-            '--disable-infobars',  
-            '--start-maximized',  
-        ]
-    
-    # Launch browser context
+    _patch_extension_file_with_key(ext_dir.name, api_key)
+    playwright_context_kwargs = _prepare_pw_context_args(playwright_context_kwargs, ext_dir.name)
     ctx = playwright.chromium.launch_persistent_context(
         user_data_dir,
         **playwright_context_kwargs
     )
-    
-    # Download and patch the script
-    script_content = download_script_js()
-    patched_script = patch_extension_script_with_key(script_content, api_key)
-    
-    # Set up event listener to inject the script on each new page
-    ctx.on("page", lambda page: _inject_script_to_page(page, patched_script))
-    
-    LOGGER.debug("Created patched playwright context")
+    ctx._sadcaptcha_tmpdir = ext_dir          # keep reference
+    LOGGER.debug("created patched playwright context")
     return ctx
 
 async def make_async_playwright_solver_context(
@@ -86,49 +72,119 @@ async def make_async_playwright_solver_context(
     user_data_dir: str | None = None,
     **playwright_context_kwargs
 ) -> async_api.BrowserContext:
-    """Create an async playwright context with SadCaptcha script injected on each page."""
+    """Create a async playwright context patched with SadCaptcha.
+    
+    Args:
+        playwright (playwright.async_api.playwright) - Playwright instance
+        api_key (str): SadCaptcha API key
+        user_data_dir (str | None): User data dir that is passed to playwright.chromium.launch_persistent_context. If None, a temporary directory will be used.
+        **playwright_context_kwargs: Keyword args which will be passed to playwright.chromium.launch_persistent_context()
+    """
+    ext_dir = download_extension_to_unpacked()
     if user_data_dir is None:
         user_data_dir_tempdir = tempfile.TemporaryDirectory()
         user_data_dir = user_data_dir_tempdir.name
-    
-    # Add common browser arguments
-    if "args" not in playwright_context_kwargs:
+    _patch_extension_file_with_key(ext_dir.name, api_key)
+    playwright_context_kwargs = _prepare_pw_context_args(playwright_context_kwargs, ext_dir.name)
+    ctx = await async_playwright.chromium.launch_persistent_context(
+        user_data_dir,
+        **playwright_context_kwargs
+    )
+    ctx._sadcaptcha_tmpdir = ext_dir          # keep reference
+    LOGGER.debug("created patched async playwright context")
+    return ctx
+
+def _prepare_pw_context_args(
+        playwright_context_kwargs: dict[str, Any],
+        ext: str
+) -> dict[str, Any]:
+    if "args" in playwright_context_kwargs.keys():
+        playwright_context_kwargs["args"] = playwright_context_kwargs["args"] + [
+            f"--disable-extensions-except={ext}",
+            f"--load-extension={ext}",
+        ]
+    else:
         playwright_context_kwargs["args"] = [
+            f"--disable-extensions-except={ext}",
+            f"--load-extension={ext}",
             '--disable-blink-features=AutomationControlled',
             '--no-sandbox',         
             '--disable-web-security',
             '--disable-infobars',  
             '--start-maximized',  
         ]
-    
-    # Launch browser context
-    ctx = await async_playwright.chromium.launch_persistent_context(
-        user_data_dir,
-        **playwright_context_kwargs
+    LOGGER.debug("prepared playwright context kwargs")
+    return playwright_context_kwargs
+
+def download_extension_to_unpacked() -> tempfile.TemporaryDirectory:
+    """
+    Download the SadCaptcha Chrome extension from GitHub and return an unpacked
+    TemporaryDirectory that can be passed to Playwright / Chrome.
+    """
+    repo_zip_url = (
+        "https://codeload.github.com/gbiz123/sadcaptcha-chrome-extensino/zip/refs/heads/master"
     )
-    
-    # Download and patch the script
-    script_content = download_script_js()
-    patched_script = patch_extension_script_with_key(script_content, api_key)
-    
-    # Set up event listener to inject the script on each new page
-    ctx.on("page", lambda page: _inject_async_script_to_page(page, patched_script))
-    
-    LOGGER.debug("Created patched async playwright context")
-    return ctx
 
-def _inject_script_to_page(page: sync_api.Page, script: str) -> None:
-    """Inject script to a Playwright page."""
-    page.on("load", lambda: page.evaluate(script))
-    LOGGER.debug("Set up script injection for page")
+    LOGGER.debug("Downloading SadCaptcha extension from %s", repo_zip_url)
+    resp = requests.get(repo_zip_url, timeout=30)
+    resp.raise_for_status()
 
-async def _inject_async_script_to_page(page: async_api.Page, script: str) -> None:
-    """Inject script to an async Playwright page."""
-    page.on("load", lambda: page.evaluate(script))
-    LOGGER.debug("Set up async script injection for page")
+    tmp_dir = tempfile.TemporaryDirectory(prefix="sadcaptcha_ext_")
+    with zipfile.ZipFile(io.BytesIO(resp.content)) as zf:
+        # GitHub zips have a single top‑level folder → strip it
+        root_prefix = zf.namelist()[0].split("/")[0] + "/"
+        for member in zf.namelist():
+            if member.endswith("/"):
+                continue
+            rel_path = member[len(root_prefix) :]
+            if not rel_path:
+                continue
+            dest_file = os.path.join(tmp_dir.name, rel_path)
+            os.makedirs(os.path.dirname(dest_file), exist_ok=True)
+            with zf.open(member) as src, open(dest_file, "wb") as dst:
+                dst.write(src.read())
+
+    LOGGER.debug("Extension unpacked to %s", tmp_dir.name)
+    return tmp_dir
+
+def _patch_extension_file_with_key(extension_dir: str, api_key: str) -> None:
+    script_path = os.path.join(extension_dir, "script.js")
+    try:
+        with open(script_path, "r", encoding="utf-8") as f:
+            script = f.read()
+        
+        original_script = script
+        script = patch_extension_script_with_key(script, api_key)
+        
+        # Verify replacement happened
+        if script == original_script:
+            LOGGER.warning("API key pattern not found in script.js")
+        
+        with open(script_path, "w", encoding="utf-8") as f:
+            f.write(script)
+            
+        LOGGER.debug("Successfully patched extension file with API key")
+    except Exception as e:
+        LOGGER.error(f"Failed to patch extension with API key: {e}")
+        raise
 
 def patch_extension_script_with_key(script: str, api_key: str) -> str:
-    """Patch the script with the user's API key."""
-    script = script.replace("localStorage.getItem(\"sadCaptchaKey\");", f"\"{api_key}\";")
-    LOGGER.debug("Patched script with API key")
+    script = script.replace('localStorage.getItem("sadCaptchaKey")', f"\"{api_key}\";")
+    LOGGER.debug("patched extension script with api key")
     return script
+
+def verify_api_key_injection(extension_dir, api_key):
+    script_path = os.path.join(extension_dir, "script.js")
+    
+    # Check if file exists and contains your API key
+    if os.path.exists(script_path):
+        with open(script_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        if f'"{api_key}";' in content:
+            LOGGER.info(f"SUCCESS: API key found in script.js")
+            return True
+        else:
+            LOGGER.warning(f"FAILURE: API key not found in script.js")
+    else:
+        LOGGER.error(f"FAILURE: script.js not found at {script_path}")
+    return False
