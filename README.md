@@ -70,6 +70,7 @@ The extension will automatically detect and solve the captcha in the background,
 ```py
 from tiktok_captcha_solver import make_playwright_solver_context
 from playwright.sync_api import sync_playwright
+from playwright_stealth import stealth_sync, StealthConfig
 
 launch_args = ["--headless=chrome"] # or --headless=new if that doesn't work
 
@@ -77,7 +78,13 @@ api_key = "YOUR_API_KEY_HERE"
 with sync_playwright() as p:
     # Keyword arguments are passed to p.chromium.launch_persistent_context()
     # Returns playwright BrowserContext instance
-    context = make_playwright_solver_context(p, api_key, args=launch_args) 
+    context = make_playwright_solver_context(p, api_key, args=launch_args)
+
+    # If using playwright_stealth, you need to use this StealthConfig to avoid the white screen:
+    page = context.new_page()
+    stealth_config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+    stealth_sync(page, stealth_config)
+
     # ... [The rest of your code that accesses tiktok goes here]
 
 # Now tiktok captchas will be automatically solved!
@@ -94,6 +101,7 @@ The extension will automatically detect and solve the captcha in the background,
 import asyncio
 from playwright.async_api import async_playwright
 from tiktok_captcha_solver import make_async_playwright_solver_context
+from playwright_stealth import stealth_ssync, StealthConfig
 
 # Need this arg if running headless
 launch_args = ["--headless=chrome"] # or --headless=new if that doesn't work
@@ -103,7 +111,13 @@ async def main():
     async with async_playwright() as p:
         # Keyword arguments are passed to p.chromium.launch_persistent_context()
         # Returns playwright BrowserContext instance
-        context = await make_async_playwright_solver_context(p, api_key, args=launch_args) 
+        context = await make_async_playwright_solver_context(p, api_key, args=launch_args)
+
+        # If using playwright_stealth, you need to use this StealthConfig to avoid the white screen:
+        page = await context.new_page()
+        stealth_config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+        stealth_async(page, stealth_config)
+
         # ... [The rest of your code that accesses tiktok goes here]
 
 asyncio.run(main())

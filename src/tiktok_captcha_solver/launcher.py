@@ -1,11 +1,14 @@
 import logging
 import tempfile
 from typing import Any
+import io
+import os
+import zipfile
+import requests
 
 from selenium.webdriver import ChromeOptions
 from selenium import webdriver
 import undetected_chromedriver as uc
-from .download_crx import download_extension_to_unpacked
 
 from playwright import sync_api
 from playwright import async_api
@@ -49,8 +52,11 @@ def make_undetected_chromedriver_solver(
         options = ChromeOptions()
     ext_dir = download_extension_to_unpacked()
     _patch_extension_file_with_key(ext_dir.name, api_key)
+    verify_api_key_injection(ext_dir.name, api_key)
     options.add_argument(f'--load-extension={ext_dir.name}')
     chrome = uc.Chrome(options=options, **uc_chrome_kwargs)
+    # keep the temp dir alive for the lifetime of the driver
+    chrome._sadcaptcha_tmpdir = ext_dir      # ← prevents garbage collection
     LOGGER.debug("created new undetected chromedriver patched with sadcaptcha")
     return chrome
 
@@ -78,6 +84,7 @@ def make_playwright_solver_context(
         user_data_dir,
         **playwright_context_kwargs
     )
+    ctx._sadcaptcha_tmpdir = ext_dir          # keep reference
     LOGGER.debug("created patched playwright context")
     return ctx
 
@@ -105,6 +112,7 @@ async def make_async_playwright_solver_context(
         user_data_dir,
         **playwright_context_kwargs
     )
+    ctx._sadcaptcha_tmpdir = ext_dir          # keep reference
     LOGGER.debug("created patched async playwright context")
     return ctx
 
@@ -130,16 +138,75 @@ def _prepare_pw_context_args(
     LOGGER.debug("prepared playwright context kwargs")
     return playwright_context_kwargs
 
+def download_extension_to_unpacked() -> tempfile.TemporaryDirectory:
+    """
+    Download the SadCaptcha Chrome extension from GitHub and return an unpacked
+    TemporaryDirectory that can be passed to Playwright / Chrome.
+    """
+    repo_zip_url = (
+        "https://codeload.github.com/gbiz123/sadcaptcha-chrome-extensino/zip/refs/heads/master"
+    )
+
+    LOGGER.debug("Downloading SadCaptcha extension from %s", repo_zip_url)
+    resp = requests.get(repo_zip_url, timeout=30)
+    resp.raise_for_status()
+
+    tmp_dir = tempfile.TemporaryDirectory(prefix="sadcaptcha_ext_")
+    with zipfile.ZipFile(io.BytesIO(resp.content)) as zf:
+        # GitHub zips have a single top‑level folder → strip it
+        root_prefix = zf.namelist()[0].split("/")[0] + "/"
+        for member in zf.namelist():
+            if member.endswith("/"):
+                continue
+            rel_path = member[len(root_prefix) :]
+            if not rel_path:
+                continue
+            dest_file = os.path.join(tmp_dir.name, rel_path)
+            os.makedirs(os.path.dirname(dest_file), exist_ok=True)
+            with zf.open(member) as src, open(dest_file, "wb") as dst:
+                dst.write(src.read())
+
+    LOGGER.debug("Extension unpacked to %s", tmp_dir.name)
+    return tmp_dir
 
 def _patch_extension_file_with_key(extension_dir: str, api_key: str) -> None:
-    with open(extension_dir + "/script.js") as f:
-        script = f.read()
-    script = patch_extension_script_with_key(script, api_key)
-    with open(extension_dir + "/script.js", "w") as f:
-        _ = f.write(script)
-    LOGGER.debug("patched extension file with api key")
+    script_path = os.path.join(extension_dir, "script.js")
+    try:
+        with open(script_path, "r", encoding="utf-8") as f:
+            script = f.read()
+        
+        original_script = script
+        script = patch_extension_script_with_key(script, api_key)
+        
+        # Verify replacement happened
+        if script == original_script:
+            LOGGER.warning("API key pattern not found in script.js")
+        
+        with open(script_path, "w", encoding="utf-8") as f:
+            f.write(script)
+            
+        LOGGER.debug("Successfully patched extension file with API key")
+    except Exception as e:
+        LOGGER.error(f"Failed to patch extension with API key: {e}")
+        raise
 
 def patch_extension_script_with_key(script: str, api_key: str) -> str:
-    script = script.replace("localStorage.getItem(\"sadCaptchaKey\");", f"\"{api_key}\";")
+    script = script.replace('localStorage.getItem("sadCaptchaKey")', f"\"{api_key}\";")
     LOGGER.debug("patched extension script with api key")
     return script
+
+def verify_api_key_injection(extension_dir, api_key):
+    script_path = os.path.join(extension_dir, "script.js")
+    
+    # Check if file exists and contains your API key
+    if os.path.exists(script_path):
+        with open(script_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        if f'"{api_key}";' in content:
+            LOGGER.info(f"SUCCESS: API key found in script.js")
+            return True
+        else:
+            LOGGER.warning(f"FAILURE: API key not found in script.js")
+    else:
+        LOGGER.error(f"FAILURE: script.js not found at {script_path}")
+    return False
