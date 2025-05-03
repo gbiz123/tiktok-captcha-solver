@@ -16,7 +16,7 @@ proxy = {
     # "server": "185.216.106.238:6315",
     # "server": "23.27.75.226:6306"
     # "server": "206.232.75.209:6779"
-    # "server": "206.232.75.84:6654"
+    "server": "206.232.75.84:6654"
     # "server": "185.216.106.238:6315"
     # "server": "185.15.178.3:5687"
     # "server": "2.57.30.223:7299"
@@ -24,17 +24,17 @@ proxy = {
 }
 
 # proxy = None
-def test_launch_uc_solver():
-    options = ChromeOptions()
-    _ = options.add_argument("--proxy-server=2.57.30.49:7125")
-    #options.add_argument("--headless=")
-    solver = make_undetected_chromedriver_solver(
-        os.environ["API_KEY"],
-        options=options
-    )
-    solver.get("https://affiliate-us.tiktok.com/connection/creator?shop_region=US")
-    input("waiting for enter")
-    solver.close()
+# def test_launch_uc_solver():
+#     options = ChromeOptions()
+#     _ = options.add_argument("--proxy-server=2.57.30.49:7125")
+#     #options.add_argument("--headless=")
+#     solver = make_undetected_chromedriver_solver(
+#         os.environ["API_KEY"],
+#         options=options
+#     )
+#     solver.get("https://affiliate-us.tiktok.com/connection/creator?shop_region=US")
+#     input("waiting for enter")
+#     solver.close()
 
 def open_tiktkok_login(page: Page) -> None:
     _ = page.goto("https://www.tiktok.com/login/phone-or-email/email")
@@ -72,44 +72,44 @@ def open_tiktkok_login(page: Page) -> None:
 #         assert not PlaywrightSolver(page, os.environ["API_KEY"]).captcha_is_present()
 #         ctx.close()
 #
-# def test_launch_browser_with_crx():
-#     with sync_playwright() as p:
-#         ctx = make_playwright_solver_context(
-#             p,
-#             os.environ["API_KEY"],
-#             headless=False,
-#             proxy=proxy,
-#             # user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
-#         )
-#         page = ctx.new_page()
-#         stealth_config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-#         # stealth_sync(page, stealth_config)
-#         _ = page.goto("https://tiktok.com")
-#         time.sleep(2)
-#         _ = page.locator("div[data-e2e=\"explore-item\"]").first.click()
-#         input("waiting for enter")
+def test_launch_browser_with_crx():
+    with sync_playwright() as p:
+        ctx = make_playwright_solver_context(
+            p,
+            os.environ["API_KEY"],
+            headless=False,
+            proxy=proxy,
+            # user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+        )
+        page = ctx.new_page()
+        stealth_config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+        stealth_sync(page, stealth_config)
+        _ = page.goto("https://tiktok.com")
+        time.sleep(2)
+        _ = page.locator("div[data-e2e=\"explore-item\"]").first.click()
+        input("waiting for enter")
 
-# @pytest.mark.asyncio
-# async def test_launch_browser_with_asyncpw():
-#     async with async_playwright() as p:
-#         ctx = await make_async_playwright_solver_context(
-#             p,
-#             os.environ["API_KEY"],
-#             headless=False,
-#             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
-#             proxy=proxy
-#         )
-#         page = await ctx.new_page()
-#         stealth_config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-#         await stealth_async(page, stealth_config)
-#         _ = await page.goto("https://tiktok.com")
-#         x, y = random.randint(0, 50), random.randint(0, 50)
-#         a, b = random.randint(1, 50), random.randint(100, 200)
-#
-#         await page.mouse.move(x, y)
-#         await page.wait_for_load_state("networkidle")
-#         await page.mouse.move(a, b)
-#
-#         time.sleep(2)
-#         _ = await page.locator("div[data-e2e=\"explore-item\"]").first.click()
-#         input("waiting for enter")
+@pytest.mark.asyncio
+async def test_launch_browser_with_asyncpw():
+    async with async_playwright() as p:
+        ctx = await make_async_playwright_solver_context(
+            p,
+            os.environ["API_KEY"],
+            headless=False,
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+            proxy=proxy
+        )
+        page = await ctx.new_page()
+        stealth_config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+        await stealth_async(page, stealth_config)
+        _ = await page.goto("https://tiktok.com")
+        x, y = random.randint(0, 50), random.randint(0, 50)
+        a, b = random.randint(1, 50), random.randint(100, 200)
+
+        await page.mouse.move(x, y)
+        await page.wait_for_load_state("networkidle")
+        await page.mouse.move(a, b)
+
+        time.sleep(2)
+        _ = await page.locator("div[data-e2e=\"explore-item\"]").first.click()
+        input("waiting for enter")
