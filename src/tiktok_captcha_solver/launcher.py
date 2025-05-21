@@ -135,6 +135,11 @@ def _prepare_pw_context_args(
             '--disable-infobars',  
             '--start-maximized',  
         ]
+    if playwright_context_kwargs.get("headless") == True:
+        if "--headless=new" not in playwright_context_kwargs["args"]:
+            _ = playwright_context_kwargs["args"].append("--headless=new")
+        playwright_context_kwargs["headless"] = None
+        LOGGER.debug("Removed headless=True and added --headless=new launch arg")
     LOGGER.debug("prepared playwright context kwargs")
     return playwright_context_kwargs
 
