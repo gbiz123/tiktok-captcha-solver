@@ -1,6 +1,6 @@
 # TikTok Captcha Solver API
 This project is the [SadCaptcha TikTok Captcha Solver](https://www.sadcaptcha.com?ref=ghclientrepo) API client.
-The purpose is to make integrating SadCaptcha into your Selenium, Playwright, or Async Playwright app as simple as one line of code.
+The purpose is to make integrating SadCaptcha into your Nodriver, Selenium, Playwright, or Async Playwright app as simple as one line of code.
 Instructions for integrating with Selenium, Playwright, and Async Playwright are described below in their respective sections. 
 This API also works on mobile devices (Appium, etc.). 
 
@@ -49,14 +49,13 @@ The extension will automatically detect and solve the captcha in the background,
 ```py
 from tiktok_captcha_solver import make_nodriver_solver
 
-launch_args = ["--headless=chrome"] # If running headless, use this option, or headless=new
-
-api_key = "YOUR_API_KEY_HERE"
-# NOTE: Keyword arguments passed to make_nodriver_solver() are directly passed to nodriver.start()!
-driver = make_nodriver_solver(api_key, browser_args=launch_args) # Returns nodriver browser 
-# ... [The rest of your code that accesses tiktok goes here]
-
-# Now tiktok captchas will be automatically solved!
+async def main():
+    launch_args = ["--headless=chrome"] # If running headless, use this option, or headless=new
+    api_key = "YOUR_API_KEY_HERE"
+    # NOTE: Keyword arguments passed to make_nodriver_solver() are directly passed to nodriver.start()!
+    driver = await make_nodriver_solver(api_key, browser_args=launch_args) # Returns nodriver browser 
+    # ... [The rest of your code that accesses tiktok goes here]
+    # Now tiktok captchas will be automatically solved!
 ```
 All keyword arguments passed to `make_nodriver_solver()` are passed directly to `nodriver.start()`.
 
