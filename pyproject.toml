@@ -1,10 +1,10 @@
-[build-system]
+# [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"  # If not defined, then legacy behavior can happen.
 
 [project]
 name = "tiktok-captcha-solver"
-version = "0.8.3"
+version = "0.8.4"
 
 description = "This package integrates with Selenium or Playwright to solve any TikTok captcha in one line of code."
 readme = "README.md"
@@ -35,7 +35,8 @@ dependencies = [
   "playwright",
   "playwright-stealth",
   "undetected_chromedriver",
-  "setuptools"
+  "setuptools",
+  "nodriver"
 ]
 
 [project.urls]

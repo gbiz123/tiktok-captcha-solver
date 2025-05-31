@@ -8,7 +8,7 @@ from playwright_stealth import stealth_sync, stealth_async, StealthConfig
 import pytest
 from selenium.webdriver import ChromeOptions
 from tiktok_captcha_solver import make_async_playwright_solver_context, make_playwright_solver_context, make_undetected_chromedriver_solver
-from tiktok_captcha_solver.launcher import make_selenium_solver
+from tiktok_captcha_solver.launcher import make_nodriver_solver, make_selenium_solver
 from tiktok_captcha_solver.playwrightsolver import PlaywrightSolver
 
 proxy = {
@@ -16,8 +16,8 @@ proxy = {
     # "server": "185.216.106.238:6315",
     # "server": "23.27.75.226:6306"
     # "server": "206.232.75.209:6779"
-    "server": "206.232.75.84:6654"
-    # "server": "185.216.106.238:6315"
+    # "server": "206.232.75.84:6654"
+    "server": "185.216.106.238:6315"
     # "server": "185.15.178.3:5687"
     # "server": "2.57.30.223:7299"
     # "server": "2.57.30.49:7125"
@@ -55,23 +55,23 @@ def open_tiktkok_login(page: Page) -> None:
     _ = page.screenshot(path="post_login_click.png")
     time.sleep(15)
 #
-def test_launch_browser_with_crx_headless():
-    with sync_playwright() as p:
-        ctx = make_playwright_solver_context(
-            p,
-            os.environ["API_KEY"],
-            headless=True,
-            proxy=proxy,
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
-            args=["--headless=chrome"],
-            record_video_dir="videos/"
-        )
-        page = ctx.new_page()
-        stealth_config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-        stealth_sync(page, stealth_config)
-        open_tiktkok_login(page)
-        assert not PlaywrightSolver(page, os.environ["API_KEY"]).captcha_is_present()
-        ctx.close()
+# def test_launch_browser_with_crx_headless():
+#     with sync_playwright() as p:
+#         ctx = make_playwright_solver_context(
+#             p,
+#             os.environ["API_KEY"],
+#             headless=True,
+#             proxy=proxy,
+#             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+#             args=["--headless=chrome"],
+#             record_video_dir="videos/"
+#         )
+#         page = ctx.new_page()
+#         stealth_config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+#         stealth_sync(page, stealth_config)
+#         open_tiktkok_login(page)
+#         assert not PlaywrightSolver(page, os.environ["API_KEY"]).captcha_is_present()
+#         ctx.close()
 #
 # def test_launch_browser_with_crx():
 #     with sync_playwright() as p:
@@ -114,3 +114,14 @@ def test_launch_browser_with_crx_headless():
 #         time.sleep(2)
 #         _ = await page.locator("div[data-e2e=\"explore-item\"]").first.click()
 #         input("waiting for enter")
+
+@pytest.mark.asyncio
+async def test_launch_browser_with_nodriver():
+    ctx = await make_nodriver_solver(
+        os.environ["API_KEY"],
+        headless=False,
+        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+        proxy=proxy["server"]
+    )
+    page = await ctx.get("https://tiktok.com")
+    input("waiting for enter")

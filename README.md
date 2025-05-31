@@ -16,6 +16,7 @@ This tool works on both TikTok and Douyin and can solve any of the four captcha 
 
 ## Requirements
 - Python >= 3.10
+- **If using Nodriver** - Google chrome installe don system. This is the recommended method.
 - **If using Selenium** - Selenium properly installed and in `PATH`
 - **If using Playwright** - Playwright must be properly installed with `playwright install`
 - **If using mobile** - Appium and opencv must be properly installed
@@ -38,6 +39,26 @@ This will save you a lot of time implementing the API on your own.
 To run in headless mode, you need to use the launch arg `headless=new` or `headless=chrome` as a launch arg.
 Instructions to do this are in their own respective sections.
 Another option is to use [Xvfb](https://www.x.org/archive/X11R7.7/doc/man/man1/Xvfb.1.xhtml) with `headless=True` to spoof a graphical environment.
+
+## Nodriver Client (Recommended)
+Nodriver is the latest advancement in undetected automation technology, and is the recommended method for using SadCaptcha. 
+Import the function `make_nodriver_solver`
+This function will create an noddriver instance patched with the tiktok Captcha Solver chrome extension.
+The extension will automatically detect and solve the captcha in the background, and there is nothing further you need to do.
+
+```py
+from tiktok_captcha_solver import make_nodriver_solver
+
+launch_args = ["--headless=chrome"] # If running headless, use this option, or headless=new
+
+api_key = "YOUR_API_KEY_HERE"
+# NOTE: Keyword arguments passed to make_nodriver_solver() are directly passed to nodriver.start()!
+driver = make_nodriver_solver(api_key, browser_args=launch_args) # Returns nodriver browser 
+# ... [The rest of your code that accesses tiktok goes here]
+
+# Now tiktok captchas will be automatically solved!
+```
+All keyword arguments passed to `make_nodriver_solver()` are passed directly to `nodriver.start()`.
 
 ## Selenium Client 
 Import the function `make_undetected_chromedriver_solver`
