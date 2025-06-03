@@ -47,7 +47,7 @@ This function will create an noddriver instance patched with the tiktok Captcha 
 The extension will automatically detect and solve the captcha in the background, and there is nothing further you need to do.
 
 ```py
-from tiktok_captcha_solver import make_nodriver_solver
+from tiktok_captcha_solver.launcher import make_nodriver_solver
 
 async def main():
     launch_args = ["--headless=chrome"] # If running headless, use this option, or headless=new
