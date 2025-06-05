@@ -28,14 +28,17 @@ async def make_nodriver_solver(
     """
     ext_dir = download_extension_to_unpacked()
     _patch_extension_file_with_key(ext_dir.name, api_key)
-    add_extension_argument = f'--load-extension={ext_dir.name}'
+    load_extension_argument = f'--load-extension={ext_dir.name}'
+    disable_extensions_except_argument = f'--disable-extensions-except-{ext_dir.name}'
     browser_args = nodriver_start_kwargs.get("browser_args")
     if isinstance(browser_args, list):
-        nodriver_start_kwargs["browser_args"].append(add_extension_argument)
-        LOGGER.debug("Appended add extension argument to browser args: " + add_extension_argument)
+        nodriver_start_kwargs["browser_args"].append(load_extension_argument)
+        nodriver_start_kwargs["browser_args"].append(disable_extensions_except_argument)
+        LOGGER.debug("Appended add extension argument to browser args: " + load_extension_argument)
+        LOGGER.debug("Appended add extension argument to browser args: " + disable_extensions_except_argument)
     else:
-        nodriver_start_kwargs["browser_args"] = [add_extension_argument]
-        LOGGER.debug("Set browser arg to " + add_extension_argument)
+        nodriver_start_kwargs["browser_args"] = [load_extension_argument, disable_extensions_except_argument]
+        LOGGER.debug("Set browser arg to " + load_extension_argument)
     chrome = await nodriver.start(**nodriver_start_kwargs)
     LOGGER.debug("created new nodriver Browser patched with sadcaptcha")
     return chrome

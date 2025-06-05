@@ -24,18 +24,18 @@ proxy = {
 }
 
 # proxy = None
-# def test_launch_uc_solver():
-#     options = ChromeOptions()
-#     # _ = options.add_argument("--proxy-server=2.57.30.49:7125")
-#     #options.add_argument("--headless=")
-#     solver = make_selenium_solver(
-#         os.environ["API_KEY"],
-#         options=options
-#     )
-#     # solver.get("https://affiliate-us.tiktok.com/connection/creator?shop_region=US")
-#     solver.get("https://www.tiktok.com")
-#     input("waiting for enter")
-#     solver.close()
+def test_launch_uc_solver():
+    options = ChromeOptions()
+    # _ = options.add_argument("--proxy-server=2.57.30.49:7125")
+    #options.add_argument("--headless=")
+    solver = make_selenium_solver(
+        os.environ["API_KEY"],
+        options=options
+    )
+    # solver.get("https://affiliate-us.tiktok.com/connection/creator?shop_region=US")
+    solver.get("https://www.tiktok.com")
+    input("waiting for enter")
+    solver.close()
 
 def open_tiktkok_login(page: Page) -> None:
     _ = page.goto("https://www.tiktok.com/login/phone-or-email/email")

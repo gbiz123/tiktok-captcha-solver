@@ -8,3 +8,4 @@ playwright
 playwright-stealth
 undetected_chromedriver
 setuptools
+nodriver
