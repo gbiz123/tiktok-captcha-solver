@@ -1,6 +1,0 @@
-2025/06/08-14:21:15.604 4 Reusing MANIFEST /home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/test/Default/Local Storage/leveldb/MANIFEST-000001
-2025/06/08-14:21:15.607 4 Recovering log #13
-2025/06/08-14:21:15.607 4 Reusing old log /home/gregb/ToughdataLLC/SadCaptcha/tiktok-captcha-solver/test/Default/Local Storage/leveldb/000013.log 
-2025/06/08-14:22:15.609 5 Level-0 table #17: started
-2025/06/08-14:22:15.615 5 Level-0 table #17: 71120 bytes OK
-2025/06/08-14:22:15.620 5 Delete type=0 #13
