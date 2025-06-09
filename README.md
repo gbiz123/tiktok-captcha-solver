@@ -16,7 +16,7 @@ This tool works on both TikTok and Douyin and can solve any of the four captcha 
 
 ## Requirements
 - Python >= 3.10
-- **If using Nodriver** - Google chrome installe don system. This is the recommended method.
+- **If using Nodriver** - Google chrome installed on system. This is the recommended method.
 - **If using Selenium** - Selenium properly installed and in `PATH`
 - **If using Playwright** - Playwright must be properly installed with `playwright install`
 - **If using mobile** - Appium and opencv must be properly installed

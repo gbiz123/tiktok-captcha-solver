@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from zh_TW.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "關閉"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "接收到錯誤的介面回應"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "已啟用"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "已安裝"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "附加元件"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "必須降級"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "可以升級"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "已同步"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "GNOME Shell 整合"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "這個附加元件提供了與 GNOME Shell 的整合，和對應的附加元件庫 https://extensions.gnome.org"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "«$REQUEST$» 原生請求失敗",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "永不"
+   },
+   "no": {
+      "message": "否"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "無法取得 GNOME Shell 的設定或版本。確保其已經安裝且為執行狀態。"
+   },
+   "no_host_connector": {
+      "message": "雖然 GNOME Shell 整合附加元件為執行狀態，但未偵測到原生主機介面。請參考\u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>文件\u003C/a>取得安裝介面的指引說明。"
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "無主機回應"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "開啟 GNOME Shell 附加元件網頁"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "選項"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "已儲存選項。"
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "當更新瀏覽器附加元件時顯示發布紀錄"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "同步 GNOME Shell 附加元件列表"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "若啟用則同步 GNOME Shell 附加元件列表到 Google 帳號。"
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "$GS_CHROME$ 選項",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "使用亮色圖示 (在暗色主題下)"
+   },
+   "platform_not_supported": {
+      "message": "原生主機介面不支援您的平台。"
+   },
+   "retry": {
+      "message": "重試"
+   },
+   "save": {
+      "message": "儲存"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "同步"
+   },
+   "synchronization_cancel": {
+      "message": "請不要啟用同步功能。"
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "無法同步附加元件：$CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "您的遠端同步儲存空間已經包含附加元件列表。"
+   },
+   "synchronization_use_local": {
+      "message": "使用本機附加元件列表，覆寫遠端列表。"
+   },
+   "synchronization_use_remote": {
+      "message": "使用遠端附加元件列表，覆寫本機列表。"
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "pan93412 \u003Cpan93412@gmail.com>, 2018."
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "關於翻譯"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "未知錯誤"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "您的原生主機介面不支援以下 API：$$1。可能你需要升級原生主機介面、或安裝遺失 API 的附加元件。參考\u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>文件\u003C/a>取得指引。"
+   },
+   "yes": {
+      "message": "是"
+   }
+}

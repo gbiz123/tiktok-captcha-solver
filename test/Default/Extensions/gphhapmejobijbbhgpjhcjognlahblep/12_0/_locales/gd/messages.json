@@ -1,0 +1,162 @@
+{
+	"_DO_NOT_EDIT": {
+		"description": "This file is auto generated with po2chrome-messages tool from gd.po.",
+		"message": ""
+	},
+	"close": {
+		"message": "D\u00f9in"
+	},
+	"error_connector_response": {
+		"description": "Shown to user when response from connector API call does not follow known format.",
+		"message": "Fhuaras freagairt chearr a' cheangladair"
+	},
+	"extension_enabled": {
+		"description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+		"message": "An comas"
+	},
+	"extension_installed": {
+		"description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+		"message": "Air a st\u00e0ladh"
+	},
+	"extension_name": {
+		"description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+		"message": "Leudachan"
+	},
+	"extension_status_downgrade": {
+		"description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+		"message": "feumach air \u00ecsleachadh"
+	},
+	"extension_status_upgrade": {
+		"description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+		"message": "gabhaidh \u00e0rdachadh"
+	},
+	"extension_synchronized": {
+		"description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+		"message": "Sioncronaichte"
+	},
+	"gs_chrome": {
+		"description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+		"message": "Amalachadh slige GNOMW"
+	},
+	"manifest_description": {
+		"description": "Used as extension description in Chrome Store",
+		"message": "Bheir an leudachan seo dhut amalachadh le Slige GNOME agus Shell ionad-tasgaidh nan leudachan co-cheangailte rithe https://extensions.gnome.org"
+	},
+	"native_request_failed": {
+		"description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+		"message": "Dh'fh\u00e0illig leis an iarrtas t\u00f9sail \"$REQUEST$\"",
+		"placeholders": {
+			"request": {
+				"content": "$1"
+			}
+		}
+	},
+	"never": {
+		"description": "This is a part of phrase 'Last check: never'",
+		"message": "chan ann idir"
+	},
+	"no": {
+		"message": "Chan eil"
+	},
+	"no_gnome_shell": {
+		"description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+		"message": "Cha deach roghainnean no tionndadh na Slige GNOME a lorg. D\u00e8an cinnteach gun deach a st\u00e0ladh 's bu beil i 'ga ruith."
+	},
+	"no_host_connector": {
+		"message": "Ger a tha leudachan amalachadh Slige GNOME Shell 'na ruith, cha do mhothaich sinn dha cheangladair \u00f2stair t\u00f9sail. Faic an <a href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>docamaideadh</a> airson sti\u00f9ireadh air mar a st\u00e0laicheas tu an ceangladair."
+	},
+	"no_host_response": {
+		"description": "Means 'Web extension does not received answer from native messaging host application.'",
+		"message": "Cha do fhreagair an t-\u00f2stair"
+	},
+	"open_website": {
+		"description": "Tooltip for browser extensions icon.",
+		"message": "L\u00e0rach-l\u00ecn leudachan Slige GNOME fosgailte"
+	},
+	"options_link": {
+		"description": "Link name for options tab.",
+		"message": "Roghainnean"
+	},
+	"options_saved": {
+		"description": "Means 'Options were saved successfully after user clicked Save button'",
+		"message": "Chaidh na roghainnean a sh\u00e0bhaladh."
+	},
+	"options_show_release_notes": {
+		"description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+		"message": "Seall na n\u00f2taichean-sgaoilidh nuair a th\u00e8id an leudachan brabhsair \u00f9rachadh"
+	},
+	"options_synchronize_extensions": {
+		"description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+		"message": "Sioncronaich liosta nan leudachan Slige GNOME"
+	},
+	"options_synchronize_extensions_notice": {
+		"description": "This is a notice under option name.",
+		"message": "Ma tha seo an comas, th\u00e8id liosta nan leudachan Slige GNOME a shioncronachadh leis a' chunntas Google agad."
+	},
+	"options_title": {
+		"description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+		"message": "Roghainnean $GS_CHROME$",
+		"placeholders": {
+			"gs_chrome": {
+				"content": "$1"
+			}
+		}
+	},
+	"options_use_light_icon": {
+		"description": "Use light icon that is looked better with dark themes.",
+		"message": "Use light icon (dark theme)"
+	},
+	"platform_not_supported": {
+		"message": "Cha chuirear taic ri ceangladair \u00f2stair t\u00f9sail air an \u00f9rlar agad."
+	},
+	"retry": {
+		"message": "Feuch ris a-rithist"
+	},
+	"save": {
+		"message": "S\u00e0bhail"
+	},
+	"synchronization": {
+		"description": "Link name for synchronization tab in options dialog.",
+		"message": "Sioncronachadh"
+	},
+	"synchronization_cancel": {
+		"message": "Na cuir an sioncronachadh an comas."
+	},
+	"synchronization_failed": {
+		"description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+		"message": "Cha deach leinn na leudachain a shioncronachadh: $CAUSE$",
+		"placeholders": {
+			"cause": {
+				"content": "$1"
+			}
+		}
+	},
+	"synchronization_storage_exists": {
+		"message": "Tha liosta nan leudachan ann an st\u00f2ras c\u00e8in an t-sioncronachaidh agad mu thr\u00e0th."
+	},
+	"synchronization_use_local": {
+		"message": "Cleachd liosta nan leudachan ionadail agus sgr\u00ecobh thairis air an t\u00e8 ch\u00e8in."
+	},
+	"synchronization_use_remote": {
+		"message": "Cleachd liosta nan leudachan ch\u00e8in agus sgr\u00ecobh thairis air an t\u00e8 ionadail."
+	},
+	"translation_credits": {
+		"description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (<br />)",
+		"message": "GunChleoc <fios@foramnagaidhlig.net>"
+	},
+	"translation_credits_title": {
+		"description": "Link name for translation credits tab in options dialog.",
+		"message": "Mun eadar-theangachadh"
+	},
+	"unknown_error": {
+		"description": "This should newer be shown to user. However better safe than sorry.",
+		"message": "mearachd nach aithne dhuinn"
+	},
+	"warning_apis_missing": {
+		"description": "$$1 is a placeholder for a list of missing APIs",
+		"message": "Cha doir ceangladair t\u00f9sail an \u00f2stair agad taic ris na h-APIean seo: $$1. Mholamaid gun \u00e0rdaich thu ceangladair t\u00f9sail an \u00f2stair no gun st\u00e0laich thu plugain da na h-APIean a tha a dh\u00ecth. Thoir s\u00f9il air an <a href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>docamaideadh</a> airson sti\u00f9ireadh."
+	},
+	"yes": {
+		"message": "Tha"
+	}
+}

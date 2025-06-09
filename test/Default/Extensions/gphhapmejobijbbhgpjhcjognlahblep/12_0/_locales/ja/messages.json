@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from ja.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "閉じる"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "Wrong connector response received"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "有効"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "インストール"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "拡張機能"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "はダウングレードされます"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "はアップグレードできます"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "同期"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "GNOME Shell integration"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "GNOME Shell とその拡張機能リポジトリ https://extensions.gnome.org を統合するブラウザー拡張機能です"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "«$REQUEST$» native request failed",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "しない"
+   },
+   "no": {
+      "message": "いいえ"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "Unable to locate GNOME Shell settings or version. Make sure it is installed and running."
+   },
+   "no_host_connector": {
+      "message": "GNOME Shell integration 拡張機能は実行されているものの、ネイティブホストコネクタが検出されません。コネクタのインストール手順については\u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>ドキュメント\u003C/a>を参照してください。"
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "ホストの反応がありません"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "GNOME Shell 拡張機能のウェブサイトを開く"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "オプション"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "オプションを保存しました。"
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "ブラウザー拡張機能の更新時にリリースノートを表示"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "GNOME Shell 拡張機能一覧を同期"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "有効にすると、GNOME Shell 拡張機能一覧を Google アカウントで同期します。"
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "$GS_CHROME$ オプション",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "明るいアイコンを使用 (ダークテーマ)"
+   },
+   "platform_not_supported": {
+      "message": "ネイティブホストコネクタが現在のプラットフォームをサポートしていません。"
+   },
+   "retry": {
+      "message": "再試行"
+   },
+   "save": {
+      "message": "保存"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "同期"
+   },
+   "synchronization_cancel": {
+      "message": "Do not enable synchronization."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "拡張機能の同期に失敗しました: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "Your remote synchronization storage already contains extensions list."
+   },
+   "synchronization_use_local": {
+      "message": "Use local extensions list, overwrite remote."
+   },
+   "synchronization_use_remote": {
+      "message": "Use remote extensions list, overwrite local."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": ""
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "翻訳について"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "不明なエラー"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "Your native host connector do not support following APIs: $$1. Probably you should upgrade native host connector or install plugins for missing APIs. Refer \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentation\u003C/a> for instructions."
+   },
+   "yes": {
+      "message": "はい"
+   }
+}

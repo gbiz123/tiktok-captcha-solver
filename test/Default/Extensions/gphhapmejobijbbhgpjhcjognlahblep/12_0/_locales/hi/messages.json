@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from hi.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "बंद करे"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "गलत कनेक्टर प्रतिक्रिया प्राप्त हुई"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "सक्षम"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "स्थापित"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "एक्सटेंशन"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "पदावनत किया जाना चाहिए"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "उन्नत किया जा सकता है"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "समन्वयित"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "GNOME शैल एकीकरण"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "यह एक्सटेंशन GNOME शैल और संबंधित एक्सटेंशन रिपॉजिटरी https://extensions.gnome.org के साथ एकीकरण प्रदान करता है"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "«$REQUEST$» मूल अनुरोध विफल रहा",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "कभी नहीं"
+   },
+   "no": {
+      "message": "नहीं"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "GNOME शैल सेटिंग्स या संस्करण का पता लगाने में असमर्थ। सुनिश्चित करें कि यह स्थापित है और चल रहा है।"
+   },
+   "no_host_connector": {
+      "message": "हालांकि GNOME शैल एकीकरण एक्सटेंशन चल रहा है, लेकिन मूल होस्ट कनेक्टर का पता नहीं चला है। कनेक्टर स्थापित करने के बारे में निर्देशों के लिए \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>दस्तावेज़ीकरण\u003C/a> देखें।"
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "कोई होस्ट प्रतिक्रिया नहीं"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "GNOME शैल एक्सटेंशन वेबसाइट खोलें"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "विकल्प"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "विकल्प सहेजे गए।"
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "ब्राउज़र एक्सटेंशन अद्यतन होने पर विज्ञप्ति टिप्पणी दिखाएं"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "GNOME शैल एक्सटेंशन सूची को समन्वयित करें"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "सक्षम होने पर, आपकी GNOME शैल एक्सटेंशन सूची आपके Google खाते के साथ समन्वयित हो जाएगी।"
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "$GS_CHROME$ विकल्प",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "हल्के आइकन (गहरी थीम) का उपयोग करें"
+   },
+   "platform_not_supported": {
+      "message": "आपके प्लेटफार्म के लिए मूल होस्ट कनेक्टर समर्थित नहीं है।"
+   },
+   "retry": {
+      "message": "पुन: प्रयास करें"
+   },
+   "save": {
+      "message": "सहेजें"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "समन्वयन"
+   },
+   "synchronization_cancel": {
+      "message": "समन्वयन सक्षम न करें।"
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "एक्सटेंशन समन्वयित करने में विफल: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "आपके दूरस्थ समन्वयन संग्रहण में पहले से ही एक्सटेंशन सूची मौजूद है।"
+   },
+   "synchronization_use_local": {
+      "message": "स्थानीय एक्सटेंशन सूची का उपयोग करें, दूरस्थ को अधिलेखित करें।"
+   },
+   "synchronization_use_remote": {
+      "message": "दूरस्थ एक्सटेंशन सूची का उपयोग करें, स्थानीय को अधिलेखित करें।"
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "Scrambled777 \u003Cweblate.scrambled777@simplelogin.com>"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "अनुवाद के बारे में"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "अज्ञात त्रुटि"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "आपका मूल होस्ट कनेक्टर निम्नलिखित API का समर्थन नहीं करता: $$1। संभवतः आपको मूल होस्ट कनेक्टर को उन्नत करना चाहिए या गुम API के लिए प्लगइन्स स्थापित करना चाहिए। निर्देशों के लिए \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>दस्तावेज़\u003C/a> देखें।"
+   },
+   "yes": {
+      "message": "हाँ"
+   }
+}

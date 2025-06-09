@@ -1,0 +1,105 @@
+<html>
+
+<body>
+	<div class="description-section">
+		<div class="row-item">
+			<h1>TikTok Captcha Solver</h1>
+		</div>
+
+		<div class="row-item">
+			<h2>Instructions</h2>
+			<ul>
+				<li>Sign up on <a href="https://www.sadcaptcha.com?ref=extension" target="_blank">our website</a> for a
+					free trial</li>
+				<li> Launch Chrome with the --disable-web-security flag enabled. This is a necessary step to avoid CORS errors that prevent images from being downloaded. 
+					<a href="https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome" target="_blank">Click here to read more.</a>
+				</li>
+				<li>Log in to your account</li>
+				<li>Copy your key while logged in to the dashboard</li>
+				<li>The browser tab must be open to TikTok to enter your key</li>
+				<li>Enter your API key below and press "submit"</li>
+				<li class="no-bullet">
+					<div class="user-input">
+						<input type="text" id="apiKeyInput" placeholder="Enter API key">
+						<button id="sendApiKey">Submit</button>
+					</div>
+				</li>
+			</ul>
+			<p>
+				After entering your key, all TikTok captchas will be solved automatically.
+				The key will remain stored in your browser, and you only need to enter it once.
+			</p>
+		</div>
+
+		<div class="row-item">
+			<h2>About SadCaptcha</h2>
+			<p>
+				SadCaptcha is a product of Toughdata LLC, based in El Cajon, CA.
+				SadCaptcha is a paid tool, offering a free trial of 25 solutions.
+			</p>
+			<p>
+				If you have any questions, feel free to <a href="https://www.sadcaptcha.com/#contact-section?ref=extension">contact us</a> any time.
+			</p>
+		</div>
+	</div>
+
+</body>
+
+<script src="ext_script.js"></script>
+
+
+<style>
+	body {
+		width: 500px;
+		font-family: "Inter", sans-serif;
+		background: #2A2C2D;
+		color: #FFF;
+		padding: 10px;
+	}
+
+	.description-section {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.description-section a {
+		color: cyan;
+	}
+
+	.description-section li {
+		font-size: 16px;
+		line-height: 150%;
+	}
+
+	.description-section p {
+		font-size: 16px;
+		line-height: 150%;
+	}
+
+	.row-item {
+		border-bottom: 1px solid gray;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.row-item a {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		justify-self: center;
+	}
+
+	.user-input {
+		display: flex;
+		flex-direction: ;
+	}
+
+	li.no-bullet {
+		list-style-type: none;
+	}
+</style>
+
+</html>

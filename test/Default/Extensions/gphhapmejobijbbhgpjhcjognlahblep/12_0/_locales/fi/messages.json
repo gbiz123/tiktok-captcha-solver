@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from fi.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "Sulje"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "Wrong connector response received"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "Käytössä"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "Asennettu"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "Laajennus"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "täytyy palauttaa aiempaan versioon"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "päivitettävissä"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "Synkronoitu"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "Gnome Shell -integraatio"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "Tämä laajennus tarjoaa integraation Gnome Shellin ja Gnome Shellin laajennustietovaraston https://extensions.gnome.org kanssa"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "«$REQUEST$» native request failed",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "ei koskaan"
+   },
+   "no": {
+      "message": "Ei"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "Unable to locate GNOME Shell settings or version. Make sure it is installed and running."
+   },
+   "no_host_connector": {
+      "message": "Although GNOME Shell integration extension is running, native host connector is not detected. Refer \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentation\u003C/a> for instructions about installing connector."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "No host response"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "Avaa Gnome Shell -laajennusten verkkosivusto"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "Valinnat"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "Valinnat tallennettu."
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "Näytä julkaisutiedote kun selainlaajennus on päivitetty"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "Synkronoi Gnome Shell -laajennusluettelo"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "Jos käytössä, Gnome Shell -laajennusluettelosi synkronoidaan Google-tilisi kanssa."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "$GS_CHROME$ -valinnat",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "Käytä vaaleaa kuvaketta (tumma teema)"
+   },
+   "platform_not_supported": {
+      "message": "Native host connector is not supported for your platform."
+   },
+   "retry": {
+      "message": "Yritä uudelleen"
+   },
+   "save": {
+      "message": "Tallenna"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "Synkronointi"
+   },
+   "synchronization_cancel": {
+      "message": "Älä käytä synkronointia."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "Laajennusten synkronointi epäonnistui: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "Etäsynkronointivarasto sisältää jo laajennusluettelosi."
+   },
+   "synchronization_use_local": {
+      "message": "Käytä paikallista laajennusluetteloa, korvaa etäpään luettelo."
+   },
+   "synchronization_use_remote": {
+      "message": "Käytä etäpään laajennusluetteloa, korvaa nykyinen."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "Jiri Grönroos"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "Tietoja käännöksestä"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "tuntematon virhe"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "Your native host connector do not support following APIs: $$1. Probably you should upgrade native host connector or install plugins for missing APIs. Refer \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentation\u003C/a> for instructions."
+   },
+   "yes": {
+      "message": "Kyllä"
+   }
+}

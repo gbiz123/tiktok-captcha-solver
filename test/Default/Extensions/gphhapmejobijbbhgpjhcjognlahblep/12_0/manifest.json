@@ -1,0 +1,46 @@
+{
+   "action": {
+      "default_icon": {
+         "16": "icons/GnomeLogo-16.png",
+         "32": "icons/GnomeLogo-32.png"
+      },
+      "default_title": "__MSG_open_website__"
+   },
+   "author": "Yuri Konotopov \u003Cykonotopov@gnome.org>",
+   "background": {
+      "service_worker": "extension.js",
+      "type": "module"
+   },
+   "content_scripts": [ {
+      "js": [ "include/constants-script.js", "include/compat-content-script.js", "content-script-start.js" ],
+      "matches": [ "https://extensions.gnome.org/*", "https://extensions-next.gnome.org/*" ],
+      "run_at": "document_start"
+   } ],
+   "default_locale": "en",
+   "description": "__MSG_manifest_description__",
+   "externally_connectable": {
+      "matches": [ "https://extensions.gnome.org/*", "https://extensions-next.gnome.org/*" ]
+   },
+   "host_permissions": [ "https://extensions.gnome.org/", "https://extensions-next.gnome.org/" ],
+   "icons": {
+      "128": "icons/GnomeLogo-128.png",
+      "16": "icons/GnomeLogo-16.png",
+      "48": "icons/GnomeLogo-48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlig8TAPPQZinMkJnptC0ldizx6fG9jSjZDJ9c8GuLcXeGRH+NMlQuPC9bR5IQlT7+4VY/1tm1+IZ4xvITx1wXCNTR+KXzZv3VNc2D+logehK7oIRTRj0fLhixrx4NLSNK7L7HgV2xcIoW6QV0jOdFcTPL0mWXodXSzZePrvXuflF7qpwNxLzYVi04Vh3xu2oR2Pc9SwfZ4SNbyCaunH/p8n5AYmDuogI2Ah++RZw0ctnqn7mmHrGXteBu/vkpcHZu3B3eW9PFSrv69rRs8duybYR9C91hJm6yzRqZqIpindIU3k2HnNWeCFWkRVpZPhaNVoxcBUO7wWUUwdIflW2JwIDAQAB",
+   "manifest_version": 3,
+   "name": "__MSG_gs_chrome__",
+   "optional_permissions": [ "idle" ],
+   "options_ui": {
+      "open_in_tab": false,
+      "page": "options.html"
+   },
+   "permissions": [ "nativeMessaging", "notifications", "storage" ],
+   "short_name": "GS Chrome",
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "12",
+   "web_accessible_resources": [ {
+      "matches": [ "https://extensions.gnome.org/*", "https://extensions-next.gnome.org/*" ],
+      "resources": [ "include/sweettooth-api.js" ]
+   } ]
+}

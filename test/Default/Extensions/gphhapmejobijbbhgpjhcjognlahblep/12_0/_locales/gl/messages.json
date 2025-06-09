@@ -1,0 +1,162 @@
+{
+	"_DO_NOT_EDIT": {
+		"description": "This file is auto generated with po2chrome-messages tool from gl.po.",
+		"message": ""
+	},
+	"close": {
+		"message": "Pechar"
+	},
+	"error_connector_response": {
+		"description": "Shown to user when response from connector API call does not follow known format.",
+		"message": "Recibiuse unha resposta do conector non v\u00e1lida"
+	},
+	"extension_enabled": {
+		"description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+		"message": "Activada"
+	},
+	"extension_installed": {
+		"description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+		"message": "Instalada"
+	},
+	"extension_name": {
+		"description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+		"message": "Extensi\u00f3n"
+	},
+	"extension_status_downgrade": {
+		"description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+		"message": "debe desactualizarse"
+	},
+	"extension_status_upgrade": {
+		"description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+		"message": "pode actualizarse"
+	},
+	"extension_synchronized": {
+		"description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+		"message": "Sincronizada"
+	},
+	"gs_chrome": {
+		"description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+		"message": "Integraci\u00f3n de GNOME Shell"
+	},
+	"manifest_description": {
+		"description": "Used as extension description in Chrome Store",
+		"message": "Esta extensi\u00f3n fornece integraci\u00f3n con GNOME SHell e o correspondente repositorio de extensi\u00f3ns https://extensions.gnome.org"
+	},
+	"native_request_failed": {
+		"description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+		"message": "A solicitude nativa \u00ab$REQUEST$\u00bb fallou",
+		"placeholders": {
+			"request": {
+				"content": "$1"
+			}
+		}
+	},
+	"never": {
+		"description": "This is a part of phrase 'Last check: never'",
+		"message": "nunca"
+	},
+	"no": {
+		"message": "Non"
+	},
+	"no_gnome_shell": {
+		"description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+		"message": "Non foi pos\u00edbel localizar as preferencias ou versi\u00f3n de GNOME Shell. Aseg\u00farese de que est\u00e1 instalado e en execuci\u00f3n."
+	},
+	"no_host_connector": {
+		"message": "A\u00ednda que a extensi\u00f3n de integraci\u00f3n de GNOME Shell est\u00e1 execut\u00e1ndose, o conector nativo do anfitri\u00f3n non se detectou. Vaia \u00e1 <a href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentaci\u00f3n</a> para obter as instruci\u00f3ns sobre como instalar o conector."
+	},
+	"no_host_response": {
+		"description": "Means 'Web extension does not received answer from native messaging host application.'",
+		"message": "Non hai resposta do equipo"
+	},
+	"open_website": {
+		"description": "Tooltip for browser extensions icon.",
+		"message": "Abrir o sitio web das extensi\u00f3ns de GNOME Shell"
+	},
+	"options_link": {
+		"description": "Link name for options tab.",
+		"message": "Opci\u00f3ns"
+	},
+	"options_saved": {
+		"description": "Means 'Options were saved successfully after user clicked Save button'",
+		"message": "Opci\u00f3ns gardadas."
+	},
+	"options_show_release_notes": {
+		"description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+		"message": "Mostrar as notas de publicaci\u00f3n cando se actualice a extensi\u00f3n do navegador"
+	},
+	"options_synchronize_extensions": {
+		"description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+		"message": "Sincronizar a lista de extensi\u00f3ns de GNOME Shell"
+	},
+	"options_synchronize_extensions_notice": {
+		"description": "This is a notice under option name.",
+		"message": "Se est\u00e1 activado, a s\u00faa lista de extensi\u00f3ns de GNOME Shell sincronizarase coa s\u00faa conta de Google."
+	},
+	"options_title": {
+		"description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+		"message": "Opci\u00f3ns de $GS_CHROME$",
+		"placeholders": {
+			"gs_chrome": {
+				"content": "$1"
+			}
+		}
+	},
+	"options_use_light_icon": {
+		"description": "Use light icon that is looked better with dark themes.",
+		"message": "Usar icona clara (tema escuro)"
+	},
+	"platform_not_supported": {
+		"message": "O conector nativo de anfitri\u00f3n non \u00e9 compat\u00edbel coa s\u00faa plataforma."
+	},
+	"retry": {
+		"message": "Reintentar"
+	},
+	"save": {
+		"message": "Gardar"
+	},
+	"synchronization": {
+		"description": "Link name for synchronization tab in options dialog.",
+		"message": "Sincronizaci\u00f3n"
+	},
+	"synchronization_cancel": {
+		"message": "Non activar a sincronizaci\u00f3n."
+	},
+	"synchronization_failed": {
+		"description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+		"message": "Produciuse un fallo ao sincronizar as extensi\u00f3ns: $CAUSE$",
+		"placeholders": {
+			"cause": {
+				"content": "$1"
+			}
+		}
+	},
+	"synchronization_storage_exists": {
+		"message": "O seu almacenamento de sincronizaci\u00f3n remota xa cont\u00e9n unha lista de extensi\u00f3ns."
+	},
+	"synchronization_use_local": {
+		"message": "Usar a lista de extensi\u00f3ns local, sobrescribindo a remota."
+	},
+	"synchronization_use_remote": {
+		"message": "Usar a lista remota de extensi\u00f3ns, sobrescribindo a local."
+	},
+	"translation_credits": {
+		"description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (<br />)",
+		"message": "Fran Di\u00e9guez <fran.dieguez@gnome.org>, 2017-2023."
+	},
+	"translation_credits_title": {
+		"description": "Link name for translation credits tab in options dialog.",
+		"message": "Sobre a traduci\u00f3n"
+	},
+	"unknown_error": {
+		"description": "This should newer be shown to user. However better safe than sorry.",
+		"message": "erro desco\u00f1ecido"
+	},
+	"warning_apis_missing": {
+		"description": "$$1 is a placeholder for a list of missing APIs",
+		"message": "O seu conector nativo de anfitri\u00f3n non \u00e9 compa\u00edbel coas seguintes APIs $$1. Probablemente debe actualizar o conector nativo do anfitri\u00f3n ou instale os engadidos para as APIs que faltan. Visite a <a href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentaci\u00f3n</a> para obter instruci\u00f3ns."
+	},
+	"yes": {
+		"message": "Si"
+	}
+}

@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from ca.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "Tanca"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "S'ha rebut una resposta incorrecta d'un connector"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "Habilitat"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "Instal·lat"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "Extensió"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "ha de ser revertit"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "pot actualitzar-se"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "Sincronització"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "Integració amb el GNOME Shell"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "Aquesta extensió proporciona integració amb GNOME Shell i el corresponent dipòsit d'extensions https://extensions.gnome.org"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "La sol·licitud nativa «$REQUEST$» ha fallat",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "mai"
+   },
+   "no": {
+      "message": "No"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "No es pot localitzar la configuració del GNOME Shell o la versió. Assegureu-vos que està instal·lat i en execució."
+   },
+   "no_host_connector": {
+      "message": "Encara que l'extensió d'integració del GNOME Shell està executant-se, no s'ha detectat el connector amfitrió nadiu. Vegeu la \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentació\u003C/a> per a obtenir instruccions de com instal·lar el connector."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "Sense resposta de l'amfitrió"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "Obre el lloc web d'extensions del GNOME Shell"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "Opcions"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "Configuració desada."
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "Mostra les notes de la versió quan s'actualitza l'extensió del navegador"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "Sincronitza la llista d'extensions del GNOME Shell"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "Si s'habilita, la llista d'extensions del GNOME Shell se sincronitzarà amb el compte de Google."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "Opcions de $GS_CHROME$",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "Usa una icona clara (tema fosc)"
+   },
+   "platform_not_supported": {
+      "message": "El connector amfitrió nadiu no és compatible amb aquesta plataforma."
+   },
+   "retry": {
+      "message": "Reintenta-ho"
+   },
+   "save": {
+      "message": "Desa"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "Sincronització"
+   },
+   "synchronization_cancel": {
+      "message": "No habilitis la sincronització."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "S'ha produït un error en sincronitzar les extensions: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "L'emmagatzematge remot per a la sincronització ja conté una llista d'extensions."
+   },
+   "synchronization_use_local": {
+      "message": "Utilitza la llista local d'extensions, sobreescrivint la remota."
+   },
+   "synchronization_use_remote": {
+      "message": "Utilitza la llista remota d'extensions, sobreescrivint la local."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "Jordi Mas i Hernàndez \u003Cjmas@softcatala.org>"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "Quant a la traducció"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "error desconegut"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "El seu connector amfitrió natiu no és compatible amb les API's següents: $$1. Probablement s'hauria d'actualitzar el connector amfitrió natiu o instal·lar connectors per a les API's que falten. Consulteu la documentació de \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentation\u003C/a> per a obtenir instruccions."
+   },
+   "yes": {
+      "message": "Sí"
+   }
+}

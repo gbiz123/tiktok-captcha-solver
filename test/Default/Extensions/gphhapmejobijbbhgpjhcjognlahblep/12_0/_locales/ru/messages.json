@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from ru.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "Закрыть"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "Получено неверное сообщение коннектора"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "Включено"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "Установлено"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "Расширение"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "должно быть понижено в версии"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "может быть обновлено"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "Синхронизировано"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "GNOME Shell integration"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "Данное расширение добавляет интеграцию с GNOME Shell и репозиторием расширений https://extensions.gnome.org"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "сбой нативного запроса «$REQUEST$»",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "никогда"
+   },
+   "no": {
+      "message": "Нет"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "Не найдены настройки или версия GNOME Shell. Убедитесь, что приложение установлено и запущено."
+   },
+   "no_host_connector": {
+      "message": "Хотя расширение GNOME Shell integration работает, нативный хост-коннектор не обнаружен. Обратитесь к \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation/ru'>документации\u003C/a> за инструкциями по установке коннектора."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "Нет ответа от хост-коннектора"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "Открыть сайт расширений GNOME Shell"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "Настройки"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "Настройки сохранены."
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "Показывать примечания к выпуску при обновлении дополнения браузера"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "Синхронизировать список расширений GNOME Shell"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "Если включено, ваш список расширений GNOME Shell будет синхронизирован с вашим аккаунтом Google."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "Настройки расширения $GS_CHROME$",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "Светлая иконка (для тёмной темы)"
+   },
+   "platform_not_supported": {
+      "message": "Нативный коннектор не поддерживается в вашей операционной системе."
+   },
+   "retry": {
+      "message": "Повторить"
+   },
+   "save": {
+      "message": "Сохранить"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "Синхронизация"
+   },
+   "synchronization_cancel": {
+      "message": "Не включать синхронизацию"
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "Ошибка синхронизации расширений: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "В удалённом хранилище уже имеется список расширений."
+   },
+   "synchronization_use_local": {
+      "message": "Использовать локальный список расширений, перезаписать удалённый."
+   },
+   "synchronization_use_remote": {
+      "message": "Использовать удалённый список расширений, перезаписать локальный."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "\u003Ca href='mailto:ykonotopov@gnome.org'>Юрий Конотопов\u003C/a>"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "О переводе"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "неизвестная ошибка"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "Ваш нативный хост-коннектор не поддерживает следующие API: $$1. Вероятно, вы должны обновить нативный хост-коннектор или установить плагины для отсутствующих API. Обратитесь к \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation/ru'>документации\u003C/a> за инструкциями."
+   },
+   "yes": {
+      "message": "Да"
+   }
+}

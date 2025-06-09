@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from tr.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "Kapat"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "Yanlış bağlayıcı yanıtı alındı"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "Etkin"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "Kuruldu"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "Uzantı"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "sürümü düşürülmeli"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "yükseltilebilir"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "Eşzamanlandı"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "GNOME Kabuk tümleşimi"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "Bu uygulama, GNOME Kabuk ve buna uygun uzantı deposu olan https://extensions.gnome.org ile tümleşim sağlar"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "«$REQUEST$» yerleşik isteği başarısız oldu",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "asla"
+   },
+   "no": {
+      "message": "Hayır"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "GNOME Kabuk ayarları veya sürümü saptanamıyor. Kurulu olduğundan ve çalıştığından emin olun."
+   },
+   "no_host_connector": {
+      "message": "GNOME Kabuk tümleşim uzantısı çalışıyor ancak yerleşik ana makine bağlayıcı saptanamadı. Bağlayıcıyı kurmakla ilgili yönergeler için \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>belgelendirmeye\u003C/a> bakın."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "Ana makine yanıtlamıyor"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "GNOME Kabuk uzantıları web sitesini aç"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "Seçenekler"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "Seçenekler kaydedildi."
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "Tarayıcı uzantısı güncellendiğinde sürüm notlarını göster"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "GNOME Kabuk uzantıları listesini eşzamanla"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "Eğer etkinleştirilirse, GNOME Kabuk uzantıları listeniz Google hesabınızla eşzamanlanacaktır."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "$GS_CHROME$ seçenekleri",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "Aydınlık simge kullan (karanlık gövde)"
+   },
+   "platform_not_supported": {
+      "message": "Platformunuz yerleşik ana makine bağlayıcısını desteklenmiyor."
+   },
+   "retry": {
+      "message": "Yeniden Dene"
+   },
+   "save": {
+      "message": "Kaydet"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "Eşzamanlama"
+   },
+   "synchronization_cancel": {
+      "message": "Eşzamanlamayı etkinleştirme."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "Uzantılar eşzamanlanamadı: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "Uzak eşzamanlama deponuz zaten uzantı listesi barındırıyor."
+   },
+   "synchronization_use_local": {
+      "message": "Yerel uzantı listesini kullan ve uzaktakinin üzerine yaz."
+   },
+   "synchronization_use_remote": {
+      "message": "Uzak uzantı listesi kullan, yerelin üstüne yaz."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "Türkçe çeviri: \u003Ca href=\"mailto:muhammetk@gmail.com\">Muhammet Kara\u003C/a>,\n\u003Ca href=\"mailto:etcetin@gmail.com\">Emin Tufan Çetin\u003C/a>"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "Çeviri hakkında"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "bilinmeyen hata"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "Yerleşik ana makine bağlayıcı şu API’leri desteklemiyor: $$1. Büyük olasılıkla yerleşik ana makine bağlayıcıyı güncellemelisiniz veya eksik API’ler için eklentileri kurmalısınız. Yönergeler için \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>belgelendirmeye\u003C/a> bakın."
+   },
+   "yes": {
+      "message": "Evet"
+   }
+}

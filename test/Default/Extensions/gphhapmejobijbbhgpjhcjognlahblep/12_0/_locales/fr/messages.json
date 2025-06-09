@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from fr.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "Fermer"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "Mauvaise réponse reçue du connecteur"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "Activé"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "Installé"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "Extension"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "doit être rétrogradé"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "peut être mis à niveau"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "Synchronisé"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "Intégration à GNOME Shell"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "Cette extension permet l’intégration avec GNOME Shell et ses extensions hébergées sur le dépôt https://extensions.gnome.org"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "La requête native « $REQUEST$ » a échoué",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "jamais"
+   },
+   "no": {
+      "message": "Non"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "Impossible de trouver les paramètres ou la version de GNOME Shell. Veuillez vous assurer qu’il est bien installé et en cours d’exécution."
+   },
+   "no_host_connector": {
+      "message": "Bien que l’extension d’intégration à GNOME Shell soit active, le connecteur de l’hôte natif n’est pas reconnu. Veuillez consulter le \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>manuel d’installation\u003C/a> du connecteur."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "Aucune réponse de l’hôte"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "Ouvrir le site Web des extensions de GNOME Shell"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "Options"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "Options enregistrées."
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "Afficher les notes de version après la mise à jour de l’extension du navigateur"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "Synchroniser la liste des extensions GNOME Shell"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "Si activé, votre liste d’extensions GNOME Shell sera synchronisée avec votre compte Google."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "Options $GS_CHROME$",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "Utiliser une icône claire (thème sombre)"
+   },
+   "platform_not_supported": {
+      "message": "Le connecteur d’hôte natif n’est pas pris en charge sur votre plate‐forme."
+   },
+   "retry": {
+      "message": "Réessayer"
+   },
+   "save": {
+      "message": "Enregistrer"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "Synchronisation"
+   },
+   "synchronization_cancel": {
+      "message": "Ne pas activer la synchronisation."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "Impossible de synchroniser les extensions : $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "Votre stockage de synchronisation distant contient déjà une liste d’extensions."
+   },
+   "synchronization_use_local": {
+      "message": "Utiliser la liste d’extensions locale et écraser la liste distante."
+   },
+   "synchronization_use_remote": {
+      "message": "Utiliser la liste d’extensions distante et écraser la liste locale."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "Alain Lojewski \u003Callomervan@gmail.com>\nAlexandre Franke \u003Calexandre.franke@gmail.com>\nDavy Defaud \u003Cdavy@defaud.net>"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "À propos de la traduction"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "erreur inconnue"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "Le connecteur de l’hôte natif ne prend pas en charge les API suivantes : $$1. Vous devriez mettre à niveau le connecteur de l’hôte natif ou installer des greffons pour les API manquantes. Veuillez consulter la \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentation\u003C/a> pour les instructions."
+   },
+   "yes": {
+      "message": "Oui"
+   }
+}

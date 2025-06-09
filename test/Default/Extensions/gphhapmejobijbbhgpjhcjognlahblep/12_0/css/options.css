@@ -1,0 +1,144 @@
+body {
+    font-family: Cantarell, Arial, sans-serif;
+    padding: 10px;
+    min-width: 550px;
+}
+
+#update_check_period {
+    width: 5em;
+}
+
+#status {
+    visibility: hidden;
+    opacity: 0;
+    color: green;
+    text-align: center;
+}
+
+#error {
+    visibility: hidden;
+    opacity: 0;
+    color: red;
+    text-align: center;
+}
+
+.show {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transition: visibility 0.25s, opacity 0.25s ease-in-out;
+}
+
+.hide {
+    display: none;
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 1em;
+}
+
+.notice {
+    font-size: 90%;
+    font-weight: normal;
+    margin-top: 0.5em;
+    white-space: nowrap;
+}
+
+.update-notice {
+    display: none;
+}
+
+.wrapped {
+    white-space: normal;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+dl {
+    padding: 0.2em 0;
+    clear: both;
+}
+
+dt {
+    display: block;
+    float: left;
+    width: 50%;
+    text-align: left;
+    font-weight: bold;
+}
+
+dd {
+    margin-left: 51%;
+    vertical-align: top;
+    margin-bottom: 3px;
+}
+
+ul.tabs {
+    float: right;
+}
+
+ul.tabs li {
+    list-style: none;
+}
+
+ul.tabs li,
+ul.tabs li a {
+    display: inline-block;
+}
+
+ul.tabs li a.active {
+    color: inherit;
+    cursor: default;
+    text-decoration: none;
+}
+
+ul.tabs li:not(:last-child) {
+    border-right: 1px solid #000;
+    margin-right: 5px;
+    padding-right: 5px;
+}
+
+div.tabs-pane {
+    clear: both;
+}
+
+#synchronization table {
+    width: 100%;
+    border-collapse: collapse;
+    vertical-align: middle;
+}
+
+#synchronization table th {
+    border-bottom: 1px solid #000;
+}
+
+#synchronization table tbody td.ok,
+#synchronization table td.fail {
+    text-align: center;
+    font-size: 150%;
+}
+
+#synchronization table tbody td.ok:after {
+    content: '\2713';
+    color: green;
+}
+
+#synchronization table td.fail:after {
+    content: '\2717';
+    color: red;
+}
+
+dialog#syncChoice button {
+    display: block;
+    width: 90%;
+    margin: 0.3em auto;
+}
+
+div#translation_credits div {
+    white-space: pre-line;
+}

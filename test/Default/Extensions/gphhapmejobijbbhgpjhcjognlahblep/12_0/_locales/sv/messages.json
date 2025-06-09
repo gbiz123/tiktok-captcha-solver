@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from sv.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "Stäng"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "Felaktigt svar från anslutningsprogram mottaget"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "Aktiverad"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "Installerad"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "Tillägg"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "måste nedgraderas"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "kan uppgraderas"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "Synkroniserad"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "GNOME Shell-integration"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "Detta tillägg tillhandahåller integration med GNOME Shell och det motsvarande tilläggsförrådet https://extensions.gnome.org"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "Inhemsk förfrågan «$REQUEST$» misslyckades",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "aldrig"
+   },
+   "no": {
+      "message": "Nej"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "Kan inte hitta inställningar eller version för GNOME Shell. Säkerställ att det är installerat och körs."
+   },
+   "no_host_connector": {
+      "message": "Även om tillägget för GNOME Shell-integration körs, så hittades inget inhemskt värdanslutningsprogram. Se \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>dokumentationen\u003C/a> för instruktioner om hur ett anslutningsprogram installeras."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "Inget värdsvar"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "Öppna webbplatsen för GNOME Shell-tillägg"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "Alternativ"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "Alternativ sparade."
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "Visa kommentarer till utgåva då webbläsartillägg uppdaterats"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "Synkronisera lista över GNOME Shell-tillägg"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "Om aktiverad kommer din tilläggslista för GNOME Shell att synkroniseras med ditt Googlekonto."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "$GS_CHROME$-alternativ",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "Använd ljus ikon (mörkt tema)"
+   },
+   "platform_not_supported": {
+      "message": "Inhemskt värdanslutningsprogram stöds inte för din plattform."
+   },
+   "retry": {
+      "message": "Försök igen"
+   },
+   "save": {
+      "message": "Spara"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "Synkronisering"
+   },
+   "synchronization_cancel": {
+      "message": "Aktivera inte synkronisering."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "Kunde inte synkronisera tillägg: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "Din fjärrsynkroniseringslagring innehåller redan en tilläggslista."
+   },
+   "synchronization_use_local": {
+      "message": "Använd lokal tilläggslista, skriv över fjärr."
+   },
+   "synchronization_use_remote": {
+      "message": "Använd fjärrtilläggslista, skriv över lokal."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "Anders Jonsson \u003Canders.jonsson@norsjovallen.se>, 2016"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "Om översättning"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "okänt fel"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "Ditt inhemska värdanslutningsprogram stöder inte följande API:er: $$1. Du bör troligen uppgradera det inhemska värdanslutningsprogrammet eller installera insticksmoduler för saknade API:er. Se \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>dokumentationen\u003C/a> för instruktioner."
+   },
+   "yes": {
+      "message": "Ja"
+   }
+}

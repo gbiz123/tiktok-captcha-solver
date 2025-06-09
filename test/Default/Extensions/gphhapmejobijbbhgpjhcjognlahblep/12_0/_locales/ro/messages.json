@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from ro.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "Închide"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "A fost primit răspunsul greșit de la conector"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "Activat"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "Instalat"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "Extensie"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "trebuie să fie declasat"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "poate fi modernizat"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "Sincronizat"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "Integrare Shell GNOME"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "Această extensie furnizează integrarea cu Shell GNOME și extensiile corespunzătoare depozitului https://extensions.gnome.org"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "a eșuat cererea nativă «$REQUEST$»",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "niciodată"
+   },
+   "no": {
+      "message": "Nu"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "Nu se pot localiza configurările Shell GNOME sau versiunea. Asigurați-vă că este instalat și că rulează."
+   },
+   "no_host_connector": {
+      "message": "Deși extensia de integrare Shell GNOME rulează, conectorul de gazdă nativ nu este detectat. Consultați \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentația\u003C/a> pentru instrucțiuni despre instalarea conectorului."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "Niciun răspuns de la gazdă"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "Deschide pagina web a extensiilor Shell GNOME"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "Opțiuni"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "Opțiuni salvate."
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "Arată notele de lansare când este actualizată extensia navigatorului"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "Sincronizează lista extensiilor Shell GNOME"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "Dacă este activat, lista extensiilor Shell GNOME va fi sincronizată cu contul Google."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "opțiuni $GS_CHROME$",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "Utilizează iconița luminoasă (temă întunecată)"
+   },
+   "platform_not_supported": {
+      "message": "Conectorul de gazdă nativ nu este suportat pentru platforma aceasta."
+   },
+   "retry": {
+      "message": "Încercați din nou"
+   },
+   "save": {
+      "message": "Salvează"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "Sincronizare"
+   },
+   "synchronization_cancel": {
+      "message": "Nu activa sincronizarea."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "Nu s-au putut sincroniza extensiile: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "Stocarea de sincronizare la distanță conține deja lista de extensii."
+   },
+   "synchronization_use_local": {
+      "message": "Utilizează lista extensiilor locale, suprascrie cele de la distanță."
+   },
+   "synchronization_use_remote": {
+      "message": "Utilizează lista extensiilor de la distanță, suprascrie cele locale."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "Florentina Mușat \u003Cemryslokadottir [at] gmail [dot] com>, 2020"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "Despre traducere"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "eroare necunoscută"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "Conectorul de gazdă nativ nu suportă următoarele API-uri: $$1. Probabil ar trebui să actualizați conectorul de gazdă nativ sau să instalați module pentru API-urile care lipsesc. Consultați \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentația\u003C/a> pentru instrucțiuni."
+   },
+   "yes": {
+      "message": "Da"
+   }
+}

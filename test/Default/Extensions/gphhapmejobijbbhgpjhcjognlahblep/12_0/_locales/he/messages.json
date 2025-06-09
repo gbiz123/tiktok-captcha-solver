@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from he.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "סגירה"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "התקבלה תגובה שגויה מהמחבר"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "מופעלת"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "מותקנת"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "הרחבה"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "יש לשנמך"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "אפשר לשדרג"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "מסונכרן"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "שילוב מול GNOME Shell"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "הרחבה זו מספקת שילוב מול GNOME Shell ומאגר ההרחבות התואם https://extensions.gnome.org"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "בקשת «$REQUEST$» טבעית נכשלה",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "לעולם לא"
+   },
+   "no": {
+      "message": "לא"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "לא ניתן לאתר את הגדרות או גירסת GNOME Shell. נא לוודא שזה מותקן ופעיל."
+   },
+   "no_host_connector": {
+      "message": "למרות שהרחבת שילוב GNOME Shell פעילה, לא זוהה מחבר מארח טבעי. יש הנחיות איך להתקין את המחבר ב\u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>תיעוד\u003C/a>."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "אין תגובה מהמארח"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "פתיחת אתר ההרחבות של GNOME Shell"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "אפשרויות"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "האפשרויות נשמרו."
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "להציג את הערות המהדורה עם עדכון הרחבת דפדפן"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "לסנכרן את רשימת ההרחבות של GNOME Shell"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "אם האפשרות פעילה, רשימת ההרחבות שלך ב־GNOME Shell תסונכרן מול חשבון ה־Google שלך."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "אפשרויות $GS_CHROME$",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "להשתמש בסמל בהיר (ערכת עיצוב כהה)"
+   },
+   "platform_not_supported": {
+      "message": "אין תמיכה במחבר מארח מובנה עבור סוג המערכת שלך."
+   },
+   "retry": {
+      "message": "לנסות שוב"
+   },
+   "save": {
+      "message": "שמירה"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "סנכרון"
+   },
+   "synchronization_cancel": {
+      "message": "לא להפעיל סנכרון."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "סנכרון ההרחבות נכשל: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "אחסון הסנכרון המרוחק שלך כבר מכיל רשימת הרחבות."
+   },
+   "synchronization_use_local": {
+      "message": "להשתמש ברשימת ההרחבות המקומית, לדרוס את המרוחקת."
+   },
+   "synchronization_use_remote": {
+      "message": "להשתמש ברשימת ההרחבות המרוחקת, לדרוס את המקומית."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "ירון שהרבני \u003Csh.yaron@gmail.com>"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "על התרגום"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "שגיאה לא ידועה"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "מחבר המארח המובנה שלך לא תומך במנשקי ה־API הבאים: $$1. כנראה שעליך לשדרג את מחבר המארח המובנה או להתקין תוספים למנשקי ה־API החסרים. יש הנחיות ב\u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>תיעוד\u003C/a>."
+   },
+   "yes": {
+      "message": "כן"
+   }
+}

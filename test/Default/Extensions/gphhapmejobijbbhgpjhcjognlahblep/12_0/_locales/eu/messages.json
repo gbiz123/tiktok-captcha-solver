@@ -1,0 +1,162 @@
+{
+	"_DO_NOT_EDIT": {
+		"description": "This file is auto generated with po2chrome-messages tool from eu.po.",
+		"message": ""
+	},
+	"close": {
+		"message": "Itxi"
+	},
+	"error_connector_response": {
+		"description": "Shown to user when response from connector API call does not follow known format.",
+		"message": "Konektorearen erantzun okerra jaso da"
+	},
+	"extension_enabled": {
+		"description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+		"message": "Gaituta"
+	},
+	"extension_installed": {
+		"description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+		"message": "Instalatuta"
+	},
+	"extension_name": {
+		"description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+		"message": "Luzapena"
+	},
+	"extension_status_downgrade": {
+		"description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+		"message": "bertsio zaharra erabili behar da"
+	},
+	"extension_status_upgrade": {
+		"description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+		"message": "eguneratu egin daiteke"
+	},
+	"extension_synchronized": {
+		"description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+		"message": "Sinkronizatua"
+	},
+	"gs_chrome": {
+		"description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+		"message": "GNOME Shell integrazioa"
+	},
+	"manifest_description": {
+		"description": "Used as extension description in Chrome Store",
+		"message": "Hedapen honek GNOME Shell aplikazioarekin eta haren hedapenen biltegiarekin (https://extensions.gnome.org) integratzeko aukera eskaintzen du"
+	},
+	"native_request_failed": {
+		"description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+		"message": "\u00ab$REQUEST$\u00bb jatorrizko eskaerak huts egin du",
+		"placeholders": {
+			"request": {
+				"content": "$1"
+			}
+		}
+	},
+	"never": {
+		"description": "This is a part of phrase 'Last check: never'",
+		"message": "inoiz ere ez"
+	},
+	"no": {
+		"message": "Ez"
+	},
+	"no_gnome_shell": {
+		"description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+		"message": "Ezin izan dira GNOME Shell ezarpenak edo bertsioa aurkitu. Ziurtatu instalatuta dagoela eta exekutatzen ari dela."
+	},
+	"no_host_connector": {
+		"message": "GNOME Shell integraziorako hedapena exekutatzen ari den arren, jatorrizko ostalari-konektorea ez da aurkitu. Ikusi <a href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentation</a> konektorea instalatzeko argibideak ezagutzeko."
+	},
+	"no_host_response": {
+		"description": "Means 'Web extension does not received answer from native messaging host application.'",
+		"message": "Ez dago ostalariaren erantzunik"
+	},
+	"open_website": {
+		"description": "Tooltip for browser extensions icon.",
+		"message": "Ireki GNOME Shell hedapenen webgunea"
+	},
+	"options_link": {
+		"description": "Link name for options tab.",
+		"message": "Aukerak"
+	},
+	"options_saved": {
+		"description": "Means 'Options were saved successfully after user clicked Save button'",
+		"message": "Aukerak gorde dira."
+	},
+	"options_show_release_notes": {
+		"description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+		"message": "Erakutsi bertsioaren oharrak nabigatzailearen hedapena eguneratzen denean"
+	},
+	"options_synchronize_extensions": {
+		"description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+		"message": "Sinkronizatu GNOME Shell hedapenen zerrenda"
+	},
+	"options_synchronize_extensions_notice": {
+		"description": "This is a notice under option name.",
+		"message": "Gaituta badago, zure GNOME Shell hedapenen zerrenda zure Google kontuarekin sinkronizatuko da."
+	},
+	"options_title": {
+		"description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+		"message": "$GS_CHROME$ aukerak",
+		"placeholders": {
+			"gs_chrome": {
+				"content": "$1"
+			}
+		}
+	},
+	"options_use_light_icon": {
+		"description": "Use light icon that is looked better with dark themes.",
+		"message": "Erabili ikono argia (gai iluna)"
+	},
+	"platform_not_supported": {
+		"message": "Jatorrizko osatalari-konektorea ez dago onartuta zure plataforman."
+	},
+	"retry": {
+		"message": "Saiatu berriro"
+	},
+	"save": {
+		"message": "Gorde"
+	},
+	"synchronization": {
+		"description": "Link name for synchronization tab in options dialog.",
+		"message": "Sinkronizazioa"
+	},
+	"synchronization_cancel": {
+		"message": "Ez gaitu sinkronizazioa."
+	},
+	"synchronization_failed": {
+		"description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+		"message": "Huts egin du hedapenak sinkronizatzeak: $CAUSE$",
+		"placeholders": {
+			"cause": {
+				"content": "$1"
+			}
+		}
+	},
+	"synchronization_storage_exists": {
+		"message": "Zure urruneko sinkronizazio-biltegia dagoeneko badu hedapenen zerrenda."
+	},
+	"synchronization_use_local": {
+		"message": "Erabili hedapenen zerrenda lokala, gainidatzi urrunekoa."
+	},
+	"synchronization_use_remote": {
+		"message": "Erabili hedapenen urruneko zerrenda, gainidatzi lokala."
+	},
+	"translation_credits": {
+		"description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (<br />)",
+		"message": "translation_credits"
+	},
+	"translation_credits_title": {
+		"description": "Link name for translation credits tab in options dialog.",
+		"message": "Itzulpenari buruz"
+	},
+	"unknown_error": {
+		"description": "This should newer be shown to user. However better safe than sorry.",
+		"message": "errore ezezaguna"
+	},
+	"warning_apis_missing": {
+		"description": "$$1 is a placeholder for a list of missing APIs",
+		"message": "Zure jatorrizko ostalari-konektoreak ez ditu onartzen honako APIak: $$1. Beharbada jatorrizko ostalari-konektorea eguneratu beharko duzu edo falta diren APIetarako pluginak instalatu beharko dituzu. Ikusi <a href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentation</a> argibideetarako."
+	},
+	"yes": {
+		"message": "Bai"
+	}
+}

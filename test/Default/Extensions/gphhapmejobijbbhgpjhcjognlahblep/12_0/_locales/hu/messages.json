@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from hu.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "Bezárás"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "Hibás csatlakozóválasz érkezett"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "Engedélyezve"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "Telepítve"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "Kiterjesztés"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "vissza kell állítani"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "frissíthető"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "Szinkronizált"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "GNOME Shell integráció"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "Ez a kiterjesztés integrációt biztosít a GNOME Shell-lel, és a hozzá tartozó https://extensions.gnome.org kiterjesztéstárolóval"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "„$REQUEST$” natív kérés sikertelen",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "soha"
+   },
+   "no": {
+      "message": "Nem"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "Nem találhatók a GNOME Shell beállításai vagy verziója. Győződjön meg arról, hogy telepítve van-e és fut-e."
+   },
+   "no_host_connector": {
+      "message": "Ugyan a GNOME Shell integrációs kiterjesztés fut, a natív gazdacsatlakozó nem észlelhető. Nézze meg a \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>dokumentációt\u003C/a> a csatlakozó telepítési utasításaiért."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "Nincs válasz a gazdától"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "GNOME Shell kiterjesztések weboldalának megnyitása"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "Beállítások"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "Beállítások mentve."
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "Kiadási megjegyzések megjelenítése a böngészőkiterjesztés frissítésekor"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "GNOME Shell kiterjesztéslista szinkronizálása"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "Ha engedélyezett, akkor a GNOME Shell kiterjesztéslista a Google fiókjával kerül szinkronizálásra."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "$GS_CHROME$ beállítások",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "Világos ikon használata (sötét téma)"
+   },
+   "platform_not_supported": {
+      "message": "A natív gazdacsatlakozó nem támogatott a platformján."
+   },
+   "retry": {
+      "message": "Újrapróbálkozás"
+   },
+   "save": {
+      "message": "Mentés"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "Szinkronizálás"
+   },
+   "synchronization_cancel": {
+      "message": "Ne engedélyezze a szinkronizálást."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "A kiterjesztések szinkronizálása sikertelen: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "A távoli szinkronizációs tároló már tartalmazza a kiterjesztéslistát."
+   },
+   "synchronization_use_local": {
+      "message": "Használja a helyi kiterjesztéslistát, írja felül a távolit."
+   },
+   "synchronization_use_remote": {
+      "message": "Használja a távoli kiterjesztéslistát, írja felül a helyit."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "Meskó Balázs \u003Cmeskobalazs at gmail dot com>"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "A fordítás névjegye"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "ismeretlen hiba"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "A natív gazdacsatlakozó nem támogatja a következő API-kat: $$1. Valószínűleg frissítenie kell a natív gazdacsatlakozót, vagy bővítményeket kell telepítenie a hiányzó API-khoz. Nézz meg a \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>dokumentációt\u003C/a> az utasításokért."
+   },
+   "yes": {
+      "message": "Igen"
+   }
+}

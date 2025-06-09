@@ -1,0 +1,162 @@
+{
+	"_DO_NOT_EDIT": {
+		"description": "This file is auto generated with po2chrome-messages tool from ka.po.",
+		"message": ""
+	},
+	"close": {
+		"message": "\u10d3\u10d0\u10ee\u10e3\u10e0\u10d5\u10d0"
+	},
+	"error_connector_response": {
+		"description": "Shown to user when response from connector API call does not follow known format.",
+		"message": "\u10e8\u10d4\u10db\u10d0\u10d4\u10e0\u10d7\u10d4\u10d1\u10da\u10d8\u10e1\u10d2\u10d0\u10dc \u10db\u10d8\u10e6\u10d4\u10d1\u10e3\u10da\u10d8 \u10de\u10d0\u10e1\u10e3\u10ee\u10d8 \u10d0\u10e0\u10d0\u10e1\u10ec\u10dd\u10e0\u10d8\u10d0"
+	},
+	"extension_enabled": {
+		"description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+		"message": "\u10e9\u10d0\u10e0\u10d7\u10e3\u10da\u10d8\u10d0"
+	},
+	"extension_installed": {
+		"description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+		"message": "\u10e9\u10d0\u10d3\u10d2\u10db\u10e3\u10da\u10d8\u10d0"
+	},
+	"extension_name": {
+		"description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+		"message": "\u10d2\u10d0\u10e4\u10d0\u10e0\u10d7\u10dd\u10d4\u10d1\u10d0"
+	},
+	"extension_status_downgrade": {
+		"description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+		"message": "\u10e1\u10d0\u10ed\u10d8\u10e0\u10dd\u10d0 \u10e9\u10d0\u10db\u10dd\u10ec\u10d4\u10d5\u10d0"
+	},
+	"extension_status_upgrade": {
+		"description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+		"message": "\u10e1\u10d0\u10ed\u10d8\u10e0\u10dd\u10d0 \u10d0\u10ec\u10d4\u10d5\u10d0"
+	},
+	"extension_synchronized": {
+		"description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+		"message": "\u10e1\u10d8\u10dc\u10e5\u10e0\u10dd\u10dc\u10d8\u10d6\u10d4\u10d1\u10e3\u10da\u10d8\u10d0"
+	},
+	"gs_chrome": {
+		"description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+		"message": "GNOME-\u10d8\u10e1 \u10d2\u10d0\u10e0\u10e1\u10d7\u10d0\u10dc \u10d8\u10dc\u10e2\u10d4\u10d2\u10e0\u10d0\u10ea\u10d8\u10d0"
+	},
+	"manifest_description": {
+		"description": "Used as extension description in Chrome Store",
+		"message": "This extension provides integration with GNOME Shell and the corresponding extensions repository https://extensions.gnome.org"
+	},
+	"native_request_failed": {
+		"description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+		"message": "\u00ab$REQUEST$\u00bb \u10de\u10d8\u10e0\u10d3\u10d0\u10de\u10d8\u10e0\u10d8 \u10db\u10dd\u10d7\u10ee\u10dd\u10d5\u10dc\u10d8\u10e1 \u10e8\u10d4\u10ea\u10d3\u10dd\u10db\u10d0",
+		"placeholders": {
+			"request": {
+				"content": "$1"
+			}
+		}
+	},
+	"never": {
+		"description": "This is a part of phrase 'Last check: never'",
+		"message": "\u10d0\u10e0\u10d0\u10e1\u10dd\u10d3\u10d4\u10e1"
+	},
+	"no": {
+		"message": "\u10d0\u10e0\u10d0"
+	},
+	"no_gnome_shell": {
+		"description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+		"message": "Unable to locate GNOME Shell settings or version. Make sure it is installed and running."
+	},
+	"no_host_connector": {
+		"message": "Although GNOME Shell integration extension is running, native host connector is not detected. Refer <a href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentation</a> for instructions about installing connector."
+	},
+	"no_host_response": {
+		"description": "Means 'Web extension does not received answer from native messaging host application.'",
+		"message": "\u10f0\u10dd\u10e1\u10e2\u10d8\u10e1 \u10de\u10d0\u10e1\u10e3\u10ee\u10d8\u10e1 \u10d2\u10d0\u10e0\u10d4\u10e8\u10d4"
+	},
+	"open_website": {
+		"description": "Tooltip for browser extensions icon.",
+		"message": "GNOME -\u10d8\u10e1 \u10d2\u10d0\u10e0\u10e1\u10d8\u10e1 \u10d2\u10d0\u10e4\u10d0\u10e0\u10d7\u10dd\u10d4\u10d1\u10d4\u10d1\u10d8\u10e1 \u10d5\u10d4\u10d1\u10d2\u10d5\u10d4\u10e0\u10d3\u10d8\u10e1 \u10d2\u10d0\u10ee\u10e1\u10dc\u10d0"
+	},
+	"options_link": {
+		"description": "Link name for options tab.",
+		"message": "\u10de\u10d0\u10e0\u10d0\u10db\u10d4\u10e2\u10e0\u10d4\u10d1\u10d8"
+	},
+	"options_saved": {
+		"description": "Means 'Options were saved successfully after user clicked Save button'",
+		"message": "\u10de\u10d0\u10e0\u10d0\u10db\u10d4\u10e2\u10e0\u10d4\u10d1\u10d8 \u10e8\u10d4\u10dc\u10d0\u10ee\u10e3\u10da\u10d8\u10d0."
+	},
+	"options_show_release_notes": {
+		"description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+		"message": "Show release notes when browser extension updated"
+	},
+	"options_synchronize_extensions": {
+		"description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+		"message": "GNOME-\u10d8\u10e1 \u10d2\u10d0\u10e0\u10e1\u10d8\u10e1 \u10d2\u10d0\u10e4\u10d0\u10e0\u10d7\u10dd\u10d4\u10d1\u10d4\u10d1\u10d8\u10e1 \u10e1\u10d8\u10d8\u10e1 \u10e1\u10d8\u10dc\u10e5\u10e0\u10dd\u10dc\u10d8\u10d6\u10d0\u10ea\u10d8\u10d0"
+	},
+	"options_synchronize_extensions_notice": {
+		"description": "This is a notice under option name.",
+		"message": "If enabled, your GNOME Shell extensions list will be synchronized with your Google account."
+	},
+	"options_title": {
+		"description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+		"message": "$GS_CHROME$ -\u10d8\u10e1 \u10db\u10dd\u10e0\u10d2\u10d4\u10d1\u10d0",
+		"placeholders": {
+			"gs_chrome": {
+				"content": "$1"
+			}
+		}
+	},
+	"options_use_light_icon": {
+		"description": "Use light icon that is looked better with dark themes.",
+		"message": "\u10e6\u10d8\u10d0 \u10ee\u10d0\u10e2\u10e3\u10da\u10d8\u10e1 \u10e9\u10d5\u10d4\u10dc\u10d4\u10d1\u10d0 (\u10d1\u10dc\u10d4\u10da\u10d8 \u10d7\u10d4\u10db\u10d0)"
+	},
+	"platform_not_supported": {
+		"message": "Native host connector is not supported for your platform."
+	},
+	"retry": {
+		"message": "\u10d7\u10d0\u10d5\u10d8\u10d3\u10d0\u10dc \u10ea\u10d3\u10d0"
+	},
+	"save": {
+		"message": "\u10e8\u10d4\u10dc\u10d0\u10ee\u10d5\u10d0"
+	},
+	"synchronization": {
+		"description": "Link name for synchronization tab in options dialog.",
+		"message": "\u10e1\u10d8\u10dc\u10e5\u10e0\u10dd\u10dc\u10d8\u10d6\u10d0\u10ea\u10d8\u10d0"
+	},
+	"synchronization_cancel": {
+		"message": "\u10e1\u10d8\u10dc\u10e5\u10e0\u10dd\u10dc\u10d8\u10d6\u10d0\u10ea\u10d8\u10d0 \u10d0\u10e0 \u10e9\u10d0\u10d8\u10e0\u10d7\u10d5\u10d4\u10d1\u10d0."
+	},
+	"synchronization_failed": {
+		"description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+		"message": "Failed to synchronize extensions: $CAUSE$",
+		"placeholders": {
+			"cause": {
+				"content": "$1"
+			}
+		}
+	},
+	"synchronization_storage_exists": {
+		"message": "Your remote synchronization storage already contains extensions list."
+	},
+	"synchronization_use_local": {
+		"message": "Use local extensions list, overwrite remote."
+	},
+	"synchronization_use_remote": {
+		"message": "Use remote extensions list, overwrite local."
+	},
+	"translation_credits": {
+		"description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (<br />)",
+		"message": "\u10d7\u10d4\u10db\u10e3\u10e0\u10d8 \u10d3\u10dd\u10e6\u10dd\u10dc\u10d0\u10eb\u10d4"
+	},
+	"translation_credits_title": {
+		"description": "Link name for translation credits tab in options dialog.",
+		"message": "About translation"
+	},
+	"unknown_error": {
+		"description": "This should newer be shown to user. However better safe than sorry.",
+		"message": "\u10e3\u10ea\u10dc\u10dd\u10d1\u10d8 \u10e8\u10d4\u10ea\u10d3\u10dd\u10db\u10d0"
+	},
+	"warning_apis_missing": {
+		"description": "$$1 is a placeholder for a list of missing APIs",
+		"message": "Your native host connector do not support following APIs: $$1. Probably you should upgrade native host connector or install plugins for missing APIs. Refer <a href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentation</a> for instructions."
+	},
+	"yes": {
+		"message": "\u10d3\u10d8\u10d0\u10ee"
+	}
+}

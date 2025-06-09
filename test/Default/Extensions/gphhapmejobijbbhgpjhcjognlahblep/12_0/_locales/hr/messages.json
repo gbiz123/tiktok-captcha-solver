@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from hr.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "Zatvori"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "Primljen pogrešan odgovor spajatelja"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "Omogućeno"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "Instalirano"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "Proširenje"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "mora se vratiti na stariju inačicu"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "može se nadograditi"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "Usklađeno"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "Integracija GNOME ljuske"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "Ovo proširenje omogućuje integraciju s GNOME ljuskom i odgovarajućem repozitoriju proširenja https://extensions.gnome.org"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "«$REQUEST$» izvorni zahtjev neuspio",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "nikada"
+   },
+   "no": {
+      "message": "Ne"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "Nemoguće lociranje postavki GNOME ljuske ili inačice. Provjerite je li instalirana i pokrenuta."
+   },
+   "no_host_connector": {
+      "message": "Iako je integracijsko proširenje GNOME ljuske pokrenuto, izvorna spojnica poslužitelja nije otkrivena. Pogledajte \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>dokumentaciju\u003C/a> za upute o instalaciji spojnice."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "Nema odgovora poslužitelja"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "Otvori web stranicu GNOME proširenja"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "Mogućnosti"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "Mogućnosti spremljene"
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "Prikaži bilješke izdanja kada se proširenje preglednika nadopuni"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "Uskladi popis proširenja GNOME ljuske"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "Ako je omogućeno, vaš popis proširenja GNOME ljuske će se uskladiti s vašim Google računom."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "$GS_CHROME$ mogućnost",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "Koristi svijetle ikone (tamna tema)"
+   },
+   "platform_not_supported": {
+      "message": "Izvorna spojnica posljužitelja nije podržana na vašoj platformi."
+   },
+   "retry": {
+      "message": "Pokušaj ponovno"
+   },
+   "save": {
+      "message": "Spremi"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "Usklađivanje"
+   },
+   "synchronization_cancel": {
+      "message": "Nemoj omogućiti usklađivanje."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "Neuspješno usklađivanje proširenja: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "Vaše udaljeno spremište usklađivanja već sadrži popis proširenja."
+   },
+   "synchronization_use_local": {
+      "message": "Koristi lokalni popis proširenja, zamijeni udaljeni."
+   },
+   "synchronization_use_remote": {
+      "message": "Koristi udaljeni popis proširenja, zamijeni lokalni."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "Launchpad Contributions:\n  gogo https://launchpad.net/~trebelnik-stefina\""
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "O prijevodu"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "nepoznata greška"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "Vaša izvorna spojnica poslužitelja ne podržava sljedeće API-je: $$1. Najvjerojatnije trebate nadograditi izvornu spojnicu poslužitelja ili instalirati priključak za nedostajuće API-je. Pogledajte \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>dokumentaciju\u003C/a> za upute."
+   },
+   "yes": {
+      "message": "Da"
+   }
+}

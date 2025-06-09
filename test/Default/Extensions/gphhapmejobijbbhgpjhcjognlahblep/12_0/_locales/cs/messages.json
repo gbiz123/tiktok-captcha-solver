@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from cs.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "Zavřít"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "Obdržena nesprávná odpověď od konektoru"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "Povoleno"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "Nainstalováno"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "Rozšíření"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "musí být vráceny na nižší verzi"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "mohou být povýšeny"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "Synchronizováno"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "Integrace do GNOME Shell"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "Toto rozšíření poskytuje integraci s GNOME Shell a shoduje se s repozitářem rozšíření https://extensions.gnome.org"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "Přirozený požadavek «$REQUEST$» selhal",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "nikdy"
+   },
+   "no": {
+      "message": "Ne"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "Nelze najít nastavení nebo verzi GNOME Shellu. Ujistěte se, že je nainstalován a běží."
+   },
+   "no_host_connector": {
+      "message": "Ačkoliv rozšíření integrující GNOME Shell běží, nebyl nalezen konektor pro přirozeného hostitele. Podívejte se do \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>dokumentace\u003C/a>, jak konektor nainstalovat."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "Žádný hostitel neodpovídá"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "Otevřít webové stránky rozšíření GNOME Shell"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "Volby"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "Volba byla uložena."
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "Po aktualizaci rozšíření prohlížeče zobrazit poznámky k vydání"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "Synchronizovat seznam rozšíření GNOME Shell"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "Když je povoleno, bude váš seznam rozšíření GNOME Shell synchronizován s vaším účtem Google."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "Volby $GS_CHROME$",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "Používat světlé ikony (tmavý motiv)"
+   },
+   "platform_not_supported": {
+      "message": "Konektor pro přirozeného hostitele není vaší platformou podporován."
+   },
+   "retry": {
+      "message": "Zkusit znovu"
+   },
+   "save": {
+      "message": "Uložit"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "Synchronizace"
+   },
+   "synchronization_cancel": {
+      "message": "Nezapínat synchronizaci."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "Selhala synchronizace rozšíření: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "Vaše vzdálené úložiště synchronizací již obsahuje seznam rozšíření."
+   },
+   "synchronization_use_local": {
+      "message": "Použít místní seznam rozšíření, přepsat vzdálený."
+   },
+   "synchronization_use_remote": {
+      "message": "Použít vzdálený seznam rozšíření, přepsat místní."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "Marek Černocký \u003Cmarek@manet.cz>"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "O překladu"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "neznámá chyba"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "Konektor pro vašeho přirozeného hostitele nepodporuje následující API: $$1. Pravděpodobně jej budete muset povýšit na novější verzi nebo nainstalovat zásuvný modul pro chybějící API. Na instrukce se podívejte se do \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>dokumentace\u003C/a>."
+   },
+   "yes": {
+      "message": "Ano"
+   }
+}

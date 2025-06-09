@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from da.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "Luk"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "Modtog forkert svar fra forbindelseskomponent"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "Aktiveret"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "Installeret"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "Udvidelse"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "skal nedgraderes"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "kan opgraderes"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "Synkroniseret"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "GNOME Shell-integration"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "Denne udvidelse giver integration med GNOME Shell og det tilhørende udvidelsesarkiv https://extensions.gnome.org"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "Systemforespørgslen “$REQUEST$” slog fejl",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "aldrig"
+   },
+   "no": {
+      "message": "Nej"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "Kunne ikke finde GNOME Shells indstillinger eller version. Sørg for at den er installeret og kører."
+   },
+   "no_host_connector": {
+      "message": "Selvom udvidelsen til GNOME Shell-integration kører, kan den oprindelige værtsforbindelseskomponent ikke detekteres. Se \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentation\u003C/a> for instruktioner vedrørende installering af forbindelseskomponent."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "Intet svar fra vært"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "Åbn websted for GNOME Shell-udvidelser"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "Valgmuligheder"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "Valgmuligheder gemt."
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "Vis udgivelsesnoter, når browserudvidelsen er opdateret"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "Synkronisér listen over GNOME Shell-udvidelser"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "Hvis aktiveret, vil listen over dine GNOME Shell-udvidelser blive synkroniseret med din Google-konto."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "Valgmuligheder for $GS_CHROME$",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "Brug lyse ikoner (mørkt tema)"
+   },
+   "platform_not_supported": {
+      "message": "Den oprindelige værtsforbindelseskomponent understøttes ikke til din platform."
+   },
+   "retry": {
+      "message": "Prøv igen"
+   },
+   "save": {
+      "message": "Gem"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "Synkronisering"
+   },
+   "synchronization_cancel": {
+      "message": "Aktivér ikke synkronisering."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "Kunne ikke synkronisere udvidelser: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "Dit fjernlager til synkronisering indeholder allerede udvidelseslisten."
+   },
+   "synchronization_use_local": {
+      "message": "Anvend lokal udvidelsesliste, og overskriv fjernudgaven."
+   },
+   "synchronization_use_remote": {
+      "message": "Anvend fjernudgaven af udvidelseslisten, og overskriv lokaludgaven."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "Alan Mortensen \u003Calanmortensen.am@gmail.com>\n\nDansk-gruppen \u003Cdansk@dansk-gruppen.dk>\nMere info: http://www.dansk-gruppen.dk"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "Om oversættelse"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "ukendt fejl"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "Din oprindelige forbindelseskomponent understøtter ikke følgende API'er: $$1. Du skal sandsynligvis opgradere den oprindelige forbindelseskomponent eller installere udvidelsesmoduler til de manglende API'er. Se instruktioner i \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>dokumentationen\u003C/a>."
+   },
+   "yes": {
+      "message": "Ja"
+   }
+}

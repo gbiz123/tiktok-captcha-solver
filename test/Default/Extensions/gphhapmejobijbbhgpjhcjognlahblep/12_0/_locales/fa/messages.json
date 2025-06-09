@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from fa.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "بستن"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "پاسخ رابط اشتباه دریافت شد"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "به کار افتاده"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "نصب شده"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "افزونه"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "باید پایین برده شود"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "می‌تواند ارتقا یابد"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "همگام شده"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "یکپارچگی پوستهٔ گنوم"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "این افزونه، یکپارچگی با پوستهٔ گنوم و مخزن افزونه‌های متناظرش https://extensions.gnome.org را فراهم می‌کند"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "درخواست بومی $REQUEST$ شکست خورد",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "هرگز"
+   },
+   "no": {
+      "message": "خیر"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "ناتوان در تعیین مکان نگارش یا تنظیمات پوستهٔ گنوم. مطمئن شوید نصب شده و در حال اجراست."
+   },
+   "no_host_connector": {
+      "message": "با این که افزونهٔ یکپارچگی با پوستهٔ گنوم در حال اجراست، رابط میزبان بومی تشخیص داده نشد. برای دستورالعمل‌ها دربارهٔ نصب رابط به \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>مستندات\u003C/a> مراجعه کنید."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "بدون پاسخ میزبان"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "گشودن پایگاه وب افزونه‌های پوستهٔ گنوم"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "گزینه‌ها"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "گزینه‌ها ذخیره شدند."
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "نمایش یادداشت‌های انتشار هنگام به‌روز شدن افزونهٔ مرورگر"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "همگام سازی سیاههٔ افزونه‌های پوستهٔ گنوم"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "اگر به کار افتد، سیاههٔ افزونه‌های پوستهٔ گنومتان با حساب گوگلتان همگام خواهد شد."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "گزینه‌های $GS_CHROME$",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "استفاده از نقشک روشن (زمینهٔ تیره)"
+   },
+   "platform_not_supported": {
+      "message": "رابط میزبان بومی روی بن‌سازه‌تان پشتیبانی نمی‌شود."
+   },
+   "retry": {
+      "message": "تلاش دوباره"
+   },
+   "save": {
+      "message": "ذخیره"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "همگام‌سازی"
+   },
+   "synchronization_cancel": {
+      "message": "به کار نینداختن همگام سازی."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "شکست در همگام سازی افزونه‌ها: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "ذخیره‌ساز همگام سازی دوردستتان از پیش شامل سیاههٔ افزونه‌هاست."
+   },
+   "synchronization_use_local": {
+      "message": "استفاده از سیاههٔ افزونه‌های محلّی، جانویسی دوردست."
+   },
+   "synchronization_use_remote": {
+      "message": "استفاده از سیاههٔ افزونه‌های دوردست، جانویسی محلّی."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "دانیال بهزادی \u003Cdani.behzi@ubuntu.com>"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "دربارهٔ ترجمه"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "خطای ناشناخته"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "رابط میزبان بومیتان، این APIها را پشتیبانی نمی‌کند: $$1. احتمالاً باید رابط میزبان بومیتان را ارتقا داده یا افزایه‌هایی را برای APIهای ناموجود نصب کنید. برای دستورالعمل‌ها به \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>مستندات\u003C/a> مراجعه کنید."
+   },
+   "yes": {
+      "message": "بله"
+   }
+}

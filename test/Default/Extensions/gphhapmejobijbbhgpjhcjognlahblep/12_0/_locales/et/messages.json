@@ -1,0 +1,162 @@
+{
+   "_DO_NOT_EDIT": {
+      "description": "This file is auto generated with po2chrome-messages tool from et.po.",
+      "message": ""
+   },
+   "close": {
+      "message": "Sulge"
+   },
+   "error_connector_response": {
+      "description": "Shown to user when response from connector API call does not follow known format.",
+      "message": "Wrong connector response received"
+   },
+   "extension_enabled": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension enabled?'",
+      "message": "Lubatud"
+   },
+   "extension_installed": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension installed?'",
+      "message": "Paigaldatud"
+   },
+   "extension_name": {
+      "description": "Used as title, eg in table header. Means 'GNOME Shell extension name'.",
+      "message": "Laiendus"
+   },
+   "extension_status_downgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons must be downgraded'.",
+      "message": "tuleb asendada vanema versiooniga"
+   },
+   "extension_status_upgrade": {
+      "description": "This is a part of phrase like 'Extension Top Icons can be upgraded'.",
+      "message": "on uuendatav"
+   },
+   "extension_synchronized": {
+      "description": "Used as title, eg in table header. Means 'Does GNOME Shell extension status synchronized with remote browser storage?'",
+      "message": "Sünkroniseeritud"
+   },
+   "gs_chrome": {
+      "description": "This is a project title. Used as extension name in Chrome Store and in some titlebars.",
+      "message": "Integratsioon GNOME Shelliga"
+   },
+   "manifest_description": {
+      "description": "Used as extension description in Chrome Store",
+      "message": "See laiendus võimaldab integratsiooni GNOME Shelli ja selle laienduste hoidlaga aadressil https://extensions.gnome.org"
+   },
+   "native_request_failed": {
+      "description": "$REQUEST$ is a placeholder for technical name of request that web extension make via native messaging host application.",
+      "message": "«$REQUEST$» native request failed",
+      "placeholders": {
+         "request": {
+            "content": "$1"
+         }
+      }
+   },
+   "never": {
+      "description": "This is a part of phrase 'Last check: never'",
+      "message": "mitte kunagi"
+   },
+   "no": {
+      "message": "Ei"
+   },
+   "no_gnome_shell": {
+      "description": "Shown to user when native connector unable to query GNOME Shell version or settings",
+      "message": "GNOME Shelli sätteid ja versiooniinfot ei leitud. Palun veendu, et see on paigaldatud ja kasutusel."
+   },
+   "no_host_connector": {
+      "message": "Although GNOME Shell integration extension is running, native host connector is not detected. Refer \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentation\u003C/a> for instructions about installing connector."
+   },
+   "no_host_response": {
+      "description": "Means 'Web extension does not received answer from native messaging host application.'",
+      "message": "No host response"
+   },
+   "open_website": {
+      "description": "Tooltip for browser extensions icon.",
+      "message": "Ava GNOME Shelli laienduste veebileht"
+   },
+   "options_link": {
+      "description": "Link name for options tab.",
+      "message": "Valikud"
+   },
+   "options_saved": {
+      "description": "Means 'Options were saved successfully after user clicked Save button'",
+      "message": "Valikud on salvestatud."
+   },
+   "options_show_release_notes": {
+      "description": "Option name. Allow to enable/disable popup with release notes when Web extension is updated.",
+      "message": "Väljalasketeadete näitamine brauseri laienduse uuendamisel"
+   },
+   "options_synchronize_extensions": {
+      "description": "Option name. Allow to enable/disable synchronization of GNOME Shell extensions with remote browser storage.",
+      "message": "GNOME Shelli laienduste nimekirja sünkroniseerimine"
+   },
+   "options_synchronize_extensions_notice": {
+      "description": "This is a notice under option name.",
+      "message": "Kui see on lubatud, siis sünkroniseeritakse sinu GNOME Shelli laienduste nimekiri su Google'i kontoga."
+   },
+   "options_title": {
+      "description": "$GS_CHROME$ is placeholder for 'GNOME Shell integration' string. This string used as title for Options page. This title is not shown in Chrome, but may be shown in other browsers.",
+      "message": "$GS_CHROME$ valikud",
+      "placeholders": {
+         "gs_chrome": {
+            "content": "$1"
+         }
+      }
+   },
+   "options_use_light_icon": {
+      "description": "Use light icon that is looked better with dark themes.",
+      "message": "Heleda ikooni kasutamine (tumedate toonidega teema jaoks)"
+   },
+   "platform_not_supported": {
+      "message": "Native host connector is not supported for your platform."
+   },
+   "retry": {
+      "message": "Proovi uuesti"
+   },
+   "save": {
+      "message": "Salvesta"
+   },
+   "synchronization": {
+      "description": "Link name for synchronization tab in options dialog.",
+      "message": "Sünkroniseerimine"
+   },
+   "synchronization_cancel": {
+      "message": "Sünkroniseerimine keelatakse."
+   },
+   "synchronization_failed": {
+      "description": "$CAUSE$ is placeholder for error that caused synchronization failure.",
+      "message": "Laienduste sünkroniseerimine nurjus: $CAUSE$",
+      "placeholders": {
+         "cause": {
+            "content": "$1"
+         }
+      }
+   },
+   "synchronization_storage_exists": {
+      "message": "Sinu sünkronisatsioon pilves juba sisaldab laienduste nimekirja."
+   },
+   "synchronization_use_local": {
+      "message": "Kasutatakse kohalikku laienduste nimekirja, pilves asuv nimekiri kirjutatakse üle."
+   },
+   "synchronization_use_remote": {
+      "message": "Kasutatakse pilves asuvat laienduste nimekirja, kohalik nimekiri kirjutatakse üle."
+   },
+   "translation_credits": {
+      "description": "This is content of 'About translation' tab in Options dialog. Thank you for translation and feel free to add yourself here. HTML markup enabled for this string. New line character is treated as line break (\u003Cbr />)",
+      "message": "Liivia Lilleväli\nMart Raudsepp"
+   },
+   "translation_credits_title": {
+      "description": "Link name for translation credits tab in options dialog.",
+      "message": "Tõlge"
+   },
+   "unknown_error": {
+      "description": "This should newer be shown to user. However better safe than sorry.",
+      "message": "tundmatu viga"
+   },
+   "warning_apis_missing": {
+      "description": "$$1 is a placeholder for a list of missing APIs",
+      "message": "Your native host connector do not support following APIs: $$1. Probably you should upgrade native host connector or install plugins for missing APIs. Refer \u003Ca href='https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation'>documentation\u003C/a> for instructions."
+   },
+   "yes": {
+      "message": "Jah"
+   }
+}
