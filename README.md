@@ -1,4 +1,7 @@
 # TikTok Captcha Solver API
+⚠️ SadCaptcha is looking for devs! Compensation is project-by-project. To learn more, send a message to @toughdata on telegram.
+
+
 This project is the [SadCaptcha TikTok Captcha Solver](https://www.sadcaptcha.com?ref=ghclientrepo) API client.
 The purpose is to make integrating SadCaptcha into your Nodriver, Selenium, Playwright, or Async Playwright app as simple as one line of code.
 Instructions for integrating with Selenium, Playwright, and Async Playwright are described below in their respective sections. 
@@ -14,7 +17,7 @@ This tool works on both TikTok and Douyin and can solve any of the four captcha 
     <br/>
 </div>
 
-⚠️ SadCaptcha is looking for devs! Compensation is project-by-project. To learn more, send a message to @toughdata on telegram.
+
 
 ## Requirements
 - Python >= 3.10
