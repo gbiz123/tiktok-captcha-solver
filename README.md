@@ -14,6 +14,9 @@ This tool works on both TikTok and Douyin and can solve any of the four captcha 
     <br/>
 </div>
 
+> [!WARNING]  
+> SadCaptcha is looking for devs! To learn more, send a message to @toughdata on telegram.
+
 ## Requirements
 - Python >= 3.10
 - **If using Nodriver** - Google chrome installed on system. This is the recommended method.
