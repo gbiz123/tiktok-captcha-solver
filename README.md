@@ -1,4 +1,4 @@
-⚠️ SadCaptcha is looking for devs! Compensation is project-by-project. To learn more, send a message to @toughdata on telegram.
+⚠️ SadCaptcha is looking for devs! To learn more, send a message to @toughdata on telegram.
 
 # TikTok Captcha Solver API
 This project is the [SadCaptcha TikTok Captcha Solver](https://www.sadcaptcha.com?ref=ghclientrepo) API client.
