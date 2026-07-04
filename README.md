@@ -1,5 +1,3 @@
-⚠️ SadCaptcha is looking for devs! To learn more, send a message to @toughdata on telegram.
-
 # TikTok Captcha Solver API
 This project is the [SadCaptcha TikTok Captcha Solver](https://www.sadcaptcha.com?ref=ghclientrepo) API client.
 The purpose is to make integrating SadCaptcha into your Nodriver, Selenium, Playwright, or Async Playwright app as simple as one line of code.
@@ -20,7 +18,7 @@ This tool works on both TikTok and Douyin and can solve any of the four captcha 
 
 ## Requirements
 - Python >= 3.10
-- **If using Nodriver** - Google chrome installed on system. This is the recommended method.
+- **If using Nodriver** - Google chrome installed on system. This is the recommended method. Must use chromium, since Google Chrome does not support programmatically loading extensions.
 - **If using Selenium** - Selenium properly installed and in `PATH`
 - **If using Playwright** - Playwright must be properly installed with `playwright install`
 - **If using mobile** - Appium and opencv must be properly installed
@@ -45,6 +43,7 @@ Instructions to do this are in their own respective sections.
 Another option is to use [Xvfb](https://www.x.org/archive/X11R7.7/doc/man/man1/Xvfb.1.xhtml) with `headless=True` to spoof a graphical environment.
 
 ## Nodriver Client (Recommended)
+⚠️ IMPORTANT ⚠️ Must use Chromium for nodriver since Google chrome no longer supports programmatically loading extensions!!
 Nodriver is the latest advancement in undetected automation technology, and is the recommended method for using SadCaptcha. 
 Import the function `make_nodriver_solver`
 This function will create an noddriver instance patched with the tiktok Captcha Solver chrome extension.
