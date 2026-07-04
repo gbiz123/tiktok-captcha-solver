@@ -56,7 +56,11 @@ async def main():
     launch_args = ["--headless=chrome"] # If running headless, use this option, or headless=new
     api_key = "YOUR_API_KEY_HERE"
     # NOTE: Keyword arguments passed to make_nodriver_solver() are directly passed to nodriver.start()!
-    driver = await make_nodriver_solver(api_key, browser_args=launch_args) # Returns nodriver browser 
+    driver = await make_nodriver_solver(
+        api_key,
+        browser_args=launch_args,
+        browser_executable_path="/usr/bin/chromium-browser" # IMPORTANT! Must use Chromium for nodriver since Google chrome no longer supports programmatically loading extensions!!
+    ) # Returns nodriver browser 
     # ... [The rest of your code that accesses tiktok goes here]
     # Now tiktok captchas will be automatically solved!
 ```
