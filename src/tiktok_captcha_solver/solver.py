@@ -2,6 +2,7 @@
 
 import time
 from abc import ABC, abstractmethod
+import warnings
 
 from undetected_chromedriver import logging
 

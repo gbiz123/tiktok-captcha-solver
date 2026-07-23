@@ -16,8 +16,8 @@ proxy = {
     # "server": "185.216.106.238:6315",
     # "server": "23.27.75.226:6306"
     # "server": "206.232.75.209:6779"
-    # "server": "206.232.75.84:6654"
-    "server": "185.216.106.238:6315"
+    "server": "206.232.75.84:6654"
+    #"server": "185.216.106.238:6315"
     # "server": "185.15.178.3:5687"
     # "server": "2.57.30.223:7299"
     # "server": "2.57.30.49:7125"
@@ -121,8 +121,8 @@ async def test_launch_browser_with_nodriver():
         os.environ["API_KEY"],
         headless=False,
         user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
-        proxy=proxy["server"],
-        user_data_dir="test"
+        #proxy=proxy["server"],
+        user_data_dir="test2"
     )
     page = await ctx.get("https://tiktok.com")
     input("waiting for enter")
