@@ -18,6 +18,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def make_nodriver_solver(
     api_key: str,
+    local_extension_directory: str | None = None,
     **nodriver_start_kwargs
 ) -> nodriver.Browser:
     """Create a nodriver Browser patched with SadCaptcha.
@@ -26,10 +27,13 @@ async def make_nodriver_solver(
         api_key (str): SadCaptcha API key
         nodriver_start_args: Keyword arguments for nodriver.start()
     """
-    ext_dir = download_extension_to_unpacked()
-    _patch_extension_file_with_key(ext_dir.name, api_key)
-    load_extension_argument = f'--load-extension={ext_dir.name}'
-    disable_extensions_except_argument = f'--disable-extensions-except-{ext_dir.name}'
+    if local_extension_directory is not None:
+        ext_dir = local_extension_directory
+    else:
+        ext_dir = download_extension_to_unpacked().name
+    _patch_extension_file_with_key(ext_dir, api_key)
+    load_extension_argument = f'--load-extension={ext_dir}'
+    disable_extensions_except_argument = f'--disable-extensions-except-{ext_dir}'
     browser_args = nodriver_start_kwargs.get("browser_args")
     if isinstance(browser_args, list):
         nodriver_start_kwargs["browser_args"].append(load_extension_argument)

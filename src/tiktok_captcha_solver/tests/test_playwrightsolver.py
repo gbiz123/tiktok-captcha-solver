@@ -3,7 +3,7 @@ import time
 import os
 
 from playwright.sync_api import Page, sync_playwright, expect
-from playwright_stealth import stealth_sync, StealthConfig
+# from playwright_stealth import stealth_sync, StealthConfig
 
 from tiktok_captcha_solver.captchatype import CaptchaType
 
