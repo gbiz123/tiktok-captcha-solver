@@ -200,7 +200,7 @@ def download_extension_to_unpacked() -> tempfile.TemporaryDirectory:
     resp = requests.get(repo_zip_url, timeout=30)
     resp.raise_for_status()
 
-    tmp_dir = tempfile.TemporaryDirectory(prefix="sadcaptcha_ext_")
+    tmp_dir = tempfile.TemporaryDirectory(prefix="sadcaptcha_ext_", delete=False)
     with zipfile.ZipFile(io.BytesIO(resp.content)) as zf:
         # GitHub zips have a single top‑level folder → strip it
         root_prefix = zf.namelist()[0].split("/")[0] + "/"

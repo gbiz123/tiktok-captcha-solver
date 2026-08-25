@@ -120,7 +120,7 @@ async def test_launch_browser_with_nodriver():
     ctx = await make_nodriver_solver(
         os.environ["API_KEY"],
         headless=False,
-        local_extension_directory="/home/gregb/ToughdataLLC/SadCaptcha/sadcaptcha-chrome-extension",
+        # local_extension_directory="/home/gregb/ToughdataLLC/SadCaptcha/sadcaptcha-chrome-extension",
         user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
         #proxy=proxy["server"],
         # user_data_dir="test2",
