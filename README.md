@@ -14,7 +14,7 @@ This tool works on both TikTok and Douyin and can solve any of the four captcha 
     <br/>
 </div>
 
-## TikTok Live Studio (Desktop)
+### TikTok Live Studio (Desktop)
 For users working with the TikTok Live Studio desktop application, please use [this project](https://github.com/gbiz123/tiktok-live-studio-captcha-solver).
 
 ## Requirements
