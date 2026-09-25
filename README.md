@@ -316,3 +316,6 @@ To contact us, make an accout and reach out through the contact form or message 
 ## The SadCaptcha Team
 - [Michael P](https://github.com/michaelzeboth) - Python Client and Chrome Extension Maintainer
 - [Greg B](https://github.com/gbiz123) - Full Stack and Algorithm Developer
+
+## Support us
+<a href="https://www.buymeacoffee.com/gbiz123" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
