@@ -1,4 +1,6 @@
 import random
+import shutil
+import tempfile
 import time
 import os
 from playwright.sync_api import Page, sync_playwright
@@ -98,33 +100,38 @@ proxy = {
 #             os.environ["API_KEY"],
 #             headless=False,
 #             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
-#             proxy=proxy
+#             # proxy=proxy
 #         )
 #         page = await ctx.new_page()
-#         stealth_config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
-#         await stealth_async(page, stealth_config)
-#         _ = await page.goto("https://tiktok.com")
-#         x, y = random.randint(0, 50), random.randint(0, 50)
-#         a, b = random.randint(1, 50), random.randint(100, 200)
+#         # stealth_config = StealthConfig(navigator_languages=False, navigator_vendor=False, navigator_user_agent=False)
+#         # await stealth_async(page, stealth_config)
+#         # _ = await page.goto("https://tiktok.com")
+#         # x, y = random.randint(0, 50), random.randint(0, 50)
+#         # a, b = random.randint(1, 50), random.randint(100, 200)
 #
-#         await page.mouse.move(x, y)
-#         await page.wait_for_load_state("networkidle")
-#         await page.mouse.move(a, b)
+#         # await page.mouse.move(x, y)
+#         # await page.wait_for_load_state("networkidle")
+#         # await page.mouse.move(a, b)
 #
-#         time.sleep(2)
-#         _ = await page.locator("div[data-e2e=\"explore-item\"]").first.click()
+#         # time.sleep(2)
+#         # _ = await page.locator("div[data-e2e=\"explore-item\"]").first.click()
 #         input("waiting for enter")
 
 @pytest.mark.asyncio
 async def test_launch_browser_with_nodriver():
-    ctx = await make_nodriver_solver(
-        os.environ["API_KEY"],
-        headless=False,
-        # local_extension_directory="/home/gregb/ToughdataLLC/SadCaptcha/sadcaptcha-chrome-extension",
-        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
-        #proxy=proxy["server"],
-        # user_data_dir="test2",
-        browser_executable_path="/usr/bin/chromium-browser"
-    )
-    page = await ctx.get("http://seller-th.tiktok.com/")
-    input("waiting for enter")
+    local_extension_directory="/home/gregb/ToughdataLLC/SadCaptcha/sadcaptcha-chrome-extension"
+    with tempfile.TemporaryDirectory(delete=False) as td:
+        shutil.copytree(local_extension_directory, td, dirs_exist_ok=True)
+        ctx = await make_nodriver_solver(
+            os.environ["API_KEY"],
+            headless=False,
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+            local_extension_directory=td,
+            #proxy=proxy["server"],
+            # user_data_dir="test2",
+            browser_executable_path="/usr/bin/chromium-browser"
+        )
+
+        page = await ctx.get("https://seller-id.tokopedia.com/account/login")
+        # page = await ctx.get("http://seller-th.tiktok.com/")
+        input("waiting for enter")
